@@ -4,25 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task01
+namespace Task04
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите любое целое положительное число:");
+            Console.WriteLine("Введите размерность массива:");
+            int arraySize = ReadNumberFromConsole();
 
-            int currentNumber = ReadNumberFromConsole();          
+            int[][] userArray = new int[arraySize][];
+            for (int i = 0; i < userArray.Length; i++)
+            {
 
-            Sequence(currentNumber);
+            }
 
             Console.ReadKey();
         }
 
-        static int ReadNumberFromConsole ()
+        static int ReadNumberFromConsole()
         {
             int number;
-            
             string enteredString = Console.ReadLine();
 
             while (!(Int32.TryParse(enteredString, out number) && number > 0))
@@ -33,13 +35,9 @@ namespace Task01
 
             return number;
         }
-        static void Sequence(int number)
+        static void CreateArray (int size)
         {
-            for (int i = 0; i < number; i++)
-            {
-                string actualNumber = i < (number - 1) ? "{0}, " : "{0}";
-                Console.Write(actualNumber, i + 1);
-            }
+
         }
     }
 }

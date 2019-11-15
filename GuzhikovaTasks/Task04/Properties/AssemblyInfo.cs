@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Task01")]
+[assembly: AssemblyTitle("Task04")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Win-Yagd")]
-[assembly: AssemblyProduct("Task01")]
+[assembly: AssemblyProduct("Task04")]
 [assembly: AssemblyCopyright("Copyright © Win-Yagd 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("778256f8-f3df-42f8-b2d8-e0e8f4acc637")]
+[assembly: Guid("78073d39-9540-4f34-8d59-e6b58c80d5c5")]
 
 // Version information for an assembly consists of the following four values:
 //
