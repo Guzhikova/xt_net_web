@@ -10,27 +10,27 @@ namespace GuzhikovaTasks
     {
         static void Main(string[] args)
         {
-            int number;
+            int currentNumber;
 
-            Console.WriteLine("Введите любое положительное число");
+            Console.WriteLine("Введите любое целое положительное число:");
             string enteredString = Console.ReadLine();
 
-            while (!(Int32.TryParse(enteredString, out number) && number > 0))
+            while (!(Int32.TryParse(enteredString, out currentNumber) && currentNumber > 0))
             {
                 Console.WriteLine("Введенное число некорректно! Пожалуйста, веедите снова");
                 enteredString = Console.ReadLine();
             }
 
-            Sequence(number);
+            Sequence(currentNumber);
 
             Console.ReadKey();
         }
 
-        static void Sequence(int n)
+        static void Sequence(int number)
         {
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < number; i++)
             {
-                string actualNumber = i < (n - 1) ? "{0}, " : "{0}";
+                string actualNumber = i < (number - 1) ? "{0}, " : "{0}";
                 Console.Write(actualNumber, i + 1);
             }
         }
