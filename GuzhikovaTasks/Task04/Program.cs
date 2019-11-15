@@ -11,11 +11,14 @@ namespace Task04
         static void Main(string[] args)
         {
             Console.WriteLine("Введите размерность массива:");
+
             int arraySize = ReadNumberFromConsole();
 
             int[][] userArray = new int[arraySize][];
             for (int i = 0; i < userArray.Length; i++)
             {
+                Console.WriteLine("Введите :")
+
 
             }
 

@@ -10,22 +10,28 @@ namespace Task0_2
     {
         static void Main(string[] args)
         {
-            int currentNumber;
-
             Console.WriteLine("Введите целое положительное число (больше 1):");
-            string enteredString = Console.ReadLine();
 
-            while (!(Int32.TryParse(enteredString, out currentNumber) && currentNumber > 1))
-            {
-                Console.WriteLine("Введенное число некорректно! Пожалуйста, веедите снова");
-                enteredString = Console.ReadLine();
-            }
+            int currentNumber = ReadNumberFromConsole();
 
             Simple(currentNumber);
 
             Console.ReadKey();
         }
 
+        static int ReadNumberFromConsole ()
+        {
+            int number;
+            string enteredString = Console.ReadLine();
+
+            while (!(Int32.TryParse(enteredString, out number) && number > 1))
+            {
+                Console.WriteLine("Введенное число некорректно! Пожалуйста, веедите снова");
+                enteredString = Console.ReadLine();
+            }
+
+            return number;
+        }
         static void Simple(int number)
         {
             int divider = 1;

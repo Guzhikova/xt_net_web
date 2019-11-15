@@ -10,21 +10,28 @@ namespace Task03
     {
         static void Main(string[] args)
         {
-            int currentNumber;
-
             Console.WriteLine("Введите целое нечётное положительное число:");
-            string enteredString = Console.ReadLine();
 
-            while (!(Int32.TryParse(enteredString, out currentNumber) && currentNumber > 0 && !(currentNumber % 2 == 0)))
-            {
-                Console.WriteLine("Введено некорректное или чётное число! Пожалуйста, веедите снова");
-                enteredString = Console.ReadLine();
-            }
+            int currentNumber = ReadNumberFromConsole();
 
             Squar(currentNumber);
 
             Console.ReadKey();
 
+        }
+
+        static int ReadNumberFromConsole ()
+        {
+            int number;
+            string enteredString = Console.ReadLine();
+
+            while (!(Int32.TryParse(enteredString, out number) && number > 0 && !(number % 2 == 0)))
+            {
+                Console.WriteLine("Введено некорректное или чётное число! Пожалуйста, веедите снова");
+                enteredString = Console.ReadLine();
+            }
+
+            return number;
         }
 
         static void Squar(int number)
