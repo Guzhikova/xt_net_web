@@ -11,12 +11,13 @@ namespace Task04
         static void Main(string[] args)
         {
 
-            int[][] userArray = CreateArray();            
+            int[][] userArray = CreateArray();
 
             Console.WriteLine("\nПолученный ступенчатый массив:");
             DisplayArray(userArray);
 
-            
+            Console.WriteLine("\nОсортированный массив:");
+            DisplayArray(SortArray(userArray));
 
             Console.ReadKey();
         }
@@ -34,7 +35,7 @@ namespace Task04
 
             return number;
         }
-        static int[][] CreateArray ()
+        static int[][] CreateArray()
         {
             Console.WriteLine("Введите размерность массива:");
 
@@ -58,7 +59,7 @@ namespace Task04
 
             return array;
         }
-        static void DisplayArray (int[][] array)
+        static void DisplayArray(int[][] array)
         {
             Console.Write("{");
 
@@ -75,6 +76,61 @@ namespace Task04
             }
 
             Console.Write("}");
+        }
+
+        static int[][] SortArray(int[][] array)
+        {
+            int[][] sortedArray;
+            
+            int[] subarraysSize = new int[array.Length]; // Subarrays (of input array) lengths 
+            int[] tempArray; // The array for storage all elements from subarrays of input array 
+            int tempArrayIndex = 0;
+            int tempArraySize = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                tempArraySize += array[i].Length;
+                subarraysSize[i] = array[i].Length;
+            }
+
+            tempArray = new int[tempArraySize]; 
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < array[i].Length; j++)
+                {
+                    tempArray[tempArrayIndex] = array[i][j];
+                    tempArrayIndex++;
+                }
+            }
+                       
+            Array.Sort(subarraysSize);
+            Array.Sort(tempArray);
+
+            tempArrayIndex = 0;
+
+            sortedArray = new int[subarraysSize.Length][];
+
+            for (int i = 0; i < subarraysSize.Length; i++)
+            {
+                sortedArray[i] = new int[subarraysSize[i]];
+
+                for (int j = 0; j < subarraysSize[i]; j++)
+                {
+                    sortedArray[i][j] = tempArray[tempArrayIndex];
+                    tempArrayIndex++;
+                }
+            }
+
+            //Console.WriteLine("\n");
+
+            //for (int i = 0; i < tempArray.Length; i++)
+            //{
+            //    Console.Write(" {0} ", tempArray[i]);
+            //}
+
+
+             return sortedArray;
         }
     }
 }
