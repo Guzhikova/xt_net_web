@@ -41,8 +41,7 @@ namespace Task0_2
                 divider = i;
             }
 
-            string result = (divider+1
-                == number) ? "Введено простое число" : "Введено составное число";
+            string result = (divider+1 == number) ? "Введено простое число" : "Введено составное число";
 
             Console.WriteLine(result);
         }

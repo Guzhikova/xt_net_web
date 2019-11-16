@@ -13,10 +13,10 @@ namespace Task04
 
             int[][] userArray = CreateArray();
 
-            Console.WriteLine("\nПолученный ступенчатый массив:");
+            Console.WriteLine("\nПолученный массив:");
             DisplayArray(userArray);
 
-            Console.WriteLine("\nОсортированный массив:");
+            Console.WriteLine("\n\nОтсортированный массив:");
             DisplayArray(SortArray(userArray));
 
             Console.ReadKey();
@@ -69,7 +69,7 @@ namespace Task04
 
                 for (int j = 0; j < array[i].Length; j++)
                 {
-                    Console.Write("{0}, ", array[i][j]);
+                    Console.Write("{0},", array[i][j]);
                 }
 
                 Console.Write("} ");
@@ -77,24 +77,24 @@ namespace Task04
 
             Console.Write("}");
         }
-
         static int[][] SortArray(int[][] array)
         {
             int[][] sortedArray;
-            
             int[] subarraysSize = new int[array.Length]; // Subarrays (of input array) lengths 
             int[] tempArray; // The array for storage all elements from subarrays of input array 
             int tempArrayIndex = 0;
             int tempArraySize = 0;
 
+            //Takes info about the input array sizes
             for (int i = 0; i < array.Length; i++)
             {
                 tempArraySize += array[i].Length;
                 subarraysSize[i] = array[i].Length;
             }
+//Creating a one-dimensional array from all subarrays elements of the input array
+            tempArray = new int[tempArraySize];
 
-            tempArray = new int[tempArraySize]; 
-
+            
             for (int i = 0; i < array.Length; i++)
             {
                 for (int j = 0; j < array[i].Length; j++)
@@ -109,6 +109,8 @@ namespace Task04
 
             tempArrayIndex = 0;
 
+            //Creating a new sorted jagged array from sorted one-dimensional array
+
             sortedArray = new int[subarraysSize.Length][];
 
             for (int i = 0; i < subarraysSize.Length; i++)
@@ -120,17 +122,10 @@ namespace Task04
                     sortedArray[i][j] = tempArray[tempArrayIndex];
                     tempArrayIndex++;
                 }
-            }
-
-            //Console.WriteLine("\n");
-
-            //for (int i = 0; i < tempArray.Length; i++)
-            //{
-            //    Console.Write(" {0} ", tempArray[i]);
-            //}
-
+            }           
 
              return sortedArray;
         }
     }
 }
+

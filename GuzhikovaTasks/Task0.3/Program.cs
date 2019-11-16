@@ -11,13 +11,11 @@ namespace Task03
         static void Main(string[] args)
         {
             Console.WriteLine("Введите целое нечётное положительное число:");
-
             int currentNumber = ReadNumberFromConsole();
 
             Squar(currentNumber);
 
             Console.ReadKey();
-
         }
 
         static int ReadNumberFromConsole ()
@@ -60,8 +58,6 @@ namespace Task03
                     Console.WriteLine(line);
                 }
             }
-
-
         }
     }
 }

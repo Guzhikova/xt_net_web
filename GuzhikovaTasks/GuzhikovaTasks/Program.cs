@@ -21,8 +21,7 @@ namespace Task01
 
         static int ReadNumberFromConsole ()
         {
-            int number;
-            
+            int number;            
             string enteredString = Console.ReadLine();
 
             while (!(Int32.TryParse(enteredString, out number) && number > 0))
