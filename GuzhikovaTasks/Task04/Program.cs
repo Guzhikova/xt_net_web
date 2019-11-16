@@ -10,17 +10,13 @@ namespace Task04
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите размерность массива:");
 
-            int arraySize = ReadNumberFromConsole();
+            int[][] userArray = CreateArray();            
 
-            int[][] userArray = new int[arraySize][];
-            for (int i = 0; i < userArray.Length; i++)
-            {
-                Console.WriteLine("Введите :")
+            Console.WriteLine("\nПолученный ступенчатый массив:");
+            DisplayArray(userArray);
 
-
-            }
+            
 
             Console.ReadKey();
         }
@@ -38,9 +34,47 @@ namespace Task04
 
             return number;
         }
-        static void CreateArray (int size)
+        static int[][] CreateArray ()
         {
+            Console.WriteLine("Введите размерность массива:");
 
+            int arraySize = ReadNumberFromConsole();
+
+            int[][] array = new int[arraySize][];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.WriteLine("\nВведите длину подмассива {0}:", i + 1);
+
+                array[i] = new int[ReadNumberFromConsole()];
+
+                Random rnd = new Random();
+
+                for (int j = 0; j < array[i].Length; j++)
+                {
+                    array[i][j] = rnd.Next(0, 100);
+                }
+            }
+
+            return array;
+        }
+        static void DisplayArray (int[][] array)
+        {
+            Console.Write("{");
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write(" {");
+
+                for (int j = 0; j < array[i].Length; j++)
+                {
+                    Console.Write("{0}, ", array[i][j]);
+                }
+
+                Console.Write("} ");
+            }
+
+            Console.Write("}");
         }
     }
 }
