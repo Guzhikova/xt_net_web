@@ -17,6 +17,7 @@ namespace Task1_Basics
             DrawRightAngledTriangle();
 
             //Task 1.3. ANOTHER TRIANGLE
+            DrawIsoscelesTriangle();
 
             Console.ReadKey();
         }
@@ -30,7 +31,10 @@ namespace Task1_Basics
 
             while (!(Int32.TryParse(enteredString, out number) && number > 0))
             {
-                Console.WriteLine("Введенное число некорректно! Пожалуйста, веедите снова");
+                if (enteredString.Equals("0") || number < 0)
+                {
+                    Console.WriteLine("Ошибка! Число должно быть больше нуля!");
+                }
                 enteredString = Console.ReadLine();
             }
 
@@ -68,6 +72,18 @@ namespace Task1_Basics
             Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
             Console.Write("Введите число:");
             int number = ReadNumberFromConsole();
+
+            string star = "*";
+            string space = "*";
+            for (int i = 0; i <= number; i ++)
+            //{                
+            //        space = new string(' ', (number - 1) / 2);
+            //                    Console.WriteLine(space + star);
+            //    star += "**";
+
+            }
+
+            //i+="**"  j=(n-1)/2
 
         }
     }
