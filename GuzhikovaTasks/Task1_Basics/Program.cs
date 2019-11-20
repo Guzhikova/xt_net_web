@@ -10,13 +10,13 @@ namespace Task1_Basics
     {
         static void Main(string[] args)
         {
-            ////Task 1.1. RECTANGLE
-            //RectangleArea();
+            Console.WriteLine("----------------------Task 1.1. RECTANGLE----------------------");
+            RectangleArea();
 
-            ////Task 1.2. TRIANGLE
-            //DrawRightAngledTriangle();
+            Console.WriteLine("\n----------------------Task 1.2. TRIANGLE----------------------");
+            DrawRightAngledTriangle();
 
-            //Task 1.3. ANOTHER TRIANGLE
+            Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
             DrawIsoscelesTriangle();
 
             Console.ReadKey();
@@ -42,9 +42,7 @@ namespace Task1_Basics
         }
 
         static void RectangleArea ()
-        {
-            Console.WriteLine("----------------------Task 1.1. RECTANGLE----------------------");
-
+        { 
             Console.Write("Введите сторону а: ");
             int a = ReadNumberFromConsole();
 
@@ -57,7 +55,6 @@ namespace Task1_Basics
 
         static void DrawRightAngledTriangle()
         {
-            Console.WriteLine("\n----------------------Task 1.2. TRIANGLE----------------------");
             Console.Write("Введите число:");
 
             int number = ReadNumberFromConsole();
@@ -72,33 +69,21 @@ namespace Task1_Basics
 
         static void DrawIsoscelesTriangle()
         {
-            Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
             Console.Write("Введите число:");
             int number = ReadNumberFromConsole();
 
             StringBuilder stars = new StringBuilder(number * 2 - 1);
             stars.Append(' ', number * 2 - 1);
-            
-            for (int index = number-1; index > 0; index--)
-            {
-                if (index == (number - 1))
-                {
-                    stars.Insert(index, "*");
-                }else
-                {
-                    stars.Insert(index, "*", 2);
-                }
 
+            for (int index = (number - 1); index >= 0; index--)
+            {              
+                stars.Insert(index, "*", (index == number-1) ? 1 : 2);
+          
                 Console.WriteLine(stars.ToString());
-                stars.Remove(index - 1, 1);          
 
-                if (index == 1)
-                {
-                    stars.Insert(0, "*", 2);
-                    Console.WriteLine(stars.ToString());
-                }
-            }     
-
+                if (index > 0)
+                stars.Remove(index - 1, 1);                
+            }      
         }
     }
 }
