@@ -23,6 +23,22 @@ namespace Task1_Language
             DisplayArray(array);
 
         }
+
+        static void MinValue(int[] array)
+        {
+            int min = array;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+
+            }
+        }
+
+        static void MaxValue(int[] array)
+        {
+
+        }
+
         static int[] CreateArray(int length)
         {
             int[] array = new int[length];
