@@ -10,21 +10,24 @@ namespace Task1_Basics
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("----------------------Task 1.1. RECTANGLE----------------------");
-            RectangleArea();
+            //    Console.WriteLine("----------------------Task 1.1. RECTANGLE----------------------");
+            //    RectangleArea();
 
-            Console.WriteLine("\n----------------------Task 1.2. TRIANGLE----------------------");
-            DrawRightAngledTriangle();
+            //    Console.WriteLine("\n----------------------Task 1.2. TRIANGLE----------------------");
+            //    DrawRightAngledTriangle();
 
-            Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
-            Console.Write("Введите число: ");
-            DrawIsoscelesTriangle(ReadNumberFromConsole());
+            //    Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
+            //    Console.Write("Введите число: ");
+            //    DrawIsoscelesTriangle(ReadNumberFromConsole());
 
-            Console.WriteLine("\n----------------------Task 1.4. X-MAS TREE----------------------");
-            DrawTree();
+            //    Console.WriteLine("\n----------------------Task 1.4. X-MAS TREE----------------------");
+            //    DrawTree();
 
-            Console.WriteLine("\n----------------------1.5. SUM OF NUMBERS----------------------");
-            SumOfNumbers();
+            //    Console.WriteLine("\n----------------------Task 1.5. SUM OF NUMBERS----------------------");
+            //    SumOfNumbers();
+
+            Console.WriteLine("\n----------------------Task 1.6. FONT ADJUSTMENT----------------------");
+            FontAdjustment();
 
             Console.ReadKey();
         }
@@ -118,6 +121,74 @@ namespace Task1_Basics
                 }
             }
             Console.WriteLine(Environment.NewLine + $"Сумма всех чисел меньше 1000, кратных 3 или 5 равна: {counter}");
+        }
+
+        static void FontAdjustment()
+        {
+            FontStyles fontStyle = FontStyles.None;
+
+            Console.WriteLine(Environment.NewLine + $"Текущие параметры надписи: {fontStyle.ToString()}");
+            FontAdjustment_Display();
+
+            fontStyle = FontAdjustment_ReadSelectedStyle();
+
+
+            while (fontStyle != FontStyles.None)
+            {
+                Console.WriteLine(Environment.NewLine + $"Текущие параметры надписи: {fontStyle.ToString()}");
+                FontAdjustment_Display();
+                fontStyle = FontAdjustment_ReadSelectedStyle();
+            }
+
+            Console.WriteLine("Завершено!");
+        }
+
+        static FontStyles FontAdjustment_ReadSelectedStyle()
+        {
+            FontStyles fontStyle;
+            int numberOfStyle = ReadNumberFromConsole();
+
+            while (numberOfStyle > 4)
+            {
+                Console.WriteLine("Значение вне диапозона!");
+                numberOfStyle = ReadNumberFromConsole();
+            }
+
+            switch (numberOfStyle)
+            {
+                case 1:
+                    fontStyle = FontStyles.Bold;
+                    break;
+                case 2:
+                    fontStyle = FontStyles.Italic;
+                    break;
+                case 3:
+                    fontStyle = FontStyles.Underline;
+                    break;
+
+                // This means that the user has completed font adjustment
+                default:
+                    fontStyle = FontStyles.None;
+                    break;
+            }
+            return fontStyle;
+        }
+        static void FontAdjustment_Display()
+        {
+            Console.WriteLine(Environment.NewLine + "Введите номер начертания, для его применения/отмены:");
+            Console.WriteLine($"   1: {FontStyles.Bold.ToString()}");
+            Console.WriteLine($"   2: {FontStyles.Italic.ToString()}");
+            Console.WriteLine($"   3: {FontStyles.Underline.ToString()}");
+            Console.WriteLine("Для завершения форматирования введите 4." + Environment.NewLine);
+        }
+
+        [Flags]
+        public enum FontStyles
+        {
+            None = 0,
+            Bold = 1,
+            Italic = 2,
+            Underline = 4
         }
     }
 
