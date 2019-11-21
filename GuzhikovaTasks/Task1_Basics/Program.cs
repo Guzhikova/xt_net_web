@@ -10,21 +10,21 @@ namespace Task1_Basics
     {
         static void Main(string[] args)
         {
-            //    Console.WriteLine("----------------------Task 1.1. RECTANGLE----------------------");
-            //    RectangleArea();
+            Console.WriteLine("----------------------Task 1.1. RECTANGLE----------------------");
+            RectangleArea();
 
-            //    Console.WriteLine("\n----------------------Task 1.2. TRIANGLE----------------------");
-            //    DrawRightAngledTriangle();
+            Console.WriteLine("\n----------------------Task 1.2. TRIANGLE----------------------");
+            DrawRightAngledTriangle();
 
-            //    Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
-            //    Console.Write("Введите число: ");
-            //    DrawIsoscelesTriangle(ReadNumberFromConsole());
+            Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
+            Console.Write("Введите число: ");
+            DrawIsoscelesTriangle(ReadNumberFromConsole());
 
-            //    Console.WriteLine("\n----------------------Task 1.4. X-MAS TREE----------------------");
-            //    DrawTree();
+            Console.WriteLine("\n----------------------Task 1.4. X-MAS TREE----------------------");
+            DrawTree();
 
-            //    Console.WriteLine("\n----------------------Task 1.5. SUM OF NUMBERS----------------------");
-            //    SumOfNumbers();
+            Console.WriteLine("\n----------------------Task 1.5. SUM OF NUMBERS----------------------");
+            SumOfNumbers();
 
             Console.WriteLine("\n----------------------Task 1.6. FONT ADJUSTMENT----------------------");
             FontAdjustment();
@@ -126,21 +126,36 @@ namespace Task1_Basics
         static void FontAdjustment()
         {
             FontStyles fontStyle = FontStyles.None;
-
+  
             Console.WriteLine(Environment.NewLine + $"Текущие параметры надписи: {fontStyle.ToString()}");
+
             FontAdjustment_Display();
 
-            fontStyle = FontAdjustment_ReadSelectedStyle();
+            FontAdjustment_AddRemoveSelectedStyle(fontStyle);        
+        }
+        
+        static void FontAdjustment_Display()
+        {
+            Console.WriteLine(Environment.NewLine + "Введите номер начертания, для его применения/отмены:");
+            Console.WriteLine($"   1: {FontStyles.Bold.ToString()}");
+            Console.WriteLine($"   2: {FontStyles.Italic.ToString()}");
+            Console.WriteLine($"   3: {FontStyles.Underline.ToString()}");
+            Console.WriteLine("Для завершения форматирования введите 4." + Environment.NewLine);
+        }
+     
+        static void FontAdjustment_AddRemoveSelectedStyle(FontStyles fontStyle)
+        {
+            FontStyles tempFontStyle = FontAdjustment_ReadSelectedStyle();
 
-
-            while (fontStyle != FontStyles.None)
+            while (tempFontStyle != FontStyles.None)
             {
+                fontStyle = fontStyle.HasFlag(tempFontStyle) ? (fontStyle ^ tempFontStyle) : (fontStyle | tempFontStyle);
+
                 Console.WriteLine(Environment.NewLine + $"Текущие параметры надписи: {fontStyle.ToString()}");
                 FontAdjustment_Display();
-                fontStyle = FontAdjustment_ReadSelectedStyle();
-            }
 
-            Console.WriteLine("Завершено!");
+                tempFontStyle = FontAdjustment_ReadSelectedStyle();
+            }
         }
 
         static FontStyles FontAdjustment_ReadSelectedStyle()
@@ -169,18 +184,12 @@ namespace Task1_Basics
                 // This means that the user has completed font adjustment
                 default:
                     fontStyle = FontStyles.None;
+                    Console.WriteLine("Завершено!");
                     break;
             }
             return fontStyle;
         }
-        static void FontAdjustment_Display()
-        {
-            Console.WriteLine(Environment.NewLine + "Введите номер начертания, для его применения/отмены:");
-            Console.WriteLine($"   1: {FontStyles.Bold.ToString()}");
-            Console.WriteLine($"   2: {FontStyles.Italic.ToString()}");
-            Console.WriteLine($"   3: {FontStyles.Underline.ToString()}");
-            Console.WriteLine("Для завершения форматирования введите 4." + Environment.NewLine);
-        }
+
 
         [Flags]
         public enum FontStyles
