@@ -17,7 +17,11 @@ namespace Task1_Basics
             DrawRightAngledTriangle();
 
             Console.WriteLine("\n----------------------Task 1.3. ANOTHER TRIANGLE----------------------");
-            DrawIsoscelesTriangle();
+            Console.Write("Введите число: ");
+            DrawIsoscelesTriangle(ReadNumberFromConsole());            
+
+            Console.WriteLine("\n----------------------Task 1.4. X-MAS TREE----------------------");
+            DrawTree();
 
             Console.ReadKey();
         }
@@ -66,24 +70,39 @@ namespace Task1_Basics
                 Console.WriteLine(stars.Append("*"));
             }
         }
-
-        static void DrawIsoscelesTriangle()
+        
+        
+        /// <param name="height">The height of triangle is equal to the number of lines</param>
+        /// <param name="shift">The left margin</param>
+        static void DrawIsoscelesTriangle(int height, int shift = 0)
         {
-            Console.Write("Введите число:");
-            int number = ReadNumberFromConsole();
+           
+            StringBuilder stars = new StringBuilder(shift + (height * 2 - 1));
+            stars.Append(' ', shift + (height * 2 - 1));
 
-            StringBuilder stars = new StringBuilder(number * 2 - 1);
-            stars.Append(' ', number * 2 - 1);
+            for (int index = (height - 1); index >= 0; index--)
+            {
+                stars.Insert(shift + index, "*", (index  == height - 1) ? 1 : 2);
 
-            for (int index = (number - 1); index >= 0; index--)
-            {              
-                stars.Insert(index, "*", (index == number-1) ? 1 : 2);
-          
                 Console.WriteLine(stars.ToString());
 
                 if (index > 0)
-                stars.Remove(index - 1, 1);                
-            }      
+                {
+                    stars.Remove(index + shift - 1, 1);
+                }
+            }
+        }
+
+        static void DrawTree ()
+        {
+            Console.Write("Введите число: ");
+            int numberOfTriangles = ReadNumberFromConsole();
+
+            for (int height = 1; height <= numberOfTriangles; height++)
+            {
+                DrawIsoscelesTriangle(height, numberOfTriangles - height);
+            }   
+
         }
     }
 }
