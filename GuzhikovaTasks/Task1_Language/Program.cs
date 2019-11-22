@@ -16,6 +16,9 @@ namespace Task1_Language
             Console.WriteLine($"{Environment.NewLine}----------------------Task 1.8. NO POSITIVE----------------------{Environment.NewLine}");
             NoPositive();
 
+            Console.WriteLine($"{Environment.NewLine}----------------------Task 1.9. NON-NEGATIVE SUM----------------------{Environment.NewLine}");
+            NonNegativeSum();
+
             Console.ReadKey();
         }
 
@@ -73,7 +76,7 @@ namespace Task1_Language
             }
         }
 
-        static int[] CreateArray(int length)
+        static int[] CreateArray(int length, int minValue = 0, int maxValue = 100)
         {
             int[] array = new int[length];
 
@@ -81,7 +84,7 @@ namespace Task1_Language
 
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = rnd.Next(100);
+                array[i] = rnd.Next(minValue, maxValue);
             }
 
             return array;
@@ -98,7 +101,6 @@ namespace Task1_Language
             Console.Write("}" + Environment.NewLine);
         }
 
-
         static void NoPositive()
         {
             int[ , , ] array = new int[2, 3, 5];
@@ -109,7 +111,7 @@ namespace Task1_Language
             NoPositive_DisplayArray(array);
 
             NoPositive_PositiveToZero(array);
-            Console.WriteLine(Environment.NewLine + "Обновленный массив: ");
+            Console.WriteLine(Environment.NewLine + "Обновлённый массив: ");
             NoPositive_DisplayArray(array);
         }
         static void NoPositive_CreateArray(int[ , , ] array)
@@ -147,7 +149,7 @@ namespace Task1_Language
                 Console.WriteLine("}" + Environment.NewLine);
             }
         }
-        static void NoPositive_PositiveToZero(int[,,] array)
+        static void NoPositive_PositiveToZero(int[ , , ] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -162,6 +164,20 @@ namespace Task1_Language
             }
         }
 
+        static void NonNegativeSum()
+        {
+            int[] array = CreateArray(20, -100, 100);
 
+            int sum = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] >= 0)
+                    sum += array[i];
+            }
+
+            Console.WriteLine($"Cумма неотрицательных элементов данного одномерного массива равна {sum + Environment.NewLine}");
+            DisplayArray(array);
+        }
     }
 }
