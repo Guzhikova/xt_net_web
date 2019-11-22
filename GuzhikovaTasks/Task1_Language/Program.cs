@@ -15,28 +15,44 @@ namespace Task1_Language
 
             Console.ReadKey();
         }
-        
+
         static void ArrayProcessing()
         {
             int[] array = CreateArray(20);
-            Console.WriteLine(Environment.NewLine + "Исходный массив:");
+
+            Console.Write($"{Environment.NewLine} Исходный массив: min = { MinValue(array)}, max = { MaxValue(array) + Environment.NewLine}");
             DisplayArray(array);
 
+            SortArray(array);
+
+            Console.Write($"{Environment.NewLine} Отсортированный массив: {Environment.NewLine}");
+            DisplayArray(array);
         }
 
-        static void MinValue(int[] array)
+        static int MinValue(int[] array)
         {
-            int min = array;
+            int min = array[0];
 
             for (int i = 0; i < array.Length; i++)
             {
-
+                if (array[i] < min)
+                    min = array[i];
             }
+
+            return min;
         }
 
-        static void MaxValue(int[] array)
+        static int MaxValue(int[] array)
         {
+            int max = array[0];
 
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > max)
+                    max = array[i];
+            }
+
+            return max;
         }
 
         static int[] CreateArray(int length)
@@ -63,6 +79,24 @@ namespace Task1_Language
             }
 
             Console.Write("}" + Environment.NewLine);
+        }
+
+        static void SortArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                int min = i;
+
+                for (int j = i + 1; j < array.Length; j++)
+                {
+                    if (array[j] < array[min])
+                        min = j;
+                }
+
+                int temp = array[i];
+                array[i] = array[min];
+                array[min] = temp;
+            }
         }
     }
 }
