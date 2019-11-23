@@ -19,6 +19,9 @@ namespace Task1_Language
             Console.WriteLine($"{Environment.NewLine}----------------------Task 1.9. NON-NEGATIVE SUM----------------------{Environment.NewLine}");
             NonNegativeSum();
 
+            Console.WriteLine($"{Environment.NewLine}----------------------Task 1.10. 2D ARRAY----------------------{Environment.NewLine}");
+            Array2D();
+
             Console.ReadKey();
         }
 
@@ -95,7 +98,7 @@ namespace Task1_Language
 
             for (int i = 0; i < array.Length; i++)
             {
-                Console.Write($" {array[i]} ");
+                Console.Write(array[i] + (i == (array.Length - 1) ? " " : ", "));
             }
 
             Console.Write("}" + Environment.NewLine);
@@ -103,7 +106,7 @@ namespace Task1_Language
 
         static void NoPositive()
         {
-            int[ , , ] array = new int[2, 3, 5];
+            int[,,] array = new int[2, 3, 5];
 
             NoPositive_CreateArray(array);
 
@@ -114,7 +117,7 @@ namespace Task1_Language
             Console.WriteLine(Environment.NewLine + "Обновлённый массив: ");
             NoPositive_DisplayArray(array);
         }
-        static void NoPositive_CreateArray(int[ , , ] array)
+        static void NoPositive_CreateArray(int[,,] array)
         {
             Random rnd = new Random();
 
@@ -129,7 +132,7 @@ namespace Task1_Language
                 }
             }
         }
-        static void NoPositive_DisplayArray(int[ , , ] array)
+        static void NoPositive_DisplayArray(int[,,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -140,7 +143,7 @@ namespace Task1_Language
                     Console.Write("   { ");
                     for (int k = 0; k < array.GetLength(2); k++)
                     {
-                        Console.Write(array[i, j, k] + (k== (array.GetLength(2)-1) ? " " : ", "));
+                        Console.Write(array[i, j, k] + (k == (array.GetLength(2) - 1) ? " " : ", "));
                     }
 
                     Console.Write((j == (array.GetLength(1) - 1) ? " } " : "},") + Environment.NewLine);
@@ -149,7 +152,7 @@ namespace Task1_Language
                 Console.WriteLine("}" + Environment.NewLine);
             }
         }
-        static void NoPositive_PositiveToZero(int[ , , ] array)
+        static void NoPositive_PositiveToZero(int[,,] array)
         {
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -176,8 +179,60 @@ namespace Task1_Language
                     sum += array[i];
             }
 
-            Console.WriteLine($"Cумма неотрицательных элементов данного одномерного массива равна {sum + Environment.NewLine}");
+            Console.WriteLine($"Cумма неотрицательных элементов данного массива равна {sum}");
             DisplayArray(array);
+        }
+
+        static void Array2D()
+        {
+            int[,] array = new int[3, 10];
+
+            Array2D_CreateArray(array);
+
+            Console.WriteLine($"Сумма элементов данного массива, стоящих на чётных позициях равна {Array2D_SumOfEvenPositions(array) + Environment.NewLine}");
+            
+            Array2D_DisplayArray(array);
+        }
+        static void Array2D_CreateArray(int[,] array)
+        {
+            Random rnd = new Random();
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    array[i, j] = rnd.Next(100);
+                }
+            }
+        }
+        static void Array2D_DisplayArray(int[,] array)
+        {
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                Console.Write("   { ");
+
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    Console.Write(array[i, j] + (j == (array.GetLength(1) - 1) ? " " : ", "));
+                }
+
+                Console.Write((i == (array.GetLength(0) - 1) ? " } " : "},") + Environment.NewLine);
+            }
+        }
+        static int Array2D_SumOfEvenPositions(int[,] array)
+        {
+            int sum = 0;
+
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                for (int j = 0; j < array.GetLength(1); j++)
+                {
+                    if ((i + j) % 2 == 0)
+                        sum += array[i, j];
+                }
+            }
+
+            return sum;
         }
     }
 }
