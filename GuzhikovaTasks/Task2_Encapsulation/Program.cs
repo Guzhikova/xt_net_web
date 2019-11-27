@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Task2_Encapsulation
@@ -13,8 +14,11 @@ namespace Task2_Encapsulation
             //Console.WriteLine($"----------------------Task 2.1. ROUND----------------------{Environment.NewLine}");
             //Round();
 
-            Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
-            Triangle();
+            //Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
+            //Triangle();
+
+            Console.WriteLine($"{Environment.NewLine}----------------------Task 2.3. USER----------------------");
+            User();
 
             Console.ReadKey();
         }
@@ -33,6 +37,25 @@ namespace Task2_Encapsulation
             return number;
         }
 
+        /// <summary>
+        /// The method reads three int parameters from Console
+        /// </summary>
+        /// <param name="name1">First parameters name</param>
+        /// <param name="name2">Second parameters name</param>
+        /// <param name="name3">Third parameters name</param>
+        /// <param name="param1">First parameter</param>
+        /// <param name="param2">Second parameter</param>
+        /// <param name="param3">Third parameter</param>
+        static void GetParameters(string name1, string name2, string name3, out int param1, out int param2, out int param3)
+        {
+            Console.Write($"{Environment.NewLine}Введите данные: {Environment.NewLine}{name1} = ");
+            param1 = ReadNumberFromConsole();
+            Console.Write($"{name2} = ");
+            param2 = ReadNumberFromConsole();
+            Console.Write($"{name3} = ");
+            param3 = ReadNumberFromConsole();
+        }
+
         static void Round()
         {
             Round round = new Round();
@@ -43,9 +66,9 @@ namespace Task2_Encapsulation
             int number;
             do
             {
-                Console.WriteLine($"{Environment.NewLine} 1. Внести изменения в данный круг.{Environment.NewLine} " +
-                    $"2. Создать новый круг. {Environment.NewLine} " +
-                    $"3. Перейти к следующему заданию. [или любая другая цифра]");
+                Console.WriteLine($"{Environment.NewLine}    1: Внести изменения в данный круг.{Environment.NewLine} " +
+                    $"   2: Создать новый круг. {Environment.NewLine} " +
+                    $"   Любая другая цифра: Перейти к следующему заданию. ");
                 number = ReadNumberFromConsole();
 
                 switch (number)
@@ -77,7 +100,7 @@ namespace Task2_Encapsulation
             round.Y = y;
             round.Radius = radius;
 
-            Console.WriteLine($"{Environment.NewLine}---ПАРАМЕТРЫ ТЕКУЩЕГО КРУГА ИЗМЕНЕНЫ: ");
+            Console.WriteLine($"{Environment.NewLine}ПАРАМЕТРЫ ТЕКУЩЕГО КРУГА ИЗМЕНЕНЫ: ");
             Round_GetInfo(round);
         }
         static void Round_CreateNew()
@@ -87,36 +110,8 @@ namespace Task2_Encapsulation
 
             Round round = new Round(x, y, radius);
 
-            Console.WriteLine($"{Environment.NewLine}---ЗАДАН НОВЫЙ КРУГ: ");
+            Console.WriteLine($"{Environment.NewLine}ЗАДАН НОВЫЙ КРУГ: ");
             Round_GetInfo(round);
-        }
-        //static void Round_GetParams(out int x, out int y, out int radius)
-        //{
-        //    Console.Write($"{Environment.NewLine}Введите координаты центра и радиус для круга: {Environment.NewLine}X = ");
-        //    x = ReadNumberFromConsole();
-        //    Console.Write("Y = ");
-        //    y = ReadNumberFromConsole();
-        //    Console.Write("r = ");
-        //    radius = ReadNumberFromConsole();
-        //}
-
-        /// <summary>
-        /// The method reads three int parameters from Console
-        /// </summary>
-        /// <param name="name1">First parameters name</param>
-        /// <param name="name2">Second parameters name</param>
-        /// <param name="name3">Third parameters name</param>
-        /// <param name="param1">First parameter</param>
-        /// <param name="param2">Second parameter</param>
-        /// <param name="param3">Third parameter</param>
-        static void GetParameters(string name1, string name2, string name3, out int param1, out int param2, out int param3)
-        {
-            Console.Write($"{Environment.NewLine}Введите данные: {Environment.NewLine}{name1} = ");
-            param1 = ReadNumberFromConsole();
-            Console.Write($"{name2} = ");
-            param2 = ReadNumberFromConsole();
-            Console.Write($"{name3} = ");
-            param3 = ReadNumberFromConsole();
         }
 
         static void Triangle()
@@ -148,8 +143,54 @@ namespace Task2_Encapsulation
             Console.WriteLine($"Периметр данного треугольника равен {triangle.GetPerimeter()}, площадь равна {triangle.GetArea().ToString("0.00")}");
         }
 
+        static void User()
+        {
+            User user = new User();
 
+            Console.WriteLine("Введите данные пользователя: ");
+
+            Console.Write("Фамилия: ");
+            user.LastName = User_ReadName();
+
+            Console.Write("Имя: ");
+            user.MiddleName = User_ReadName();
+
+            Console.Write("Отчество: ");
+            user.FirstName = User_ReadName();
+
+            
+
+            Console.Write("Дата рождения (в формате DD.MM.YYYY):");
+            string enteredDate = Console.ReadLine();
+            DateTime date;
+            if (DateTime.TryParse(enteredDate, out date))
+                user.DateOfBirth = date;
+            //ДОБАВИТЬ REGAX НА ДАТУ
+            Console.WriteLine($"{user.FirstName} {user.MiddleName} {user.LastName} {user.DateOfBirth}");
+        }
+
+        static string User_ReadName()
+        {
+            string pattern = "^([А-Я]{1}[а-яё]{1,25}|[A-Z]{1}[a-z]{1,25})$";
+            Regex regex = new Regex(pattern);
+            string enteredString;
+            bool isCorrectName = true;
+
+            do
+            {
+                enteredString = Console.ReadLine().Trim();
+
+                isCorrectName = regex.IsMatch(enteredString);
+                if (!isCorrectName)
+                    Console.WriteLine("   Некорректные данные или неверный формат. Пожалуйста, введите снова.");
+
+
+            } while (!isCorrectName);
+
+            return enteredString;
+        }
     }
+
     class Round
     {
         public Round()
@@ -172,12 +213,11 @@ namespace Task2_Encapsulation
         private int _radius;
         public int Radius
         {
-            get { return _radius; }
+            get => _radius;
             set
             {
                 if (value <= 0)
                     throw new ArgumentException("Radius should be more than zero", nameof(value));
-
                 _radius = value;
             }
         }
@@ -225,6 +265,35 @@ namespace Task2_Encapsulation
 
             return Math.Sqrt(p * (p - A) * (p - B) * (p - C));
         }
+    }
+
+    class User
+    {
+        //public User(string firstName, string lastName, DateTime dateOfBirth, string middleName = "")
+        //{
+
+        //}
+
+        private DateTime _today = DateTime.Today;
+        public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+
+        private DateTime _dateOfBirth;
+
+        public DateTime DateOfBirth
+        {
+            get => _dateOfBirth; 
+            set {
+                if (value >= _today)
+                    throw new ArgumentException("Error! Incorrect date of birth.", nameof(value));
+
+                _dateOfBirth = value; }
+        }
+
+
+        //public DateTime DateOfBirth { get; set; }
+        public int Age => (_today.Year - DateOfBirth.Year);
     }
 }
 
