@@ -11,11 +11,11 @@ namespace Task2_Encapsulation
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine($"----------------------Task 2.1. ROUND----------------------{Environment.NewLine}");
-            //Round();
+            Console.WriteLine($"----------------------Task 2.1. ROUND----------------------{Environment.NewLine}");
+            Round();
 
-            //Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
-            //Triangle();
+            Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
+            Triangle();
 
             Console.WriteLine($"{Environment.NewLine}----------------------Task 2.3. USER----------------------");
             User();
@@ -116,9 +116,10 @@ namespace Task2_Encapsulation
 
         static void Triangle()
         {
+            Console.WriteLine("Расчёт периметра и площади треугольника по трем сторонам");
             Triangle triangle = new Triangle();
             int a = 0, b = 0, c = 0;
-            bool isCorrectSides;
+            bool isCorrectSides = false;
 
             do
             {
@@ -131,12 +132,10 @@ namespace Task2_Encapsulation
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    isCorrectSides = false;
                 }
                 catch (ArithmeticException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    isCorrectSides = false;
                 }
             } while (!isCorrectSides);
 
@@ -154,7 +153,7 @@ namespace Task2_Encapsulation
 
         static void User_DataFromConsole(User user)
         {
-            bool isCorrectName;
+            bool isCorrectName = false;
             DateTime date;
 
             do
@@ -182,12 +181,10 @@ namespace Task2_Encapsulation
                 catch (FormatException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    isCorrectName = false;
                 }
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
-                    isCorrectName = false;
                 }
             } while (!isCorrectName);
         }
