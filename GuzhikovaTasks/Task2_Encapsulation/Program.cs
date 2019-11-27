@@ -147,48 +147,52 @@ namespace Task2_Encapsulation
         {
             User user = new User();
 
-            Console.WriteLine("Введите данные пользователя: ");
+            User_DataFromConsole(user);
 
-            Console.Write("Фамилия: ");
-            user.LastName = User_ReadName();
-
-            Console.Write("Имя: ");
-            user.MiddleName = User_ReadName();
-
-            Console.Write("Отчество: ");
-            user.FirstName = User_ReadName();
-
-            
-
-            Console.Write("Дата рождения (в формате DD.MM.YYYY):");
-            string enteredDate = Console.ReadLine();
-            DateTime date;
-            if (DateTime.TryParse(enteredDate, out date))
-                user.DateOfBirth = date;
-            //ДОБАВИТЬ REGAX НА ДАТУ
-            Console.WriteLine($"{user.FirstName} {user.MiddleName} {user.LastName} {user.DateOfBirth}");
+            Console.WriteLine($"{Environment.NewLine}Создан пользователь: {user.FirstName} {user.MiddleName} {user.LastName},  {user.DateOfBirth.ToString("yyyy-MM-dd")}");
         }
 
-        static string User_ReadName()
+        static void User_DataFromConsole(User user)
         {
-            string pattern = "^([А-Я]{1}[а-яё]{1,25}|[A-Z]{1}[a-z]{1,25})$";
-            Regex regex = new Regex(pattern);
-            string enteredString;
-            bool isCorrectName = true;
+            bool isCorrectName;
+            DateTime date;
 
             do
             {
-                enteredString = Console.ReadLine().Trim();
+                Console.WriteLine($"{Environment.NewLine}Введите данные пользователя");
+                try
+                {
+                    Console.Write($"{Environment.NewLine}Фамилия: ");
+                    user.LastName = Console.ReadLine().Trim();
 
-                isCorrectName = regex.IsMatch(enteredString);
-                if (!isCorrectName)
-                    Console.WriteLine("   Некорректные данные или неверный формат. Пожалуйста, введите снова.");
+                    Console.Write("Имя: ");
+                    user.FirstName = Console.ReadLine().Trim();
 
+                    Console.Write("Отчество: ");
+                    user.MiddleName = Console.ReadLine().Trim();
 
+                    Console.Write("Дата рождения (yyyy-MM-dd): ");
+
+                    if (DateTime.TryParse(Console.ReadLine().Trim(), out date))
+                        user.DateOfBirth = date;
+
+                    isCorrectName = true;
+
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    isCorrectName = false;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    isCorrectName = false;
+                }
             } while (!isCorrectName);
-
-            return enteredString;
         }
+
+
     }
 
     class Round
@@ -269,30 +273,81 @@ namespace Task2_Encapsulation
 
     class User
     {
-        //public User(string firstName, string lastName, DateTime dateOfBirth, string middleName = "")
-        //{
+        public User()
+        {
 
-        //}
+        }
+        public User(string firstName, string middleName, string lastName, DateTime dateOfBirth)
+        {
+            FirstName = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
+            DateOfBirth = dateOfBirth;
+        }
 
-        private DateTime _today = DateTime.Today;
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
+        DateTime _today = DateTime.Today;
+        Regex regexName = new Regex("^([А-Я]{1}[а-яё]{1,25}|[A-Z]{1}[a-z]{1,25})$");
+        Regex regexDate = new Regex(@"([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))");
+
+        private string _firstName;
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                if (!regexName.IsMatch(value))
+                    throw new FormatException("ERROR! Incorrect format!");
+
+                _firstName = value;
+            }
+        }
+
+        private string _middleName;
+
+        public string MiddleName
+        {
+            get => _middleName;
+            set
+            {
+                if (!regexName.IsMatch(value))
+                    throw new FormatException("ERROR! Incorrect format.");
+
+                _middleName = value;
+            }
+        }
+        
+        private string _lastName;
+
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (!regexName.IsMatch(value))
+                    throw new FormatException("ERROR! Incorrect format!");
+
+                _lastName = value;
+            }
+        }
 
         private DateTime _dateOfBirth;
 
         public DateTime DateOfBirth
         {
-            get => _dateOfBirth; 
-            set {
-                if (value >= _today)
-                    throw new ArgumentException("Error! Incorrect date of birth.", nameof(value));
+            get => _dateOfBirth;
+            set
+            {
+                if (!regexDate.IsMatch(value.ToString("yyyy-MM-dd")))
+                    throw new FormatException("Error! Incorrect format of date! Should be yyyy-MM-dd");
 
-                _dateOfBirth = value; }
+                if (value >= _today)
+                    throw new ArgumentException("Error! Incorrect date of birth. Should be earlier than now");
+
+                _dateOfBirth = value;
+            }
         }
 
 
-        //public DateTime DateOfBirth { get; set; }
         public int Age => (_today.Year - DateOfBirth.Year);
     }
 }
