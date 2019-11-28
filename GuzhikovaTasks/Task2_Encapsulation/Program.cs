@@ -11,14 +11,19 @@ namespace Task2_Encapsulation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine($"----------------------Task 2.1. ROUND----------------------{Environment.NewLine}");
-            Round();
+            //Console.WriteLine($"----------------------Task 2.1. ROUND----------------------{Environment.NewLine}");
+            //Round();
 
-            Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
-            Triangle();
+            //Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
+            //Triangle();
+
+            Console.WriteLine($"{Environment.NewLine}----------------------Task 2.4. MY STRING----------------------");
+            MyString();
 
             Console.ReadKey();
         }
+
+
 
         static int ReadNumberFromConsole()
         {
@@ -159,6 +164,16 @@ namespace Task2_Encapsulation
 
             Console.WriteLine($"Периметр данного треугольника равен {triangle.GetPerimeter()}, площадь равна {triangle.GetArea().ToString("0.00")}");
         }
+
+        static void MyString()
+        {
+            MyString myString = new MyString("строка1");
+            //Console.WriteLine(myString.ConvertToString());
+
+
+            myString.Concatenate("+cnh");
+            Console.WriteLine(myString.Value);
+        }
     }
 
     class Round
@@ -227,6 +242,191 @@ namespace Task2_Encapsulation
             return Math.Sqrt(p * (p - A) * (p - B) * (p - C));
         }
     }
+
+    class MyString
+    {
+        public MyString(string newString = "")
+        {
+            Value = newString;
+        }
+
+       // public int MyStringValue { get; set; }
+
+        private char[] _chars;
+
+       // private string _value;
+
+        public string Value
+        {
+            get { return ConvertToString(_chars); }
+            set { _chars = ConvertToArray(value); }
+        }
+
+
+        //public string ConvertToString()
+        //{
+        //    StringBuilder sb = new StringBuilder(_chars.Length);
+
+        //    for (int i = 0; i < _chars.Length; i++)
+        //    {
+        //        sb.Append(_chars[i]);
+        //    }
+        //    return sb.ToString();
+        //}
+
+        //public char[] ConvertToArray(string string1)
+        //{
+        //    return string1.ToArray();
+        //}
+
+        public string ConvertToString(char[] chars)
+        {
+            StringBuilder sb = new StringBuilder(chars.Length);
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                sb.Append(chars[i]);
+            }
+            return sb.ToString();
+        }
+
+        public char[] ConvertToArray(string string1)
+        {
+            return string1.ToArray();
+        }
+
+        public void Concatenate(string string2)
+        {
+            char[] chars2 = ConvertToArray(string2);
+
+            int sumLength = _chars.Length + chars2.Length;
+            char[] charsSum = new char[sumLength];
+
+            for (int i = 0; i < _chars.Length; i++)
+            {
+                charsSum[i] = _chars[i];
+            }
+
+            for (int i = 0; i < chars2.Length; i++)
+            {
+                charsSum[_chars.Length + i] = chars2[i];
+            }
+
+            _chars = charsSum;
+            //Value = ConvertToString(charsSum);
+        }
+
+        public bool Equals(string string1, string string2)
+        {
+            char[] chars1 = ConvertToArray(string1);
+            char[] chars2 = ConvertToArray(string2);
+
+            bool isEquals = false;
+
+            if (chars1.Length == chars2.Length)
+            {
+                isEquals = true;
+
+                while (isEquals)
+                {
+                    for (int i = 0; i < chars1.Length; i++)
+                    {
+                        if (chars1[i] != chars1[2])
+                            isEquals = false;
+                    }
+                }
+
+            }
+            return true;
+        }
+
+        //public int IndexOf(string string1, string string2)
+        //{
+        //    char[] chars1 = ConvertToArray(string1);
+        //    char[] chars2 = ConvertToArray(string2);
+
+        //}
+    }
+
+    //class MyString
+    //{
+    //    public MyString(string newString = "")
+    //    {
+    //        //      _chars = newString.ToArray();
+    //    }
+
+    //    //private char[] _chars;
+
+
+    //    public string ConvertToString(char[] chars)
+    //    {
+    //        StringBuilder sb = new StringBuilder(chars.Length);
+
+    //        for (int i = 0; i < chars.Length; i++)
+    //        {
+    //            sb.Append(chars[i]);
+    //        }
+    //        return sb.ToString();
+    //    }
+
+    //    public char[] ConvertToArray(string string1)
+    //    {
+    //        return string1.ToArray();
+    //    }
+
+
+    //    public string Concatenate(string string1, string string2)
+    //    {
+    //        char[] chars1 = ConvertToArray(string1);
+    //        char[] chars2 = ConvertToArray(string2);
+
+    //        int sumLength = chars1.Length + chars2.Length;
+    //        char[] charsSum = new char[sumLength];
+
+    //        for (int i = 0; i < chars1.Length; i++)
+    //        {
+    //            charsSum[i] = chars1[i];
+    //        }
+
+    //        for (int i = 0; i < chars2.Length; i++)
+    //        {
+    //            charsSum[chars1.Length + i] = chars2[i];
+    //        }
+
+    //        return ConvertToString(charsSum);
+    //    }
+
+    //    public bool Equals(string string1, string string2)
+    //    {
+    //        char[] chars1 = ConvertToArray(string1);
+    //        char[] chars2 = ConvertToArray(string2);
+
+    //        bool isEquals = false;
+
+    //        if (chars1.Length == chars2.Length)
+    //        {
+    //            isEquals = true;
+
+    //            while (isEquals)
+    //            {
+    //                for (int i = 0; i < chars1.Length; i++)
+    //                {
+    //                    if (chars1[i] != chars1[2])
+    //                        isEquals = false;
+    //                }
+    //            }
+
+    //        }
+    //        return true;
+    //    }
+
+    //    public int IndexOf(string string1, string string2)
+    //    {
+    //        char[] chars1 = ConvertToArray(string1);
+    //        char[] chars2 = ConvertToArray(string2);
+
+    //    }
+    //}
 }
 
 
