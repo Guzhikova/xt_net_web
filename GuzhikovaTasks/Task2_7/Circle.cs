@@ -9,9 +9,6 @@ namespace Task2_7
     class Circle
     {
 
-        public Circle()
-        { }
-
         public Circle(Point point, int radius)
         {
             Center = point;
@@ -37,7 +34,7 @@ namespace Task2_7
 
          public override string ToString()
         {
-            return String.Format($"Окружность с центром в точке ({Center.X}, {Center.Y})." +
+            return String.Format($"ОКРУЖНОСТЬ с центром в точке ({Center.X}, {Center.Y})." +
                 $"{Environment.NewLine}Радиус R = {Radius}." +
                 $"{Environment.NewLine}Длина окружности L = {Length.ToString("0.0")}. ");
         }

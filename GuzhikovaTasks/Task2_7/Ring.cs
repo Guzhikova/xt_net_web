@@ -8,8 +8,6 @@ namespace Task2_7
 {
     class Ring : Round
     {
-        public Ring() : base()
-        { }
 
         public Ring(Point point, int outerRadius, int innerRadius) : base(point, outerRadius)
         {
@@ -40,7 +38,7 @@ namespace Task2_7
 
         public override string ToString()
         {
-            return String.Format($"Кольцо с центром в точке ({Center.X}, {Center.Y})." +
+            return String.Format($"КОЛЬЦО с центром в точке ({Center.X}, {Center.Y})." +
                 $"{Environment.NewLine}Внешний радиус R = {Radius}, внутренний радиус r = {InnerRadius}." +
                 $"{Environment.NewLine}Суммарная длина внешней и внутренней окружностей L = {Length.ToString("0.0")}. " +
                 $"{Environment.NewLine}Площадь S = {Area.ToString("0.0")}");

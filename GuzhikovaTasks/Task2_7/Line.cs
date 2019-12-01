@@ -8,8 +8,6 @@ namespace Task2_7
 {
     class Line
     {
-        public Line()
-        { }
 
         public Line(Point point1, Point point2)
         {
@@ -51,7 +49,7 @@ namespace Task2_7
 
         public override string ToString()
         {
-            return String.Format($"Отрезок с координатами А ({Point1.X}, {Point1.Y}) и B ({Point2.X}, {Point2.Y})" +
+            return String.Format($"ОТРЕЗОК с координатами А ({Point1.X}, {Point1.Y}) и B ({Point2.X}, {Point2.Y})" +
                                 $"{Environment.NewLine}Длина отрезка L = {Length.ToString("0.0")}. ");
         }
     }

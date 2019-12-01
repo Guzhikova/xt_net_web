@@ -8,18 +8,23 @@ namespace Task2_7
 {
     class Rectangle
     {
-        public Rectangle()
-        { }
 
-        public Rectangle(Point point, int sideA, int sideB)
+        /// <param name="point">The top left point of rectangle</param>
+        /// <param name="sideA">The side A of rectangle</param>
+        /// <param name="sideB">The side B of rectangle</param>
+        public Rectangle(Point point, int a, int b)
         {
-            UpperLeftPoint = point;
-            SideA = sideA;
-            SideB = SideB;
+            if (a == 0 || b==0)
+                throw new ArgumentException("ERROR! The sides must be more than zero");
+
+            TopLeftPoint = point;
+            _sideA = a;
+            _sideB = b;
+
         }
 
 
-        public Point UpperLeftPoint { get; set; }
+        public Point TopLeftPoint { get; set; }
 
         private int _sideA, _sideB;
 
@@ -46,6 +51,15 @@ namespace Task2_7
 
         public double Perimeter { get => 2 * (SideA + SideB); }
 
+        public double Area { get => SideA * SideB; }
+
+        public override string ToString()
+        {
+            return String.Format($"ПРЯМОУГОЛЬНИК с координатой верхнего левого угла ({TopLeftPoint.X}, {TopLeftPoint.Y})" +
+                $"{Environment.NewLine}Сторона А = {SideA}, B = {SideB}." +
+                $"{Environment.NewLine}Периметр Р = {Perimeter.ToString("0.0")}." +
+                $"{Environment.NewLine}Площадь S = {Area.ToString("0.0")}");
+        }
 
     }
 }
