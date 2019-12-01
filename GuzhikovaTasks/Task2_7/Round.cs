@@ -11,7 +11,7 @@ namespace Task2_7
 
         public Round(Point point, int radius) : base(point, radius)
         {
-            Center = point;
+            Point = point;
             Radius = radius;
         }
 
@@ -19,7 +19,7 @@ namespace Task2_7
 
         public override string ToString()
         {
-            return String.Format($"КРУГ с центром в точке ({Center.X}, {Center.Y})." +
+            return String.Format($"КРУГ с центром в точке ({Point.X}, {Point.Y})." +
                 $"{Environment.NewLine}Радиус R = {Radius}." +
                 $"{Environment.NewLine}Длина описанной окружности L = {Length.ToString("0.0")}. " +
                 $"{Environment.NewLine}Площадь S = {Area.ToString("0.0")}");

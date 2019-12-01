@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Task2_7
 {
-    class Circle
+    class Circle : Geometry
     {
 
         public Circle(Point point, int radius)
         {
-            Center = point;
+            Point = point;
             Radius = radius;
         }
 
-        public Point Center { get; set; }
+        public override Point Point { get; set; }
 
         private int _radius;
 
@@ -30,11 +30,11 @@ namespace Task2_7
             }
         }
 
-        public virtual double Length { get => 2 * Math.PI * Radius; }
+        public override double Length { get => 2 * Math.PI * Radius; }
 
          public override string ToString()
         {
-            return String.Format($"ОКРУЖНОСТЬ с центром в точке ({Center.X}, {Center.Y})." +
+            return String.Format($"ОКРУЖНОСТЬ с центром в точке ({Point.X}, {Point.Y})." +
                 $"{Environment.NewLine}Радиус R = {Radius}." +
                 $"{Environment.NewLine}Длина окружности L = {Length.ToString("0.0")}. ");
         }

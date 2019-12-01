@@ -12,11 +12,11 @@ namespace Task2_7
         static void Main(string[] args)
         {
 
-            //Console.WriteLine($"----------------------Task 2.6. RING----------------------{Environment.NewLine}");
-            //CreateRings();
+            Console.WriteLine($"----------------------Task 2.6. RING----------------------{Environment.NewLine}");
+            CreateAndChangeRing();
 
-            //Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Для перехода к следующему заданию нажмите любую клавишу * * *");
-            //Console.ReadKey();
+            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Для перехода к следующему заданию нажмите любую клавишу * * *");
+            Console.ReadKey();
 
             Console.WriteLine($"----------------------Task 2.7. VECTOR GRAPHICS EDITOR----------------------");
 
@@ -34,7 +34,7 @@ namespace Task2_7
                 Ring ring1 = new Ring(new Point { X = 0, Y = 5 }, 10, 2);
                 Console.WriteLine($"   Исходное кольцо:{Environment.NewLine}{ring1.ToString()}");
 
-                ring1.Center = new Point(10, 15);
+                ring1.Point = new Point(10, 15);
                 ring1.Radius = 22;
                 ring1.InnerRadius = 8;
 

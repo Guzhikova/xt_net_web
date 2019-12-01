@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task2_7
 {
-    class Rectangle
+    class Rectangle : Geometry
     {
 
         /// <param name="point">The top left point of rectangle</param>
@@ -17,14 +17,17 @@ namespace Task2_7
             if (a == 0 || b==0)
                 throw new ArgumentException("ERROR! The sides must be more than zero");
 
-            TopLeftPoint = point;
+            Point = point;
             _sideA = a;
             _sideB = b;
 
         }
 
 
-        public Point TopLeftPoint { get; set; }
+        /// <summary>
+        /// The coordinates of top left point
+        /// </summary>
+        public override Point Point { get; set; }
 
         private int _sideA, _sideB;
 
@@ -49,15 +52,18 @@ namespace Task2_7
             }
         }
 
-        public double Perimeter { get => 2 * (SideA + SideB); }
+        /// <summary>
+        /// Perimeter of Rectangle
+        /// </summary>
+        public override double Length { get => 2 * (SideA + SideB); }
 
         public double Area { get => SideA * SideB; }
 
         public override string ToString()
         {
-            return String.Format($"ПРЯМОУГОЛЬНИК с координатой верхнего левого угла ({TopLeftPoint.X}, {TopLeftPoint.Y})" +
+            return String.Format($"ПРЯМОУГОЛЬНИК с координатой верхнего левого угла ({Point.X}, {Point.Y})" +
                 $"{Environment.NewLine}Сторона А = {SideA}, B = {SideB}." +
-                $"{Environment.NewLine}Периметр Р = {Perimeter.ToString("0.0")}." +
+                $"{Environment.NewLine}Периметр Р = {Length.ToString("0.0")}." +
                 $"{Environment.NewLine}Площадь S = {Area.ToString("0.0")}");
         }
 
