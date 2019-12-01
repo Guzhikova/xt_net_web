@@ -18,5 +18,13 @@ namespace Task2_7
         }
 
         public virtual double Area { get => Math.PI * Radius * Radius; }
+
+        public override string ToString()
+        {
+            return String.Format($"Круг с центром в точке ({Center.X}, {Center.Y})." +
+                $"{Environment.NewLine}Радиус R = {Radius}." +
+                $"{Environment.NewLine}Длина окружности L = {Length.ToString("0.0")}. " +
+                $"{Environment.NewLine}Площадь S = {Area.ToString("0.0")}");
+        }
     }
 }

@@ -12,11 +12,19 @@ namespace Task2_7
         static void Main(string[] args)
         {
 
-            Console.WriteLine($"----------------------Task 2.6. RING----------------------{Environment.NewLine}");
-            CreateRings();
+            //Console.WriteLine($"----------------------Task 2.6. RING----------------------{Environment.NewLine}");
+            //CreateRings();
 
-            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Для перехода к следующему заданию нажмите любую клавишу * * *");
-            Console.ReadKey();
+            //Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Для перехода к следующему заданию нажмите любую клавишу * * *");
+            //Console.ReadKey();
+
+            Console.WriteLine($"----------------------Task 2.7. VECTOR GRAPHICS EDITOR----------------------{Environment.NewLine}");
+
+            Line line = new Line(new Point(0, 2), new Point(0, 0));
+            Console.WriteLine(line.ToString());
+
+            line.Point2 = new Point(0, 0);
+            Console.WriteLine(line.ToString());
 
             Console.ReadKey();
         }
@@ -55,6 +63,17 @@ namespace Task2_7
         {
             X = p1;
             Y = p2;
+        }
+
+        public static bool operator ==(Point point1, Point point2)
+        {
+            return (point1.X == point2.X) && (point1.Y == point2.Y);
+
+        }
+
+        public static bool operator !=(Point point1, Point point2)
+        {
+            return !(point1 == point2);
         }
     }
 }
