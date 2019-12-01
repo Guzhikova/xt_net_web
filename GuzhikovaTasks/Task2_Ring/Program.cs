@@ -11,8 +11,10 @@ namespace Task2_Ring
         static void Main(string[] args)
         {
             Console.WriteLine($"----------------------Task 2.6. RING----------------------{Environment.NewLine}");
-
             CreateRings();
+
+            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Для перехода к следующему заданию нажмите любую клавишу * * *");
+            Console.ReadKey();
 
             Console.ReadKey();
         }

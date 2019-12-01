@@ -14,6 +14,9 @@ namespace Task2_UserEmployee
             Console.WriteLine($"{Environment.NewLine}----------------------Task 2.3. USER----------------------");
             User();
 
+            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Для перехода к следующему заданию нажмите любую клавишу * * *");
+            Console.ReadKey();
+
             Console.WriteLine($"{Environment.NewLine}----------------------2.5. EMPLOYEE----------------------");
             Employee();
 

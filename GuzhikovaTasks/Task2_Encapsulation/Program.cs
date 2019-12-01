@@ -17,6 +17,9 @@ namespace Task2_Encapsulation
             Console.WriteLine($"{Environment.NewLine}----------------------Task 2.2. TRIANGLE----------------------");
             Triangle();
 
+            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}* * * Нажмите любую клавишу для перехода к следующему заданию * * *");
+            Console.ReadKey();
+
             Console.WriteLine($"{Environment.NewLine}----------------------Task 2.4. MY STRING----------------------{Environment.NewLine}");
             MyString();
 
@@ -194,7 +197,7 @@ namespace Task2_Encapsulation
             myString3 = myString1 + myString2;
 
             Console.WriteLine("А + B = С: {0}  {1} + {2} = {3}{0}", Environment.NewLine, myString1.Value, myString2.Value, myString3.Value);
-            Console.WriteLine("Индекс первого вхождения В в С равен {0}{1}  * B = {2} в С = {3}{1}  * если -1, то совпадений не обнаружено{1}",
+            Console.WriteLine("Индекс первого вхождения В в С равен {0}{1}  * B = {2}    С = {3}{1}  * если -1, то совпадений не обнаружено{1}",
                 myString3.IndexOf(myString2), Environment.NewLine, myString2.Value, myString3.Value);
         }
     }
