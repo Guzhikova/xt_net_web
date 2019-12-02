@@ -11,11 +11,11 @@ namespace Task2_7
 
         public Circle(Point point, int radius)
         {
-            Point = point;
+            Center = point;
             Radius = radius;
         }
 
-        public override Point Point { get; set; }
+        public Point Center { get; set; }
 
         private int _radius;
 
@@ -30,11 +30,11 @@ namespace Task2_7
             }
         }
 
-        public override double Length { get => 2 * Math.PI * Radius; }
+        public double Length { get => 2 * Math.PI * Radius; }
 
          public override string ToString()
         {
-            return String.Format($"ОКРУЖНОСТЬ с центром в точке ({Point.X}, {Point.Y})." +
+            return String.Format($"ОКРУЖНОСТЬ с центром в точке ({Center.X}, {Center.Y})." +
                 $"{Environment.NewLine}Радиус R = {Radius}." +
                 $"{Environment.NewLine}Длина окружности L = {Length.ToString("0.0")}. ");
         }

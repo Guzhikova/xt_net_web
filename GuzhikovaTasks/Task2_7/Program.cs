@@ -34,7 +34,7 @@ namespace Task2_7
                 Ring ring1 = new Ring(new Point { X = 0, Y = 5 }, 10, 2);
                 Console.WriteLine($"   Исходное кольцо:{Environment.NewLine}{ring1.ToString()}");
 
-                ring1.Point = new Point(10, 15);
+                ring1.Center = new Point(10, 15);
                 ring1.Radius = 22;
                 ring1.InnerRadius = 8;
 

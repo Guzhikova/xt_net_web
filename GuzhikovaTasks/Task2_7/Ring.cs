@@ -11,7 +11,7 @@ namespace Task2_7
 
         public Ring(Point point, int outerRadius, int innerRadius) : base(point, outerRadius)
         {
-            Point = point;
+            Center = point;
             Radius = outerRadius;
             InnerRadius = innerRadius;
         }
@@ -32,13 +32,13 @@ namespace Task2_7
             }
         }
 
-        public override double Length => base.Length + (2 * Math.PI * InnerRadius);
+        public double Length => base.Length + (2 * Math.PI * InnerRadius);
 
         public override double Area => base.Area - Math.PI * InnerRadius * InnerRadius;
 
         public override string ToString()
         {
-            return String.Format($"КОЛЬЦО с центром в точке ({Point.X}, {Point.Y})." +
+            return String.Format($"КОЛЬЦО с центром в точке ({Center.X}, {Center.Y})." +
                 $"{Environment.NewLine}Внешний радиус R = {Radius}, внутренний радиус r = {InnerRadius}." +
                 $"{Environment.NewLine}Суммарная длина внешней и внутренней окружностей L = {Length.ToString("0.0")}. " +
                 $"{Environment.NewLine}Площадь S = {Area.ToString("0.0")}");
