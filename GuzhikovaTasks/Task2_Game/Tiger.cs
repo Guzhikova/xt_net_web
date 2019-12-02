@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task2_Game
 {
-    interface IMovable
+    class Tiger: Monster
     {
-        Point BaseCoordinate { get; set; }
-        double Speed { get; }
-        void MovementAlgorithm();
+
     }
 }

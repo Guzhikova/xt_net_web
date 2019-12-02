@@ -15,7 +15,7 @@ namespace Task2_Game
         public double Height => throw new NotImplementedException();
 
         /// <summary>
-        /// Урон, который нанесется игроку, если он соприкоснется с объектом
+        /// Урон, наносимый игроку, при соприкосновении с объектом
         /// </summary>
         public int Damage { get; }
     }

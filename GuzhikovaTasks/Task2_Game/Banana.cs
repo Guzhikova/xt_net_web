@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task2_Game
 {
-    interface IMovable
+    class Banana: Bonus
     {
-        Point BaseCoordinate { get; set; }
-        double Speed { get; }
-        void MovementAlgorithm();
     }
 }

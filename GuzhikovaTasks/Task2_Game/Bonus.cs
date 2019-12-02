@@ -14,10 +14,15 @@ namespace Task2_Game
 
         public double Height => throw new NotImplementedException();
 
-        //Replenishment... -  величина, на которую увеличивается характеристика (здоровье, скорость)
-        //при взятии бонуса
-
+        /// <summary>
+        /// Величина, на которую увеличивается здоровье при взятии бонуса
+        /// </summary>
+  
         public int ReplenishmentHealth { get; }
+
+        /// <summary>
+        /// Величина, на которую увеличивается скорость при взятии бонуса
+        /// </summary>
         public int ReplenishmentSpeed { get; }
     }
 }

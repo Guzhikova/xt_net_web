@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task2_Game
 {
-    interface IMovable
+    class Woolf: Monster
     {
-        Point BaseCoordinate { get; set; }
-        double Speed { get; }
-        void MovementAlgorithm();
     }
 }

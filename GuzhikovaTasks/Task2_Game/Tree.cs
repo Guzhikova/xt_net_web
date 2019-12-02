@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Task2_Game
 {
-    interface IMovable
+    class Tree : Obstacle
     {
-        Point BaseCoordinate { get; set; }
-        double Speed { get; }
-        void MovementAlgorithm();
+        
     }
 }
