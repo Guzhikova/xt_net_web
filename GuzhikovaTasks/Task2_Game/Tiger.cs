@@ -8,6 +8,6 @@ namespace Task2_Game
 {
     class Tiger: Monster
     {
-
+        // Заполнение...
     }
 }

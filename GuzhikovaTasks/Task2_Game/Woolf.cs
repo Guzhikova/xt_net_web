@@ -8,5 +8,6 @@ namespace Task2_Game
 {
     class Woolf: Monster
     {
+        // Заполнение...
     }
 }

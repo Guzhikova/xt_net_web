@@ -18,7 +18,7 @@ namespace Task2_Game
         public int Damage { get; }
 
 
-        public void MovementAlgorithm()
+        public virtual void MovementAlgorithm()
         {
             throw new NotImplementedException();
         }

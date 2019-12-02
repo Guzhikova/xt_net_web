@@ -9,5 +9,7 @@ namespace Task2_Game
     class Bear: Monster
     {
 
+        // Заполнение...
+
     }
 }

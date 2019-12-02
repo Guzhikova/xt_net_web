@@ -21,6 +21,7 @@ namespace Task2_Game
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

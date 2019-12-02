@@ -8,5 +8,6 @@ namespace Task2_Game
 {
     class Rock: Obstacle
     {
+        // Заполнение...
     }
 }

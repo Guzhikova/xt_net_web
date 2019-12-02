@@ -8,5 +8,6 @@ namespace Task2_Game
 {
     class Cherry: Bonus
     {
+        // Заполнение...
     }
 }
