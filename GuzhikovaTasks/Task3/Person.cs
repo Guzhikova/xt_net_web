@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Task3
 {
-    class People
+    class Person
     {
-        public People(int numberOfPerson)
+        public Person(int numberOfPerson)
         {
             NumberOfPerson = numberOfPerson;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task3
 {
-    class MyListEnumeration<T> : IEnumerable<T>, IEnumerator<T>
+    class PeopleEnumeration<T> : IEnumerable<T>, IEnumerator<T>
     {
 
         List<T> _myList;
@@ -16,7 +16,7 @@ namespace Task3
         public int Index { get; }
         int index = -1;
 
-        public MyListEnumeration(List<T> myList)
+        public PeopleEnumeration(List<T> myList)
         {
             _myList = myList;
         }
@@ -49,7 +49,6 @@ namespace Task3
             if (index < _myList.Count-1)
             index ++;
 
-            Console.WriteLine("Index = " + index);
             return true;
         }
 

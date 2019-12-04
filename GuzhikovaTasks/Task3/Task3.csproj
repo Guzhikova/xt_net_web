@@ -43,14 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyListEnumeration.cs" />
+    <Compile Include="PeopleEnumeration.cs" />
     <Compile Include="v.cs" />
-    <Compile Include="People.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Functions\Functions.csproj">
+      <Project>{220fda83-24b8-4f12-bd07-19704e70a5cd}</Project>
+      <Name>Functions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
