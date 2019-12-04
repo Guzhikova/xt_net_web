@@ -13,7 +13,7 @@ namespace Task3
         {
             List<People> people = new List<People>(); List<People> people2 = new List<People>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 11; i++)
             {
                 
                 people.Add(new People(i+1));
@@ -21,16 +21,27 @@ namespace Task3
             }
 
             MyListEnumeration<People> peopleEnumeration = new MyListEnumeration<People>(people);
+            try
+            {
 
-         
                 foreach (var item in peopleEnumeration)
-                {  
-  
-                    Console.WriteLine(item.NumberOfPerson + "--" + item.NumberOfPerson.ToString());
-                    Console.WriteLine("   " );  
+                {
+
+                    Console.WriteLine("--" + item.NumberOfPerson.ToString());
+                    
+
                     people.Remove(item);
 
+
+                }
             }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+            foreach (var item in people)
+            {
+  Console.WriteLine(item.NumberOfPerson +"**************");
+            }
+            Console.WriteLine(people.Count + " count");
 
             Console.ReadKey();
 

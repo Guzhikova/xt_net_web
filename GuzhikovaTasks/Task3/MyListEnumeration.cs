@@ -39,34 +39,54 @@ namespace Task3
 
         public bool MoveNext()
         {
-            if (_myList.Count == 0 || _myList.Count == 1)
-            {
-                Console.WriteLine("false");
-
-                Reset();
+            if (index == _myList.Count - 1)
+            { index = -1; }
+            if (index == _myList.Count)
+            { index = 0; }
+            if (_myList.Count == 1)
                 return false;
-            }
-            else
-            {
 
-                if (index + 1 == _myList.Count)
-                {
-                    index = 1;
-                }
-                else if (index + 1 == _myList.Count - 1)
-                {
-                    index = 0;
-                }
-                else
-                {
-                    index += 2;
-                }
-         return true;
-            }
+            if (index < _myList.Count-1)
+            index ++;
+
+            Console.WriteLine("Index = " + index);
+            return true;
+        }
 
 
-   
-        }      
+
+        //}
+
+        //public bool MoveNext()
+        //{
+        //    if (_myList.Count < 2)
+        //    {
+        //        Console.WriteLine("false");
+
+        //        Reset();
+        //        return false;
+        //    }
+        //    else
+        //    {
+
+        //        if (index + 1 == _myList.Count)
+        //        {
+        //            index = 0;
+        //        }
+        //        else if (index + 1 == _myList.Count - 1)
+        //        {
+        //            index = 0;
+        //        }
+        //        else
+        //        {
+        //            index++;
+        //        }
+        //        return true;
+        //    }
+
+
+
+        //}      
 
         public void Reset()
         {
