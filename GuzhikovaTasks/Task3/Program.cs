@@ -15,9 +15,15 @@ namespace Task3
             Console.WriteLine($"----------------------Task 3.1. LOST----------------------{Environment.NewLine}");
             ExcludePeople();
 
+            Console.WriteLine($"----------------------Task 3.2.	WORD FREQUENCY----------------------{Environment.NewLine}");
+            WordFrequency();
+
             Console.ReadKey();
 
         }
+
+
+
         public static void ExcludePeople()
         {
 
@@ -68,6 +74,58 @@ namespace Task3
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void WordFrequency()
+        {
+            Dictionary<string, int> wordsFrequency = new Dictionary<string, int>();
+
+            Console.WriteLine($"Введите текст:{Environment.NewLine}");
+            string text = Console.ReadLine().ToLower();            
+
+            TextToDictionary(text, wordsFrequency);
+
+            Console.WriteLine($"{Environment.NewLine}Проанализирована частота встречаемости каждого слова в тексте:");
+
+            ShowSortedDictionary(wordsFrequency);
+        }
+
+        public static void TextToDictionary(string text, Dictionary<string, int> wordsFrequency)
+        {
+            string[] words = text.Split(new Char[] { ' ', ',', '.', ':', '\t' });
+
+            IEnumerator ie = words.GetEnumerator();
+
+            int counter = 0;
+
+            foreach (var item in words)
+            {
+                string word = item.Trim();
+
+                if (word != "")
+                {
+                    try
+                    {
+                        wordsFrequency.Add(word, 1);
+                    }
+                    catch (ArgumentException)
+                    {
+                        wordsFrequency.TryGetValue(word, out counter);
+                        wordsFrequency[word] = counter + 1;
+
+                    }
+                }
+            }
+        }
+
+        public static void ShowSortedDictionary(Dictionary<string, int> wordsFrequency)
+        {
+            Console.WriteLine($"* cлово = встречаемость{Environment.NewLine}");
+
+            foreach (var item in wordsFrequency.OrderByDescending(item => item.Value))
+            {
+                Console.WriteLine($"{item.Key} = {item.Value}");
             }
         }
     }
