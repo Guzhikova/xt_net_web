@@ -39,7 +39,8 @@ namespace Task3
         {
             Console.WriteLine("Сколько человек поставить в круг?");
 
-            int count = ForConsole.ReadPositiveNumberFromConsole();
+            int count = ForConsole.ReadPositiveNumberWithoutZero();
+
             Console.WriteLine("{0}{0}В круге {1} человек с порядковыми номерами: ",
                 Environment.NewLine, count);
 

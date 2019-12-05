@@ -52,41 +52,6 @@ namespace Task3
             return true;
         }
 
-
-
-        //}
-
-        //public bool MoveNext()
-        //{
-        //    if (_myList.Count < 2)
-        //    {
-        //        Console.WriteLine("false");
-
-        //        Reset();
-        //        return false;
-        //    }
-        //    else
-        //    {
-
-        //        if (index + 1 == _myList.Count)
-        //        {
-        //            index = 0;
-        //        }
-        //        else if (index + 1 == _myList.Count - 1)
-        //        {
-        //            index = 0;
-        //        }
-        //        else
-        //        {
-        //            index++;
-        //        }
-        //        return true;
-        //    }
-
-
-
-        //}      
-
         public void Reset()
         {
             index = -1;
