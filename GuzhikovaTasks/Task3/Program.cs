@@ -23,6 +23,7 @@ namespace Task3
         }
 
 
+        #region Functions for Task 3.1. LOST
 
         public static void ExcludePeople()
         {
@@ -77,6 +78,10 @@ namespace Task3
             }
         }
 
+        #endregion  
+
+        #region Functions for Task 3.2. WORD FREQUENCY
+
         public static void WordFrequency()
         {
             Dictionary<string, int> wordsFrequency = new Dictionary<string, int>();
@@ -93,7 +98,7 @@ namespace Task3
 
         public static void TextToDictionary(string text, Dictionary<string, int> wordsFrequency)
         {
-            string[] words = text.Split(new Char[] { ' ', ',', '.', ':', '\t' });
+            string[] words = text.Split(new Char[] { ' ', ',', '.', ':', '?', '\t' });
 
             IEnumerator ie = words.GetEnumerator();
 
@@ -128,6 +133,8 @@ namespace Task3
                 Console.WriteLine($"{item.Key} = {item.Value}");
             }
         }
+
+        #endregion
     }
 
 
