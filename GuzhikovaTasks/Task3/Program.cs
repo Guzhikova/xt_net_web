@@ -60,6 +60,7 @@ namespace Task3
             }
             Console.WriteLine($"{Environment.NewLine}");
         }
+
         public static void Exclude(List<Person> people)
         {
             PeopleEnumeration<Person> peopleEnumeration = new PeopleEnumeration<Person>(people);

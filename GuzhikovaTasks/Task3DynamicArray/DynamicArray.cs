@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Task3DynamicArray
 {
-    class DynamicArray<T>: IList<T>
+    class DynamicArray<T> : IList<T>
     {
         public DynamicArray()
         {
-            _dynamicArray = new T[8];
+            _dynamicArray = new T[_capacity];
 
         }
 
@@ -21,14 +21,49 @@ namespace Task3DynamicArray
             _dynamicArray = new T[_capacity];
         }
 
-        T[] _dynamicArray;
-        int _capacity;
+        public DynamicArray(List<T> list)
+        {
+            _capacity = list.Count;
+            _dynamicArray = new T[_capacity];
 
-        public int Count => throw new NotImplementedException();
+            CopyListToArray(list);
+        }
+
+        T[] _dynamicArray;
+        private int _count = 0;
+
+        private int _capacity = 8;
+
+        public int Capacity
+        {
+            get { return _capacity; }
+        }
+
+
+        //      public int Length { get => Count; }
+
+        public int Count => _count;
 
         public bool IsReadOnly => throw new NotImplementedException();
 
-        public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= this.Count && index < 0)
+                    throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
+
+                return _dynamicArray[index];
+
+            }
+            set
+            {
+                if (index >= this.Count && index < 0)
+                    throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
+
+                _dynamicArray[index] = value;
+            }
+        }
 
         public int IndexOf(T item)
         {
@@ -47,7 +82,15 @@ namespace Task3DynamicArray
 
         public void Add(T item)
         {
-            throw new NotImplementedException();
+            // https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.ilist?view=netcore-2.1
+
+            if (_count >= _capacity)
+            {
+                _capacity *= 2;
+            }
+            _dynamicArray[_count] = item;
+            _count++;
+
         }
 
         public void Clear()
@@ -72,12 +115,38 @@ namespace Task3DynamicArray
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            // https://qa-help.ru/questions/c-ienumerable-stackoverflowexception-avltree
+            //IEnumerator<T> ie = GetEnumerator();
+
+            //foreach (var item in this)
+            //{
+            //    yield return item;
+            //}
+
+            //for (int i = 0; i < _dynamicArray.Length; i++)
+            //{
+            //    yield return _dynamicArray[i];
+            //}
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _dynamicArray.GetEnumerator();
+        }
+
+
+        void CopyListToArray(List<T> list)
+        {
+            int index = 0;
+
+            if (list.Count == Capacity)
+            {
+                foreach (var item in list)
+                {
+                    _dynamicArray[index] = item;
+                    index++;
+                }
+            }
         }
     }
 }
