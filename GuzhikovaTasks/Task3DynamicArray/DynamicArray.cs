@@ -44,6 +44,21 @@ namespace Task3DynamicArray
 
         public int Count => _count;
 
+
+        //public int Count
+        //{ 
+        //    get {
+        //        for (int i = 0; i < _dynamicArray.Length; i++)
+        //        {
+        //            if(_dynamicArray[i].)
+
+        //        }
+        //        return _count; 
+        //    }
+        ////    set { _count = value; }
+        //}
+
+
         public bool IsReadOnly => throw new NotImplementedException();
 
         public T this[int index]
@@ -84,9 +99,11 @@ namespace Task3DynamicArray
         {
             // https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.ilist?view=netcore-2.1
 
-            if (_count >= _capacity)
+            if (_count == _capacity)
             {
-                _capacity *= 2;
+                T[] tempArray = new T[_capacity *= 2];
+                
+                _dynamicArray = tempArray;
             }
             _dynamicArray[_count] = item;
             _count++;
@@ -116,17 +133,17 @@ namespace Task3DynamicArray
         public IEnumerator<T> GetEnumerator()
         {
             // https://qa-help.ru/questions/c-ienumerable-stackoverflowexception-avltree
-            //IEnumerator<T> ie = GetEnumerator();
+           /* IEnumerator<T> ie = */GetEnumerator();
 
             //foreach (var item in this)
             //{
             //    yield return item;
             //}
 
-            //for (int i = 0; i < _dynamicArray.Length; i++)
-            //{
-            //    yield return _dynamicArray[i];
-            //}
+            for (int i = 0; i < _dynamicArray.Length; i++)
+            {
+                yield return _dynamicArray[i];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -145,6 +162,7 @@ namespace Task3DynamicArray
                 {
                     _dynamicArray[index] = item;
                     index++;
+                    _count++;
                 }
             }
         }

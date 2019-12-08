@@ -27,15 +27,21 @@ namespace Task3DynamicArray
                 Console.Write($" {item} ");
             }
             DynamicArray<int> dynamicArray3 = new DynamicArray<int>(list);
-            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}3. Создан массив №3 ёмкостью {dynamicArray3.Capacity}");
+            Console.WriteLine($"{Environment.NewLine}{Environment.NewLine}3. Создан массив №3 ёмкостью {dynamicArray3.Capacity}. Эелементов {dynamicArray3.Count}");
 
-            foreach (var item in dynamicArray)
-            {
-                Console.Write($" {item} ");
-            }
+            dynamicArray3.Add(7);
+            dynamicArray3.Add(10);
 
-            Console.WriteLine($"array[3] {dynamicArray3[2]}");
+            int i = 0;
+            Console.WriteLine($" Count -- {dynamicArray3.Count}. Capacity -- {dynamicArray3.Capacity}");
+            //foreach (var item in dynamicArray)
+            //{
+            //    Console.WriteLine($" {item} Array[{i}] {dynamicArray3[i]}");
+            //    i++;
+            //}
 
+
+            Console.WriteLine($" -- {dynamicArray3[4]}");
 
 
             Console.ReadKey();
