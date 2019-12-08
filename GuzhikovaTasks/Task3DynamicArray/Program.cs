@@ -13,10 +13,10 @@ namespace Task3DynamicArray
             Console.WriteLine($"----------------------Task 3.3. DYNAMIC ARRAY----------------------{Environment.NewLine}");
 
             DynamicArray<int> dynamicArray = new DynamicArray<int>();
-            Console.WriteLine($"1. Создан массив №1 ёмкостью {dynamicArray.Capacity}");
+            Console.WriteLine($"1. Создан массив №1 ёмкостью {dynamicArray.Capacity}, Count -- {dynamicArray.Count}");
 
             DynamicArray<int> dynamicArray2 = new DynamicArray<int>(10);
-            Console.WriteLine($"{Environment.NewLine}2. Создан массив №2 ёмкостью {dynamicArray2.Capacity}");
+            Console.WriteLine($"{Environment.NewLine}2. Создан массив №2 ёмкостью {dynamicArray2.Capacity}, Count -- {dynamicArray2.Count}");
 
 
             List<int> list = new List<int>() { 1, 3, 5, 8, 10, 22, 30 };
@@ -31,14 +31,19 @@ namespace Task3DynamicArray
 
             dynamicArray3.Add(7);
             dynamicArray3.Add(10);
+            dynamicArray3.Add(15);
+
+            dynamicArray3.Remove(5);
 
             int i = 0;
             Console.WriteLine($" Count -- {dynamicArray3.Count}. Capacity -- {dynamicArray3.Capacity}");
-            //foreach (var item in dynamicArray)
-            //{
-            //    Console.WriteLine($" {item} Array[{i}] {dynamicArray3[i]}");
-            //    i++;
-            //}
+            foreach (var item in dynamicArray3)
+            {
+                Console.WriteLine($" {item} Array[{i}] {dynamicArray3[i]}");
+                i++;
+            }
+
+            Console.WriteLine($" {Environment.NewLine}IndexOf(5) =  {dynamicArray3.IndexOf(305)}");
 
 
             Console.WriteLine($" -- {dynamicArray3[4]}");

@@ -13,6 +13,7 @@ namespace Task3DynamicArray
         {
             _dynamicArray = new T[_capacity];
 
+
         }
 
         public DynamicArray(int capacity)
@@ -40,24 +41,9 @@ namespace Task3DynamicArray
         }
 
 
-        //      public int Length { get => Count; }
+        // !!! В пункте 3.3.8 нужно было создать свойство Length. В моем случае свойство Count является его аналогом !!!
 
         public int Count => _count;
-
-
-        //public int Count
-        //{ 
-        //    get {
-        //        for (int i = 0; i < _dynamicArray.Length; i++)
-        //        {
-        //            if(_dynamicArray[i].)
-
-        //        }
-        //        return _count; 
-        //    }
-        ////    set { _count = value; }
-        //}
-
 
         public bool IsReadOnly => throw new NotImplementedException();
 
@@ -65,15 +51,16 @@ namespace Task3DynamicArray
         {
             get
             {
-                if (index >= this.Count && index < 0)
-                    throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
+                if (index >= _count || index < 0)
+                    throw new ArgumentOutOfRangeException("Error! The index must be within the limits of dynamic array.");
+
 
                 return _dynamicArray[index];
 
             }
             set
             {
-                if (index >= this.Count && index < 0)
+                if (index >= _count || index < 0)
                     throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
 
                 _dynamicArray[index] = value;
@@ -82,7 +69,19 @@ namespace Task3DynamicArray
 
         public int IndexOf(T item)
         {
-            throw new NotImplementedException();
+            int indexOfFirstOccurrence = 0;
+
+            foreach (var element in _dynamicArray)
+            {
+                if (element.Equals(item))
+                {
+                    return indexOfFirstOccurrence;
+                }
+
+                indexOfFirstOccurrence++;
+            }
+
+            return -1;
         }
 
         public void Insert(int index, T item)
@@ -92,17 +91,25 @@ namespace Task3DynamicArray
 
         public void RemoveAt(int index)
         {
-            throw new NotImplementedException();
+            if (index >= _count || index < 0)
+                throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
+
+            for (int i = index; i < _count-1; i++)
+            {
+                _dynamicArray[i] = _dynamicArray[i + 1];
+            }
+
+            _count--;
         }
 
         public void Add(T item)
         {
-            // https://docs.microsoft.com/ru-ru/dotnet/api/system.collections.ilist?view=netcore-2.1
 
             if (_count == _capacity)
             {
                 T[] tempArray = new T[_capacity *= 2];
-                
+                _dynamicArray.CopyTo(tempArray, 0);
+
                 _dynamicArray = tempArray;
             }
             _dynamicArray[_count] = item;
@@ -127,28 +134,26 @@ namespace Task3DynamicArray
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            int indexOfItem = IndexOf(item);
+
+            if (indexOfItem < 0)
+            { 
+                return false; 
+            }
+
+            RemoveAt(indexOfItem);
+
+            return true;
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            // https://qa-help.ru/questions/c-ienumerable-stackoverflowexception-avltree
-           /* IEnumerator<T> ie = */GetEnumerator();
-
-            //foreach (var item in this)
-            //{
-            //    yield return item;
-            //}
-
-            for (int i = 0; i < _dynamicArray.Length; i++)
-            {
-                yield return _dynamicArray[i];
-            }
+            return _dynamicArray.Take(_count).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _dynamicArray.GetEnumerator();
+            return GetEnumerator();
         }
 
 
