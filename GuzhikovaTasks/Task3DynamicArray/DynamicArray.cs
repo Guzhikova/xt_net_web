@@ -20,12 +20,12 @@ namespace Task3DynamicArray
             _dynamicArray = new T[_capacity];
         }
 
-        public DynamicArray(List<T> list)
+        public DynamicArray(IEnumerable<T> collection)
         {
-            _capacity = list.Count;
+            _capacity = collection.Count();
             _dynamicArray = new T[_capacity];
 
-            CopyListToArray(list);
+            CopyListToArray(collection);
         }
 
         T[] _dynamicArray;
@@ -166,18 +166,18 @@ namespace Task3DynamicArray
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _dynamicArray.GetEnumerator();
+            return GetEnumerator();
         }
 
-        public void AddRange(List<T> list)
+        public void AddRange(IEnumerable<T> collection)
         {
-            int sumCount = _count + list.Count;
+            int sumCount = _count + collection.Count();
 
             int multiplier = MultiplierForNewCapacity(_capacity, sumCount);
 
             IncreaseCapacity(multiplier);
 
-            CopyListToArray(list, _count);
+            CopyListToArray(collection, _count);
 
         }
 
@@ -190,7 +190,7 @@ namespace Task3DynamicArray
         {
             Console.Write($"Элементы массива: ");
 
-            foreach (var item in _dynamicArray)
+            foreach (var item in this)
             {
                 Console.Write($" {item} ");                
             }
@@ -203,10 +203,10 @@ namespace Task3DynamicArray
             ShowParameters();
             ShowElements();
         }
-        void CopyListToArray(List<T> list, int index = 0)
+        void CopyListToArray(IEnumerable<T> collection, int index = 0)
         {
 
-            foreach (var item in list)
+            foreach (var item in collection)
             {
                 _dynamicArray[index] = item;
                 index++;
