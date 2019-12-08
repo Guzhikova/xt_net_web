@@ -166,7 +166,7 @@ namespace Task3DynamicArray
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return _dynamicArray.GetEnumerator();
         }
 
         public void AddRange(List<T> list)
@@ -181,7 +181,28 @@ namespace Task3DynamicArray
 
         }
 
+        public void ShowParameters()
+        {
+            Console.WriteLine($"Ёмкость = {Capacity}. Количество элементов (длина) = {Count}.");
+        }
 
+        public void ShowElements()
+        {
+            Console.Write($"Элементы массива: ");
+
+            foreach (var item in _dynamicArray)
+            {
+                Console.Write($" {item} ");                
+            }
+
+            Console.WriteLine();
+        }
+
+        public void Show()
+        {
+            ShowParameters();
+            ShowElements();
+        }
         void CopyListToArray(List<T> list, int index = 0)
         {
 
