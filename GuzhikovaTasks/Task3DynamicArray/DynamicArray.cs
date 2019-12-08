@@ -12,8 +12,6 @@ namespace Task3DynamicArray
         public DynamicArray()
         {
             _dynamicArray = new T[_capacity];
-
-
         }
 
         public DynamicArray(int capacity)
@@ -86,7 +84,21 @@ namespace Task3DynamicArray
 
         public void Insert(int index, T item)
         {
-            throw new NotImplementedException();
+            if (index >= _count || index < 0)
+                throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
+
+            if (_count == _capacity)
+            {
+                IncreaseCapacity();
+            }
+
+            for (int i = _count - 1; i > index; i--)
+            {
+                _dynamicArray[i] = _dynamicArray[i - 1];
+            }
+
+            _dynamicArray[index] = item;
+            _count++;
         }
 
         public void RemoveAt(int index)
@@ -94,7 +106,7 @@ namespace Task3DynamicArray
             if (index >= _count || index < 0)
                 throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
 
-            for (int i = index; i < _count-1; i++)
+            for (int i = index; i < _count - 1; i++)
             {
                 _dynamicArray[i] = _dynamicArray[i + 1];
             }
@@ -107,10 +119,7 @@ namespace Task3DynamicArray
 
             if (_count == _capacity)
             {
-                T[] tempArray = new T[_capacity *= 2];
-                _dynamicArray.CopyTo(tempArray, 0);
-
-                _dynamicArray = tempArray;
+                IncreaseCapacity();
             }
             _dynamicArray[_count] = item;
             _count++;
@@ -119,17 +128,21 @@ namespace Task3DynamicArray
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Array.Clear(_dynamicArray, 0, _count - 1);
+            _count = 0;
         }
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            return (IndexOf(item) < 0) ? false : true;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < _count; i++)
+            {
+                array.SetValue(_dynamicArray[i], arrayIndex++);
+            }
         }
 
         public bool Remove(T item)
@@ -137,8 +150,8 @@ namespace Task3DynamicArray
             int indexOfItem = IndexOf(item);
 
             if (indexOfItem < 0)
-            { 
-                return false; 
+            {
+                return false;
             }
 
             RemoveAt(indexOfItem);
@@ -156,20 +169,51 @@ namespace Task3DynamicArray
             return GetEnumerator();
         }
 
-
-        void CopyListToArray(List<T> list)
+        public void AddRange(List<T> list)
         {
-            int index = 0;
+            int sumCount = _count + list.Count;
 
-            if (list.Count == Capacity)
+            int multiplier = MultiplierForNewCapacity(_capacity, sumCount);
+
+            IncreaseCapacity(multiplier);
+
+            CopyListToArray(list, _count);
+
+        }
+
+
+        void CopyListToArray(List<T> list, int index = 0)
+        {
+
+            foreach (var item in list)
             {
-                foreach (var item in list)
-                {
-                    _dynamicArray[index] = item;
-                    index++;
-                    _count++;
-                }
+                _dynamicArray[index] = item;
+                index++;
+                _count++;
             }
+
+        }
+
+        void IncreaseCapacity(int multiplier = 2)
+        {
+            T[] tempArray = new T[_capacity *= multiplier];
+
+            _dynamicArray.CopyTo(tempArray, 0);
+
+            _dynamicArray = tempArray;
+        }
+
+        int MultiplierForNewCapacity(int currentCapacity, int sumElementsCount)
+        {
+            int multiplier = 1;
+
+            while (currentCapacity < sumElementsCount)
+            {
+                multiplier *= 2;
+                currentCapacity *= multiplier;
+            }
+
+            return multiplier;
         }
     }
 }
