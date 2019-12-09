@@ -27,22 +27,20 @@ namespace Task3
 
         public static void ExcludePeople()
         {
+            List<Person> people = new List<Person>();
 
-            List<Person> peopleList = new List<Person>();
+            CreateCircleOfPeople(people);
 
-            CreateCircleOfPeople(peopleList);
+            Exclude(people);
 
-            Exclude(peopleList);
-
-            foreach (var item in peopleList)
+            foreach (var item in people)
             {
                 Console.WriteLine("{0}Остался {1} человек под номером {2}",
-                    Environment.NewLine, peopleList.Count, item.NumberOfPerson);
-
+                    Environment.NewLine, people.Count, item.NumberOfPerson);
             }
         }
 
-        public static void CreateCircleOfPeople(List<Person> people)
+        public static void CreateCircleOfPeople(List<Person> peopleList)
         {
             Console.WriteLine("Сколько человек поставить в круг?");
 
@@ -53,24 +51,23 @@ namespace Task3
 
             for (int i = 0; i < count; i++)
             {
+                peopleList.Add(new Person(i + 1));
 
-                people.Add(new Person(i + 1));
-
-                Console.Write($" {people.ElementAt(i).NumberOfPerson} ");
+                Console.Write($" {peopleList.ElementAt(i).NumberOfPerson} ");
             }
             Console.WriteLine($"{Environment.NewLine}");
         }
 
-        public static void Exclude(List<Person> people)
+        public static void Exclude(List<Person> peopleList)
         {
-            PeopleEnumeration<Person> peopleEnumeration = new PeopleEnumeration<Person>(people);
+            People<Person> people = new People<Person>(peopleList);
             try
             {
-                foreach (var item in peopleEnumeration)
+                foreach (var item in people)
                 {
                     Console.WriteLine($"- Исключен человек под номером {item.NumberOfPerson.ToString()}");
 
-                    people.Remove(item);
+                    peopleList.Remove(item);
                 }
             }
             catch (Exception ex)

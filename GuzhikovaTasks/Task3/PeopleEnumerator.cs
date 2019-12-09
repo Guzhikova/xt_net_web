@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace Task3
 {
-    class PeopleEnumeration<T> : IEnumerable<T>, IEnumerator<T>
+    class RoundEnumerator<T> : IEnumerator<T>
     {
 
         List<T> _myList;
-        public List<T> MyList { get; set; }
 
         int _index = -1;
 
-        public PeopleEnumeration(List<T> myList)
+        public RoundEnumerator(List<T> myList)
         {
             _myList = myList;
         }
@@ -25,14 +24,7 @@ namespace Task3
         object IEnumerator.Current => Current;
 
         public void Dispose()
-        {
-
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return this;
-        }
+        { }
 
         public bool MoveNext()
         {
@@ -47,9 +39,9 @@ namespace Task3
             }
             else if (_index == _myList.Count)
             {
-                _index = 0; 
+                _index = 0;
             }
-            
+
             if (_index < _myList.Count - 1)
                 _index++;
 
@@ -59,11 +51,6 @@ namespace Task3
         public void Reset()
         {
             _index = -1;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 
