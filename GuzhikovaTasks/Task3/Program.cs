@@ -15,7 +15,7 @@ namespace Task3
             Console.WriteLine($"----------------------Task 3.1. LOST----------------------{Environment.NewLine}");
             ExcludePeople();
 
-            Console.WriteLine($"----------------------Task 3.2.	WORD FREQUENCY----------------------{Environment.NewLine}");
+            Console.WriteLine($"{Environment.NewLine}----------------------Task 3.2.	WORD FREQUENCY----------------------{Environment.NewLine}");
             WordFrequency();
 
             Console.ReadKey();
@@ -46,7 +46,7 @@ namespace Task3
 
             int count = ForConsole.ReadPositiveNumberWithoutZero();
 
-            Console.WriteLine("{0}{0}В круге {1} человек с порядковыми номерами: ",
+            Console.WriteLine("{0}В круге {1} человек с порядковыми номерами: ",
                 Environment.NewLine, count);
 
             for (int i = 0; i < count; i++)
@@ -97,8 +97,6 @@ namespace Task3
         public static void TextToDictionary(string text, Dictionary<string, int> wordsFrequency)
         {
             string[] words = text.Split(new Char[] { ' ', ',', '.', ':', '?', '\t' });
-
-            IEnumerator ie = words.GetEnumerator();
 
             int counter = 0;
 
