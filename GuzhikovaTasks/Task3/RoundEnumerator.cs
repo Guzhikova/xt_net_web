@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Task3
 {
-    class RoundEnumerator<T> : IEnumerator<T>
+    public class RoundEnumerator<T> : IEnumerator<T>
     {
 
-        List<T> _myList;
+        IList<T> _myList;
 
         int _index = -1;
 
-        public RoundEnumerator(List<T> myList)
+        public RoundEnumerator(IList<T> myList)
         {
             _myList = myList;
         }
@@ -28,24 +28,23 @@ namespace Task3
 
         public bool MoveNext()
         {
+            int length = _myList.Count;
 
-            if (_myList.Count == 1)
-            {
-                return false;
-            }
-            else if (_index == _myList.Count - 1)
+            if (_index == length - 1)
             {
                 _index = -1;
             }
-            else if (_index == _myList.Count)
+            else if (_index == length)
             {
                 _index = 0;
             }
 
-            if (_index < _myList.Count - 1)
+            if (_index < length - 1)
+            {
                 _index++;
+            }
 
-            return true;
+            return (length != 1);
         }
 
         public void Reset()

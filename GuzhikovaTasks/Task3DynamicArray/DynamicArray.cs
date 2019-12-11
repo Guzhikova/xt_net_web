@@ -11,29 +11,29 @@ namespace Task3DynamicArray
     {
         public DynamicArray()
         {
-            _dynamicArray = new T[_capacity];
+            dynamicArray = new T[_capacity];
         }
 
         public DynamicArray(int capacity)
         {
             _capacity = capacity;
-            _dynamicArray = new T[_capacity];
+            dynamicArray = new T[_capacity];
         }
 
         public DynamicArray(IEnumerable<T> collection)
         {
             _capacity = collection.Count();
-            _dynamicArray = new T[_capacity];
+            dynamicArray = new T[_capacity];
 
             CopyListToArray(collection);
         }
 
-        T[] _dynamicArray;
+        protected T[] dynamicArray;
         private int _count = 0;
 
         private int _capacity = 8;
 
-        public int Capacity
+        public virtual int Capacity
         {
             get { return _capacity; }
         }
@@ -45,15 +45,14 @@ namespace Task3DynamicArray
 
         public bool IsReadOnly => throw new NotImplementedException();
 
-        public T this[int index]
+        public virtual T this[int index]
         {
             get
             {
                 if (index >= _count || index < 0)
                     throw new ArgumentOutOfRangeException("Error! The index must be within the limits of dynamic array.");
 
-
-                return _dynamicArray[index];
+                return dynamicArray[index];
 
             }
             set
@@ -61,7 +60,7 @@ namespace Task3DynamicArray
                 if (index >= _count || index < 0)
                     throw new ArgumentOutOfRangeException("Error! The index should be within the limits of dynamic array");
 
-                _dynamicArray[index] = value;
+                dynamicArray[index] = value;
             }
         }
 
@@ -69,7 +68,7 @@ namespace Task3DynamicArray
         {
             int indexOfFirstOccurrence = 0;
 
-            foreach (var element in _dynamicArray)
+            foreach (var element in dynamicArray)
             {
                 if (element.Equals(item))
                 {
@@ -94,10 +93,10 @@ namespace Task3DynamicArray
 
             for (int i = _count - 1; i > index; i--)
             {
-                _dynamicArray[i] = _dynamicArray[i - 1];
+                dynamicArray[i] = dynamicArray[i - 1];
             }
 
-            _dynamicArray[index] = item;
+            dynamicArray[index] = item;
             _count++;
         }
 
@@ -108,7 +107,7 @@ namespace Task3DynamicArray
 
             for (int i = index; i < _count - 1; i++)
             {
-                _dynamicArray[i] = _dynamicArray[i + 1];
+                dynamicArray[i] = dynamicArray[i + 1];
             }
 
             _count--;
@@ -121,14 +120,14 @@ namespace Task3DynamicArray
             {
                 IncreaseCapacity();
             }
-            _dynamicArray[_count] = item;
+            dynamicArray[_count] = item;
             _count++;
 
         }
 
         public void Clear()
         {
-            Array.Clear(_dynamicArray, 0, _count - 1);
+            Array.Clear(dynamicArray, 0, _count - 1);
             _count = 0;
         }
 
@@ -141,7 +140,7 @@ namespace Task3DynamicArray
         {
             for (int i = 0; i < _count; i++)
             {
-                array.SetValue(_dynamicArray[i], arrayIndex++);
+                array.SetValue(dynamicArray[i], arrayIndex++);
             }
         }
 
@@ -159,9 +158,9 @@ namespace Task3DynamicArray
             return true;
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public virtual IEnumerator<T> GetEnumerator()
         {
-            return _dynamicArray.Take(_count).GetEnumerator();
+            return dynamicArray.Take(_count).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -208,7 +207,7 @@ namespace Task3DynamicArray
 
             foreach (var item in collection)
             {
-                _dynamicArray[index] = item;
+                dynamicArray[index] = item;
                 index++;
                 _count++;
             }
@@ -219,9 +218,9 @@ namespace Task3DynamicArray
         {
             T[] tempArray = new T[_capacity *= multiplier];
 
-            _dynamicArray.CopyTo(tempArray, 0);
+            dynamicArray.CopyTo(tempArray, 0);
 
-            _dynamicArray = tempArray;
+            dynamicArray = tempArray;
         }
 
         int MultiplierForNewCapacity(int currentCapacity, int sumElementsCount)

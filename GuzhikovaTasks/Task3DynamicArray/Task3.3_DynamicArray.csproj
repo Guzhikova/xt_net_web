@@ -43,12 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CycledDynamicArray.cs" />
     <Compile Include="DynamicArray.cs" />
+    <Compile Include="HardcoreMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task3\Task3.1_3.2.csproj">
+      <Project>{3ee537fb-16dd-4a66-85f4-48331ca49a59}</Project>
+      <Name>Task3.1_3.2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
