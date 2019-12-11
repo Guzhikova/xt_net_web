@@ -13,97 +13,97 @@ namespace Task4
 
         static void Main(string[] args)
         {
-            Console.WriteLine($"----------------------Task 4.1.	CUSTOM SORT----------------------{Environment.NewLine}");
-
+            Console.WriteLine("----------------------Task 4.1.	CUSTOM SORT----------------------{0}", Environment.NewLine);
             CustomSort();
 
-            Console.WriteLine($"----------------------Task 4.2.	CUSTOM SORT DEMO----------------------{Environment.NewLine}");
-            
-
+            Console.WriteLine("{0}----------------------Task 4.2.	CUSTOM SORT DEMO----------------------{0}", Environment.NewLine);
             CustomSortDemo();
 
             Console.ReadKey();
         }
-
-        static void CustomSort()
+        static void SortArray<T>(T[] array, ComparisonDelegate<T> comparison) where T : IComparable<T>
         {
-            int[] array = new int[] { 10, 2, 5, 4, 3, 4, 8, 9, 1, 99, 25, 40, 3 };
+            T temp = default(T);
 
-            Console.WriteLine("{0}Исходный массив:{0}", Environment.NewLine);
-            Show(array);
-
-            ComparisonDelegate<int> comparison = Comparison;
-            SortArray(array, comparison);
-
-            Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
-            Show(array);
-
-        }
-
-        static void SortArray<T>(T[] array, ComparisonDelegate<T> comparison) where T: IComparable<T>
-        {
-            //ComparisonDelegate<T> comparison = Comparison;
-            // Проверка на нул
-            T temp;
-
-            for (int i = 0; i < array.Length; i++)
+            if (comparison != null)
             {
-                for (int j = i + 1; j < array.Length; j++)
+                for (int i = 0; i < array.Length; i++)
                 {
-                    //Нужна ли здесь проверка делегата на null? 
-                    //По идее я же несколькими строчками выше ему ссылку на метод присвоила 
-
-                    if (comparison(array[i], array[j]))
+                    for (int j = i + 1; j < array.Length; j++)
                     {
-                        temp = array[i];
-                        array[i] = array[j];
-                        array[j] = temp;
+                        if (comparison(array[i], array[j]))
+                        {
+                            temp = array[i];
+                            array[i] = array[j];
+                            array[j] = temp;
+                        }
                     }
                 }
             }
+        }
+
+        static void Show(IEnumerable collection)
+        {
+            Console.Write("{");
+
+            foreach (var item in collection)
+            {
+                Console.Write(item + ", ");
+            }
+
+            Console.WriteLine("}");
         }
 
         static bool Comparison<T>(T x, T y) where T : IComparable<T>
         {
             int result = x.CompareTo(y);
 
-            return (result > 0) ? true : false;
+            return result > 0;
         }
 
-        static void Show(IEnumerable collection)
+        static void CustomSort()
         {
-            foreach (var item in collection)
-            {
-                Console.Write($" {item} ");
-            }
+            int[] array = new int[] { 10, 2, 5, 4, 3, 4, 8, 9, 1, 99, 25, 40, 3 };
 
-            Console.WriteLine();
-        }
+            Console.WriteLine("Исходный массив:{0}", Environment.NewLine);
+            Show(array);
 
+            ComparisonDelegate<int> comparisonDelegate = Comparison;
+            SortArray(array, comparisonDelegate);
+
+            Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
+            Show(array);
+        }    
 
         static void CustomSortDemo()
         {
-            string[] array = new string[] { "Абвг", "аа", "абд", "ааааааааааааа", "про", "ее", "кккккк", "ываы", "ыыы", "вввв" };
+            string[] array = new string[] { "Мадрид", "Осло", "Сеул", "Москва", "Афины", "Рим", "Лиссабон", "Рига", "Шри-Джаяварденепура-Котте", "Баку"};
 
             Console.WriteLine("{0}Исходный массив:{0}", Environment.NewLine);
             Show(array);
 
-            ComparisonDelegate<string> comparison = ComparisonStrings;
+            ComparisonDelegate<string> comparisonDelegate = ComparisonStrings;
 
-            SortArray(array, comparison);
+            SortArray(array, comparisonDelegate);
 
             Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
             Show(array);
 
         }
 
-        static bool ComparisonStrings (string x, string y) 
+        static bool ComparisonStrings(string string1, string string2)
         {
-            int result = x.CompareTo(y);
+            int length1 = string1.Trim().Length;
+            int length2 = string2.Trim().Length;
 
-            // Логика сортировки!
-
-            return (result > 0) ? true : false;
+            if (length1 == length2)
+            {
+                return Comparison(string1.Trim(), string2.Trim());
+            }
+            else
+            {
+                return length1 > length2;
+            }
         }
     }
 }
