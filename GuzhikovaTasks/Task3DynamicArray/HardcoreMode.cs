@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task3DynamicArray
 {
-    class HardcoreMode<T> : DynamicArray<T>
+    class HardcoreMode<T> : DynamicArray<T>, ICloneable
     {
         public HardcoreMode() : base()
         { }
@@ -37,8 +37,37 @@ namespace Task3DynamicArray
 
                 dynamicArray[index] = value;
             }
-        }       
+        }
 
-        public override int Capacity => base.Capacity;
+        public object Clone()
+        {
+            T[] newArray = new T[Capacity];
+            newArray = dynamicArray;
+
+            return new HardcoreMode<T>
+            {
+                Capacity = this.Capacity,
+                Count = this.Count,
+                dynamicArray = newArray
+            };
+        }
+
+        public T[] ToArray()
+        {
+            return dynamicArray;
+        }
+
+        public void CutCapacity(int capacity)
+        {
+            T[] tempArray = new T[capacity];
+
+            Array.Copy(dynamicArray, 0, tempArray, 0, capacity);
+
+            dynamicArray = tempArray;
+
+            Capacity = capacity;
+            Count = dynamicArray.Length;
+        }
+
     }
 }

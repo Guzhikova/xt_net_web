@@ -7,7 +7,7 @@ using Task3;
 
 namespace Task3DynamicArray
 {
-    class CycledDynamicArray<T> : DynamicArray<T>
+    class CycledDynamicArray<T> : HardcoreMode<T>
     {
         public CycledDynamicArray() : base()
         {}

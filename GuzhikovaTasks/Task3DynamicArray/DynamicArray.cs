@@ -33,15 +33,19 @@ namespace Task3DynamicArray
 
         private int _capacity = 8;
 
-        public virtual int Capacity
+        public int Capacity
         {
-            get { return _capacity; }
+            get => _capacity;
+            protected set => _capacity = value;
         }
-
 
         // !!! В пункте 3.3.8 нужно было создать свойство Length. В моем случае свойство Count является его аналогом !!!
 
-        public int Count => _count;
+        public int Count
+        {
+            get => _count;
+            protected set => _count = value;
+        }
 
         public bool IsReadOnly => throw new NotImplementedException();
 
@@ -191,7 +195,7 @@ namespace Task3DynamicArray
 
             foreach (var item in this)
             {
-                Console.Write($" {item} ");                
+                Console.Write($" {item} ");
             }
 
             Console.WriteLine();
