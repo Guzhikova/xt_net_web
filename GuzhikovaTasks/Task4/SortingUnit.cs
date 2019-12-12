@@ -10,10 +10,18 @@ namespace Task4
 {
     class SortingUnit
     {
+        public event Action<string> OnSorted = delegate { };
 
-        static public void SortArray<T>(T[] array, ComparisonDelegate<T> comparison) where T : IComparable<T>
+        //protected virtual void OnSorted(string message)
+        //{
+        //          Sorted?.Invoke(message);
+        //}
+
+        public void SortArray<T>(T[] array, ComparisonDelegate<T> comparison) where T : IComparable<T>
         {
             T temp = default(T);
+
+            string arrayType = array.ToString();
 
             if (comparison != null)
             {
@@ -27,19 +35,15 @@ namespace Task4
                             array[i] = array[j];
                             array[j] = temp;                         
                         }
-                        Console.WriteLine($" - - - В массиве {array.ToString()} произошло сравнение {array[i]} и {array[j]}");
+                        Console.WriteLine($" - - - В массиве {arrayType} произошло сравнение {array[i]} и {array[j]}");
+                        
                         Thread.Sleep(200);
                     }
                 }
+
+                OnSorted?.Invoke(arrayType);
             }
         }
-
-        //static public bool Comparison<T>(T x, T y) where T : IComparable<T>
-        //{
-        //    int result = x.CompareTo(y);
-
-        //    return result > 0;
-        //}
 
 
         public void SortInNewThread<T> (T[] array, ComparisonDelegate<T> comparison) where T : IComparable<T>
@@ -51,5 +55,7 @@ namespace Task4
 
             newThread.Start();
         }
+
+
     }
 }
