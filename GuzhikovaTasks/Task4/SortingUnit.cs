@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static Task4.Program;
+using static Task4Sort.Program;
 
-namespace Task4
+namespace Task4Sort
 {
     class SortingUnit
     {
@@ -44,7 +44,6 @@ namespace Task4
                 OnSorted?.Invoke(arrayType);
             }
         }
-
 
         public void SortInNewThread<T> (T[] array, ComparisonDelegate<T> comparison) where T : IComparable<T>
         {

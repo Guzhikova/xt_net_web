@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task4
+namespace Task4Sort
 {
     class Handler
     {

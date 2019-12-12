@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace Task4
+namespace Task4Sort
 {
     class Program
     {
-        public delegate bool ComparisonDel<T>(T x, T y) where T : IComparable<T>;
+        public delegate bool ComparisonDelegate<T>(T x, T y) where T : IComparable<T>;
 
         static void Main(string[] args)
         {
@@ -69,7 +69,7 @@ namespace Task4
 
         static void ToNext()
         {
-            Console.WriteLine("{0}      Для перехода к следующему заданию нажмите любую клавишу:{0}", 
+            Console.WriteLine("{0}      Для перехода к следующему заданию нажмите любую клавишу:{0}",
                 Environment.NewLine);
 
             Console.ReadKey();
@@ -81,9 +81,9 @@ namespace Task4
             SortingUnit sortUnit = new SortingUnit();
             Handler handler = new Handler();
 
-            ComparisonDelegate<int> comparisonDelegateInt = Comparison;
-            ComparisonDelegate<double> comparisonDelegateDouble = Comparison;
-            ComparisonDelegate<string> comparisonDelegateString = Comparison;
+            ComparisonDelegate<int> comparisonInt = Comparison;
+            ComparisonDelegate<double> comparisonDouble = Comparison;
+            ComparisonDelegate<string> comparisonString = Comparison;
 
             int[] arrayInt = new int[7] { 10, 15, 41, 2, 5, 0, 8 };
             double[] arrayDouble = new double[5] { 0.7, 1.5, 4.9, 0.2, 0.05 };
@@ -91,18 +91,18 @@ namespace Task4
 
             sortUnit.OnSorted += handler.Message;
 
-            sortUnit.SortInNewThread(arrayInt, comparisonDelegateInt);
-            sortUnit.SortInNewThread(arrayDouble, comparisonDelegateDouble);
-            sortUnit.SortInNewThread(arrayString, comparisonDelegateString);
+            sortUnit.SortInNewThread(arrayInt, comparisonInt);
+            sortUnit.SortInNewThread(arrayDouble, comparisonDouble);
+            sortUnit.SortInNewThread(arrayString, comparisonString);
 
             //   sortUnit.OnSorted -= handler.Message;
 
-            sortUnit.SortInNewThread(arrayString, comparisonDelegateString);
+            sortUnit.SortInNewThread(arrayString, comparisonString);
         }
 
         static void CustomSortDemo()
         {
-            string[] array = new string[] { "Мадрид", "Осло", "Сеул", "Москва", "Афины", "Рим", "Лиссабон", "Рига", "Шри-Джаяварденепура-Котте", "Баку"};
+            string[] array = new string[] { "Мадрид", "Осло", "Сеул", "Москва", "Афины", "Рим", "Лиссабон", "Рига", "Шри-Джаяварденепура-Котте", "Баку" };
 
             Console.WriteLine("{0}Исходный массив:{0}", Environment.NewLine);
             Show(array);
