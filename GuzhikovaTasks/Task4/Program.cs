@@ -5,19 +5,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Task4
 {
     class Program
     {
-        delegate bool ComparisonDelegate<T>(T x, T y) where T : IComparable<T>;
+        public delegate bool ComparisonDelegate<T>(T x, T y) where T : IComparable<T>;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("----------------------Task 4.1.	CUSTOM SORT----------------------{0}", Environment.NewLine);
-            CustomSort();
+            //Console.WriteLine("----------------------Task 4.1.	CUSTOM SORT----------------------{0}", Environment.NewLine);
+            //CustomSort();
 
-            Console.WriteLine("{0}----------------------Task 4.2.	CUSTOM SORT DEMO----------------------{0}", Environment.NewLine);
-            CustomSortDemo();
+            //Console.WriteLine("{0}----------------------Task 4.2.	CUSTOM SORT DEMO----------------------", Environment.NewLine);
+            //CustomSortDemo();
+
+            Console.WriteLine("{0}----------------------Task 4.3.	SORTING UNIT----------------------{0}", Environment.NewLine);
+
+            SortingUnit sortUnit = new SortingUnit();
+            ComparisonDelegate<int> comparisonDelegateInt = Comparison;
+            ComparisonDelegate<double> comparisonDelegateDouble = Comparison;
+            ComparisonDelegate<string> comparisonDelegateString = Comparison;
+
+            int[] arrayInt = new int[7] { 10, 15, 41, 2, 5, 0, 8 };
+            double[] arrayDouble = new double[5] { 0.7, 1.5, 4.9, 0.2, 0.05 };
+            string[] arrayString = new string[5] { "Россия", "Китай", "Аргентина", "Чехия", "Великобритания" };
+
+            sortUnit.SortInNewThread(arrayInt, comparisonDelegateInt);
+            sortUnit.SortInNewThread(arrayDouble, comparisonDelegateDouble);
+            sortUnit.SortInNewThread(arrayString, comparisonDelegateString);
+
 
             Console.ReadKey();
         }
@@ -61,6 +78,14 @@ namespace Task4
             return result > 0;
         }
 
+        static void ToNext()
+        {
+            Console.WriteLine("{0}      Для перехода к следующему заданию нажмите любую клавишу:{0}", 
+                Environment.NewLine);
+
+            Console.ReadKey();
+        }
+
         static void CustomSort()
         {
             int[] array = new int[] { 10, 2, 5, 4, 3, 4, 8, 9, 1, 99, 25, 40, 3 };
@@ -73,6 +98,8 @@ namespace Task4
 
             Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
             Show(array);
+
+            ToNext();
         }    
 
         static void CustomSortDemo()
@@ -89,10 +116,12 @@ namespace Task4
             Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
             Show(array);
 
+            ToNext();
         }
 
         static bool ComparisonStrings(string string1, string string2)
         {
+
             int length1 = string1.Trim().Length;
             int length2 = string2.Trim().Length;
 
@@ -105,5 +134,7 @@ namespace Task4
                 return length1 > length2;
             }
         }
+
+
     }
 }
