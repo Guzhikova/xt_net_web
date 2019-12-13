@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Task4Sort
 {
+    public delegate bool ComparisonDel<T>(T x, T y) where T : IComparable<T>;
     class Program
     {
-        public delegate bool ComparisonDel<T>(T x, T y) where T : IComparable<T>;
+
 
         static void Main(string[] args)
         {
@@ -80,7 +81,7 @@ namespace Task4Sort
 
             Console.ReadKey();
         }
-       
+
         #region Task 4.3.	SORTING UNIT
 
         static void SortingUnitDemo()
@@ -91,11 +92,11 @@ namespace Task4Sort
             ComparisonDel<string> comparisonString = Comparison;
 
             Console.WriteLine("{0} * * * ОБ ОКОНЧАНИИ СОРТИРОВКИ СИГНАЛИЗИРУЕТ СОБЫТИЕ * * *{0}", Environment.NewLine);
-            
+
             ShowSortWithEvent(comparisonInt, comparisonDouble, comparisonString);
 
             Console.WriteLine("{0} * * * УЗНАЕМ ОБ ОКОНЧАНИИ СОРТИРОВКИ ЧЕРЕЗ CALLBACK * * *{0}", Environment.NewLine);
-            
+
             ShowSortWithCallback(comparisonInt, comparisonDouble, comparisonString);
 
         }
