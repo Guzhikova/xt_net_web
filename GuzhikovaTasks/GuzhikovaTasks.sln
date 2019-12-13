@@ -31,9 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "Functions\Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task3.3_DynamicArray", "Task3DynamicArray\Task3.3_DynamicArray.csproj", "{4C7693E7-12ED-4F85-9E62-9AB64C140DBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4.1-4.3", "Task4\Task4.1-4.3.csproj", "{9AC27334-97DB-4B3E-ADD8-E694C69373DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4.1-4.3_Sort", "Task4\Task4.1-4.3_Sort.csproj", "{9AC27334-97DB-4B3E-ADD8-E694C69373DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4Extensions", "Task4Extensions\Task4Extensions.csproj", "{830C9355-3734-4DD7-8B72-931F834E7E7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task4.4-4.5_Extensions", "Task4Extensions\Task4.4-4.5_Extensions.csproj", "{830C9355-3734-4DD7-8B72-931F834E7E7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
