@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -10,7 +11,7 @@ namespace Task4Sort
 {
     class Program
     {
-        public delegate bool ComparisonDelegate<T>(T x, T y) where T : IComparable<T>;
+        public delegate bool ComparisonDel<T>(T x, T y) where T : IComparable<T>;
 
         static void Main(string[] args)
         {
@@ -21,13 +22,18 @@ namespace Task4Sort
             CustomSortDemo();
 
             Console.WriteLine("{0}----------------------Task 4.3.	SORTING UNIT----------------------{0}", Environment.NewLine);
+
+            //Contains two variants
             SortingUnitDemo();
 
             Console.ReadKey();
         }
 
+        static int[] arrayInt = new int[7] { 10, 15, 41, 2, 5, 0, 8 };
+        static double[] arrayDouble = new double[5] { 0.7, 1.5, 4.9, 0.2, 0.05 };
+        static string[] arrayString = new string[5] { "Россия", "Китай", "Аргентина", "Чехия", "Великобритания" };
 
-        static void SortArray<T>(T[] array, ComparisonDelegate<T> comparison) where T : IComparable<T>
+        static void SortArray<T>(T[] array, ComparisonDel<T> comparison) where T : IComparable<T>
         {
             T temp = default(T);
 
@@ -74,50 +80,59 @@ namespace Task4Sort
 
             Console.ReadKey();
         }
-
+       
+        #region Task 4.3.	SORTING UNIT
 
         static void SortingUnitDemo()
+        {
+
+            ComparisonDel<int> comparisonInt = Comparison;
+            ComparisonDel<double> comparisonDouble = Comparison;
+            ComparisonDel<string> comparisonString = Comparison;
+
+            Console.WriteLine("{0} * * * ОБ ОКОНЧАНИИ СОРТИРОВКИ СИГНАЛИЗИРУЕТ СОБЫТИЕ * * *{0}", Environment.NewLine);
+            
+            ShowSortWithEvent(comparisonInt, comparisonDouble, comparisonString);
+
+            Console.WriteLine("{0} * * * УЗНАЕМ ОБ ОКОНЧАНИИ СОРТИРОВКИ ЧЕРЕЗ CALLBACK * * *{0}", Environment.NewLine);
+            
+            ShowSortWithCallback(comparisonInt, comparisonDouble, comparisonString);
+
+        }
+
+        //Variant 1: The event signals about the end of the sorting
+        private static void ShowSortWithEvent(ComparisonDel<int> compInt, ComparisonDel<double> compDouble, ComparisonDel<string> compString)
         {
             SortingUnit sortUnit = new SortingUnit();
             Handler handler = new Handler();
 
-            ComparisonDelegate<int> comparisonInt = Comparison;
-            ComparisonDelegate<double> comparisonDouble = Comparison;
-            ComparisonDelegate<string> comparisonString = Comparison;
-
-            int[] arrayInt = new int[7] { 10, 15, 41, 2, 5, 0, 8 };
-            double[] arrayDouble = new double[5] { 0.7, 1.5, 4.9, 0.2, 0.05 };
-            string[] arrayString = new string[5] { "Россия", "Китай", "Аргентина", "Чехия", "Великобритания" };
-
             sortUnit.OnSorted += handler.Message;
 
-            sortUnit.SortInNewThread(arrayInt, comparisonInt);
-            sortUnit.SortInNewThread(arrayDouble, comparisonDouble);
-            sortUnit.SortInNewThread(arrayString, comparisonString);
 
-            //   sortUnit.OnSorted -= handler.Message;
+            sortUnit.SortInNewThread(arrayInt, compInt);
+            sortUnit.SortInNewThread(arrayDouble, compDouble);
+            sortUnit.SortInNewThread(arrayString, compString);
 
-            sortUnit.SortInNewThread(arrayString, comparisonString);
-        }
+            sortUnit.OnSorted -= handler.Message;
 
-        static void CustomSortDemo()
-        {
-            string[] array = new string[] { "Мадрид", "Осло", "Сеул", "Москва", "Афины", "Рим", "Лиссабон", "Рига", "Шри-Джаяварденепура-Котте", "Баку" };
-
-            Console.WriteLine("{0}Исходный массив:{0}", Environment.NewLine);
-            Show(array);
-
-            ComparisonDelegate<string> comparisonDelegate = ComparisonStrings;
-
-            SortArray(array, comparisonDelegate);
-
-            Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
-            Show(array);
+            sortUnit.SortInNewThread(arrayString, compString);
 
             ToNext();
         }
 
+        //Variant 2: Callback signals about the end of the sorting
+        private static void ShowSortWithCallback(ComparisonDel<int> compInt, ComparisonDel<double> compDouble, ComparisonDel<string> compString)
+        {
+            SortingUnit2 sortUnit = new SortingUnit2();
 
+            sortUnit.SortInNewThread(arrayInt, compInt);
+            sortUnit.SortInNewThread(arrayDouble, compDouble);
+            sortUnit.SortInNewThread(arrayString, compString);
+        }
+
+        #endregion
+
+        #region Task 4.1.	CUSTOM SORT
         static void CustomSort()
         {
             int[] array = new int[] { 10, 2, 5, 4, 3, 4, 8, 9, 1, 99, 25, 40, 3 };
@@ -125,7 +140,26 @@ namespace Task4Sort
             Console.WriteLine("Исходный массив:{0}", Environment.NewLine);
             Show(array);
 
-            ComparisonDelegate<int> comparisonDelegate = Comparison;
+            ComparisonDel<int> comparisonDelegate = Comparison;
+            SortArray(array, comparisonDelegate);
+
+            Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
+            Show(array);
+
+            ToNext();
+        }
+        #endregion
+
+        #region Task 4.2.	CUSTOM SORT DEMO
+        static void CustomSortDemo()
+        {
+            string[] array = new string[] { "Мадрид", "Осло", "Сеул", "Москва", "Афины", "Рим", "Лиссабон", "Рига", "Шри-Джаяварденепура-Котте", "Баку" };
+
+            Console.WriteLine("{0}Исходный массив:{0}", Environment.NewLine);
+            Show(array);
+
+            ComparisonDel<string> comparisonDelegate = ComparisonStrings;
+
             SortArray(array, comparisonDelegate);
 
             Console.WriteLine("{0}{0}Отсортированный массив:{0}", Environment.NewLine);
@@ -150,6 +184,6 @@ namespace Task4Sort
             }
         }
 
-
+        #endregion
     }
 }

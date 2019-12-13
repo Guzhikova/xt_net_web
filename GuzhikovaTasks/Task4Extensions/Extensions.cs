@@ -13,18 +13,17 @@ namespace Task4Extensions
         {
             string myString = value.Trim();
 
-            if (myString == "")
-            {
-                return false;
-            }
-
             char[] chars = myString.ToCharArray();
 
             var chars2 = chars
-                .Where(item => item >= '0' && item <= '9')
-                .ToArray();
+                           .Where(item => char.IsDigit(item))
+                           .ToArray();
 
-            return chars.Length == chars2.Length;
+            //var chars2 = chars
+            //    .Where(item => item >= '0' && item <= '9')
+            //    .ToArray();
+
+            return myString != "" && chars.Length == chars2.Length;
 
         }
 

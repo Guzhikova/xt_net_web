@@ -23,7 +23,7 @@ namespace Task4Extensions
 
         private static void TestString()
         {
-            string[] test = new string[5] { "25", "слово", "111114809", "32.0", "-8" };
+            string[] test = new string[6] { "25", "слово", "111114809", "", "-8", "32.2" };
 
             foreach (var item in test)
             {
