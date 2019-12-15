@@ -8,8 +8,8 @@ namespace Task5Files
 {
     abstract class BackupObject
     {
-        public string Name { get; set; }        
-        public string Path { get; set; }
+        public virtual string Name { get; set; }        
+        public virtual string Path { get; set; }
         public DateTime CreationDate { get; }
     }
 }

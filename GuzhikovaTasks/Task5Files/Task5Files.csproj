@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainFloder.cs" />
+    <Compile Include="BackupObject.cs" />
     <Compile Include="File.cs" />
     <Compile Include="FilesHistory.cs" />
     <Compile Include="Program.cs" />

@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class File
+    class File : BackupObject
     {
-        public string Name { get; set; }
         public string Type { get; set; }
-        public string Path { get; set; }
-        public DateTime CreationDate { get; }
         List <DateTime> ChangesDates { get;}
         public string Content { get; set; }
     }
