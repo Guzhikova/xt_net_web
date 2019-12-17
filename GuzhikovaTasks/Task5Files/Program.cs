@@ -16,6 +16,9 @@ namespace Task5Files
 
             Show(txtFiles);
 
+            Watcher watcher = new Watcher();
+            watcher.Run(mainFloder.Name);
+
             Console.ReadKey();
         }
 
