@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,11 +16,22 @@ namespace Task5Files
         {
             if (!File.Exists(fullName))
             {
-                File.Create(fullName);
+                using (FileStream fs = File.Create(fullName))
+                {
+                }
             }
 
-            string jsonString = JsonConvert.SerializeObject(someObject);
-            File.WriteAllText(fullName, jsonString);
+
+
+
+
+            using (StreamWriter fs = new StreamWriter(fullName))
+            {
+                string jsonString = JsonConvert.SerializeObject(someObject);
+
+                jsonString = JObject.Parse(jsonString).ToString(Newtonsoft.Json.Formatting.Indented);
+                fs.Write(jsonString);
+            }
         }
 
         public T ReadFromJsonFile<T>(string fullName, T someObject)
@@ -29,7 +41,7 @@ namespace Task5Files
                 throw new FileNotFoundException($"ERROR! This file does not exist.");
             }
 
-          return  JsonConvert.DeserializeObject<T>(File.ReadAllText(fullName));
+            return JsonConvert.DeserializeObject<T>(File.ReadAllText(fullName));
         }
     }
 }

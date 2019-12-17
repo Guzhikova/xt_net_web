@@ -12,7 +12,28 @@ namespace Task5Files
         static void Main(string[] args)
         {
             BackupFloder mainFloder = new BackupFloder();
+            Backups b = new Backups();
+            BackupsControl logControls = new BackupsControl();
+            JsonAdapter jsonAdapter = new JsonAdapter();
+
+
             List<FileInfo> txtFiles = mainFloder.TxtFiles;
+            //Dictionary<DateTime, List<FileInfo>> backups = new Dictionary<DateTime, List<FileInfo>>();
+            //backups.AddToLog = 
+
+            logControls.AddToLog(DateTime.Now, txtFiles);
+            b.BackupsLog = logControls.BackupsLog;
+
+
+            foreach (var item in logControls.BackupsLog)
+            {
+                Console.WriteLine(item.Key.ToString());
+
+                Show(item.Value);
+            }
+
+            jsonAdapter.SaveToJsonFile($"{mainFloder.Info.FullName}\\Log.json", b);
+
             Console.WriteLine(mainFloder.Info.FullName);
             Show(txtFiles);
 
