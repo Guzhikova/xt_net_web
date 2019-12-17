@@ -11,19 +11,20 @@ namespace Task5Files
     {
         static void Main(string[] args)
         {
-            MainFloder mainFloder = new MainFloder();
+            BackupFloder mainFloder = new BackupFloder();
             List<FileInfo> txtFiles = mainFloder.TxtFiles;
-
+            Console.WriteLine(mainFloder.Info.FullName);
             Show(txtFiles);
 
             Watcher watcher = new Watcher();
-            watcher.Run(mainFloder.Name);
+            watcher.Run(mainFloder.Info.FullName);
 
             Console.ReadKey();
         }
 
        static void Show<T>(IEnumerable<T> collection)
         {
+            
             foreach (var item in collection)
             {
                 Console.WriteLine(item.ToString());

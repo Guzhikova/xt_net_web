@@ -12,8 +12,7 @@ namespace Task5Files
     {
       
         public  void Run(string path)
-        {
-           
+        {           
             using (FileSystemWatcher watcher = new FileSystemWatcher())
             {
                 watcher.Path = path;

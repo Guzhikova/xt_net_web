@@ -7,45 +7,31 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class MainFloder : BackupObject
+    class BackupFloder
     {
-        public MainFloder()
+        public BackupFloder()
         {
-            MainDirectory = new DirectoryInfo(_path + _name);
-
+            Info = new DirectoryInfo(_path + _name);
             CreateIfNotExist();
 
         }
 
         private string _name = "BACKUP";
         private string _path = AppDomain.CurrentDomain.BaseDirectory;
-        protected DirectoryInfo MainDirectory { get; }
+        public DirectoryInfo Info { get; }
 
 
-        public List<FileInfo> TxtFiles { get => GetTXT(); }
+        public List<FileInfo> TxtFiles { get => GetTxtFiles(); }
 
-        public override string Name { get => MainDirectory.Name; }
-        public override string Path { get => MainDirectory.FullName; }
-
-        //private int myVar;
-
-        //public int MyProperty
-        //{
-        //    get { return myVar; }
-        //    set { myVar = value; }
-        //}
-
-
-        void CreateIfNotExist()
+        private void CreateIfNotExist()
         {
             try
             {
-
-                if (!MainDirectory.Exists)
+                if (!Info.Exists)
                 {
-                    MainDirectory.Create();
+                    Info.Create();
 
-                    Console.WriteLine("Created " + MainDirectory.FullName);
+                    Console.WriteLine("Created " + Info.FullName);
                 }
             }
             catch (Exception ex)
@@ -54,15 +40,15 @@ namespace Task5Files
             }
         }
 
-        List<FileInfo> GetTXT()
+        private List<FileInfo> GetTxtFiles()
         {
             List<FileInfo> files = new List<FileInfo>();
 
             try
             {
-                files = (MainDirectory.EnumerateFiles("*.txt")).ToList();
+                files = (Info.EnumerateFiles("*.txt")).ToList();
 
-                var directories = MainDirectory.EnumerateDirectories("*", SearchOption.AllDirectories);
+                var directories = Info.EnumerateDirectories("*", SearchOption.AllDirectories);
 
                 foreach (var directory in directories)
                 {
