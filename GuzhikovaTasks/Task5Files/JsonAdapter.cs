@@ -31,7 +31,7 @@ namespace Task5Files
             }
         }
 
-        public T ReadFromJsonFile<T>(string fullName, T someObject)
+        public T ReadFromJsonFile<T>(string fullName)
         {
             if (!File.Exists(fullName))
             {

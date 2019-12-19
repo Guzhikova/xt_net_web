@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class BackupsControl : Backups
+    class BackupsControl : BackupsLog
     {
 
         public void AddToLog(DateTime date, List<FileData> files)
         {
-            if (BackupsLog == null)
+            if (BackupsLogDictionary == null)
             {
                 //может в конструктор??
 
-                BackupsLog = new Dictionary<DateTime, List<FileData>>();
+                BackupsLogDictionary = new Dictionary<DateTime, List<FileData>>();
             }
 
-            BackupsLog.Add(date, files);
+            BackupsLogDictionary.Add(date, files);
 
         }
 

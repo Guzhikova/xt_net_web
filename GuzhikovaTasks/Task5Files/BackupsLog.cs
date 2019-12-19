@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class Backups
+    class BackupsLog
     {
-        public Dictionary<DateTime, List<FileData>>  BackupsLog { get; set; }
+        public Dictionary<DateTime, List<FileData>>  BackupsLogDictionary { get; set; }
 
         
 

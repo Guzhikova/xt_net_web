@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class BackupFloder
+    class BackupFolder
     {
-        public BackupFloder()
+        public BackupFolder()
         {
             Info = new DirectoryInfo(_path + _name);
             CreateIfNotExist();

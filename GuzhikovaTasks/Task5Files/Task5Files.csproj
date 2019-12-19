@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackupFloder.cs" />
-    <Compile Include="Backups.cs" />
+    <Compile Include="BackupFolder.cs" />
+    <Compile Include="BackupsLog.cs" />
     <Compile Include="BackupsControl.cs" />
     <Compile Include="FileData.cs" />
     <Compile Include="JsonAdapter.cs" />

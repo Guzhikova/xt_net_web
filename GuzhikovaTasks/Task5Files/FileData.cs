@@ -9,6 +9,7 @@ namespace Task5Files
 {
     class FileData
     {
+        public FileData() { }
         public FileData(FileInfo file)
         {
             Name = file.Name;
