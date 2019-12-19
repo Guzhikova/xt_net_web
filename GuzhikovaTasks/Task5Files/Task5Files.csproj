@@ -49,6 +49,7 @@
     <Compile Include="BackupFloder.cs" />
     <Compile Include="Backups.cs" />
     <Compile Include="BackupsControl.cs" />
+    <Compile Include="FileData.cs" />
     <Compile Include="JsonAdapter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

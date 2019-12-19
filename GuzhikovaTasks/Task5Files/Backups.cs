@@ -9,7 +9,7 @@ namespace Task5Files
 {
     class Backups
     {
-        public Dictionary<DateTime, List<FileInfo>>  BackupsLog { get; set; }
+        public Dictionary<DateTime, List<FileData>>  BackupsLog { get; set; }
 
         
 

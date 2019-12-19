@@ -22,9 +22,6 @@ namespace Task5Files
             }
 
 
-
-
-
             using (StreamWriter fs = new StreamWriter(fullName))
             {
                 string jsonString = JsonConvert.SerializeObject(someObject);

@@ -10,13 +10,13 @@ namespace Task5Files
     class BackupsControl : Backups
     {
 
-        public void AddToLog(DateTime date, List<FileInfo> files)
+        public void AddToLog(DateTime date, List<FileData> files)
         {
             if (BackupsLog == null)
             {
                 //может в конструктор??
 
-                BackupsLog = new Dictionary<DateTime, List<FileInfo>>();
+                BackupsLog = new Dictionary<DateTime, List<FileData>>();
             }
 
             BackupsLog.Add(date, files);

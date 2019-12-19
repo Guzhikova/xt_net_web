@@ -17,7 +17,7 @@ namespace Task5Files
             JsonAdapter jsonAdapter = new JsonAdapter();
 
 
-            List<FileInfo> txtFiles = mainFloder.TxtFiles;
+            List<FileData> txtFiles = mainFloder.TxtFiles;
             //Dictionary<DateTime, List<FileInfo>> backups = new Dictionary<DateTime, List<FileInfo>>();
             //backups.AddToLog = 
 
@@ -35,7 +35,9 @@ namespace Task5Files
             jsonAdapter.SaveToJsonFile($"{mainFloder.Info.FullName}\\Log.json", b);
 
             Console.WriteLine(mainFloder.Info.FullName);
-            Show(txtFiles);
+            Console.WriteLine();
+
+           Show(txtFiles);
 
             Watcher watcher = new Watcher();
             watcher.Run(mainFloder.Info.FullName);
