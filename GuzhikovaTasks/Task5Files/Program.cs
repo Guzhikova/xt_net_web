@@ -11,10 +11,12 @@ namespace Task5Files
     {
         static void Main(string[] args)
         {
+
+
             BackupFolder mainFloder = new BackupFolder();
             BackupsLog b = new BackupsLog();
             BackupsControl logControls = new BackupsControl();
-            JsonAdapter jsonAdapter = new JsonAdapter();
+            JsonAdapter < BackupsLog > jsonAdapter= new JsonAdapter<BackupsLog>();
 
 
             //List<FileData> txtFiles = mainFloder.TxtFiles;
@@ -39,14 +41,14 @@ namespace Task5Files
 
             //Show(txtFiles);
 
-            //Watcher watcher = new Watcher();
-            //watcher.Run(mainFloder.Info.FullName);
+         
 
+            //BackupsControl backcontrl = new BackupsControl();
+            //backlog = jsonAdapter.ReadFromJsonFile<BackupsLog>($"{mainFloder.Info.FullName}\\Log.json");
 
-            BackupsLog backlog = new BackupsLog();
-            backlog = jsonAdapter.ReadFromJsonFile<BackupsLog>($"{mainFloder.Info.FullName}\\Log.json");
+            BackupsLog backupsLog = new BackupsLog();
 
-            Dictionary<DateTime, List < FileData >> dictionary = backlog.BackupsLogDictionary;
+            Dictionary<DateTime, List < FileData >> dictionary = backupsLog.GetDictionaryFromJson();
             Console.WriteLine("---------------" + dictionary.Count());
 
 
@@ -57,8 +59,18 @@ namespace Task5Files
                 Show(item.Value);
             }
 
+
+
+            Watcher watcher = new Watcher();
+            watcher.Run(mainFloder.Info.FullName);
+
             Console.ReadKey();
         }
+
+        //public void Initialization()
+        //{
+
+        //}
 
         static void Show<T>(IEnumerable<T> collection)
         {

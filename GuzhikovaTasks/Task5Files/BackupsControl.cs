@@ -7,21 +7,40 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class BackupsControl : BackupsLog
+    class BackupsControl 
     {
 
-        public void AddToLog(DateTime date, List<FileData> files)
-        {
-            if (BackupsLogDictionary == null)
-            {
-                //может в конструктор??
 
-                BackupsLogDictionary = new Dictionary<DateTime, List<FileData>>();
-            }
+        //public Dictionary<DateTime, List<FileData>> GetDictionaryFromJson()
+        //{
+        //    BackupsLog backupsLog = new BackupsLog();
 
-            BackupsLogDictionary.Add(date, files);
+        //    JsonAdapter jsonAdapter = new JsonAdapter();
+        //    BackupFolder mainFloder = new BackupFolder();
+        //    try
+        //    {
+        //        backupsLog = jsonAdapter.ReadFromJsonFile<BackupsLog>($"{mainFloder.Info.FullName}\\Log.json");
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        Console.WriteLine("The process failed: {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace);
+        //    }
+        //    return backupsLog.BackupsLogDictionary;
+        //}
 
-        }
+        //public void AddChangeToDictionary(DateTime date, List<FileData> files)
+        //{
+        //    BackupsLog backupsLog = new BackupsLog();
+        //    if (backupsLog.BackupsLogDictionary == null)
+        //    {
+        //        //может в конструктор??
+
+        //        backupsLog.BackupsLogDictionary = new Dictionary<DateTime, List<FileData>>();
+        //    }
+
+        //    backupsLog.BackupsLogDictionary.Add(date, files);
+
+        //}
 
 
     }

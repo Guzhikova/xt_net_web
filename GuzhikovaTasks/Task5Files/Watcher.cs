@@ -10,9 +10,20 @@ namespace Task5Files
 {
     class Watcher
     {
-      
-        public  void Run(string path)
-        {           
+        public Watcher ()
+        {
+            _backupsLog = new BackupsLog();       
+            _backupsLog.BackupsLogDictionary = _backupsLog.GetDictionaryFromJson();
+
+            Console.WriteLine("Constructor: " + _backupsLog.BackupsLogDictionary.Count());
+
+
+        }
+
+
+        private BackupsLog _backupsLog;
+        public void Run(string path)
+        {
             using (FileSystemWatcher watcher = new FileSystemWatcher())
             {
                 watcher.Path = path;
@@ -37,6 +48,27 @@ namespace Task5Files
 
         private static void OnRenamed(object sender, RenamedEventArgs e)
         {
+            Watcher watcher =  new Watcher();
+            Console.WriteLine("OnRenamed *1: " + watcher._backupsLog.BackupsLogDictionary.Count());
+
+            BackupFolder backupFolder = new BackupFolder();
+            List<FileData> bacupsList = backupFolder.TxtFiles;
+
+
+            //FileInfo changedFileInfo = new FileInfo(e.FullPath);
+            //FileData changedFile = new FileData(changedFileInfo);
+
+            
+
+            watcher._backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
+            Console.WriteLine("OnRenamed *2: " + watcher._backupsLog.BackupsLogDictionary.Count());
+
+            JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
+            jsonAdapter.SaveToJsonFile(watcher._backupsLog);
+
+            Console.WriteLine("***** " + e.OldFullPath);
+            
+
             Console.WriteLine(e.Name + e.ChangeType);
         }
 
