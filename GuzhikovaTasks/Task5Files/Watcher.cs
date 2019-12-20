@@ -10,18 +10,15 @@ namespace Task5Files
 {
     class Watcher
     {
-        public Watcher ()
+        public Watcher()
         {
-            _backupsLog = new BackupsLog();       
+            _backupsLog = new BackupsLog();
             _backupsLog.BackupsLogDictionary = _backupsLog.GetDictionaryFromJson();
-
-            Console.WriteLine("Constructor: " + _backupsLog.BackupsLogDictionary.Count());
-
-
         }
 
 
         private BackupsLog _backupsLog;
+
         public void Run(string path)
         {
             using (FileSystemWatcher watcher = new FileSystemWatcher())
@@ -30,14 +27,16 @@ namespace Task5Files
 
                 watcher.NotifyFilter = NotifyFilters.LastWrite
                                      | NotifyFilters.FileName
-                                     | NotifyFilters.DirectoryName;
+                                     | NotifyFilters.DirectoryName
+                                     |NotifyFilters.CreationTime
+                                     | NotifyFilters.Attributes;
 
                 watcher.Filter = "*.txt";
 
                 watcher.Changed += OnChanged;
                 watcher.Created += OnChanged;
                 watcher.Deleted += OnChanged;
-                watcher.Renamed += OnRenamed;
+                watcher.Renamed += OnChanged;
 
                 watcher.EnableRaisingEvents = true;
 
@@ -46,35 +45,33 @@ namespace Task5Files
             }
         }
 
-        private static void OnRenamed(object sender, RenamedEventArgs e)
-        {
-            Watcher watcher =  new Watcher();
-            Console.WriteLine("OnRenamed *1: " + watcher._backupsLog.BackupsLogDictionary.Count());
+        //private static void OnRenamed(object sender, RenamedEventArgs e)
+        //{
+        //    Watcher watcher = new Watcher();
 
-            BackupFolder backupFolder = new BackupFolder();
-            List<FileData> bacupsList = backupFolder.TxtFiles;
+        //    watcher.CommitNewChanges(watcher);
 
-
-            //FileInfo changedFileInfo = new FileInfo(e.FullPath);
-            //FileData changedFile = new FileData(changedFileInfo);
-
-            
-
-            watcher._backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
-            Console.WriteLine("OnRenamed *2: " + watcher._backupsLog.BackupsLogDictionary.Count());
-
-            JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
-            jsonAdapter.SaveToJsonFile(watcher._backupsLog);
-
-            Console.WriteLine("***** " + e.OldFullPath);
-            
-
-            Console.WriteLine(e.Name + e.ChangeType);
-        }
+        //    Console.WriteLine($"- File {e.OldName} renamed to {e.Name + Environment.NewLine}");
+        //}
 
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
-            Console.WriteLine(e.Name + e.ChangeType);
+            Watcher watcher = new Watcher();
+
+            watcher.CommitNewChanges(watcher);
+
+            Console.WriteLine($" - File {e.Name}: {e.ChangeType + Environment.NewLine}");
+        }
+
+        private void CommitNewChanges(Watcher watcher)
+        {
+            BackupFolder backupFolder = new BackupFolder();
+            List<FileData> bacupsList = backupFolder.TxtFiles;
+
+            watcher._backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
+
+            JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
+            jsonAdapter.SaveToJsonFile(watcher._backupsLog);
         }
     }
 }
