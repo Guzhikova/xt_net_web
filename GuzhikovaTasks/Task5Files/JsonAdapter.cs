@@ -64,35 +64,5 @@ namespace Task5Files
 
             return JsonConvert.DeserializeObject<T>(content);
         }
-
-
-        //public void SaveToJsonFile<T>(string fullName, T someObject)
-        //{
-        //    if (!File.Exists(fullName))
-        //    {
-        //        using (FileStream fs = File.Create(fullName))
-        //        {
-        //        }
-        //    }
-
-
-        //    using (StreamWriter fs = new StreamWriter(fullName))
-        //    {
-        //        string jsonString = JsonConvert.SerializeObject(someObject);
-
-        //        jsonString = JObject.Parse(jsonString).ToString(Newtonsoft.Json.Formatting.Indented);
-        //        fs.Write(jsonString);
-        //    }
-        //}
-
-        //public T ReadFromJsonFile<T>(string fullName)
-        //{
-        //    if (!File.Exists(fullName))
-        //    {
-        //        throw new FileNotFoundException($"ERROR! This file does not exist.");
-        //    }
-
-        //    return JsonConvert.DeserializeObject<T>(File.ReadAllText(fullName));
-        //}
     }
 }

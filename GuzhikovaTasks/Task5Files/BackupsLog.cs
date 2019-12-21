@@ -27,8 +27,7 @@ namespace Task5Files
             if (BackupsLogDictionary == null)
             {
                 //может в конструктор??
-                Console.WriteLine("*****************************");
-                BackupsLogDictionary = new Dictionary<DateTime, List<FileData>>();
+                   BackupsLogDictionary = new Dictionary<DateTime, List<FileData>>();
             }
 
             BackupsLogDictionary.Add(date, files);

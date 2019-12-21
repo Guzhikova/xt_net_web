@@ -50,18 +50,5 @@ namespace Task5Files
             return content;
         }
 
-        //string ReadFileContent(FileInfo file)
-        //{
-        //    string content = "";
-
-        //    using        
-        //        (StreamReader sr = file.OpenText())
-        //    {
-        //        content = sr.ReadToEnd();
-        //    }
-        //    return content;
-        //}
-
-
     }
 }

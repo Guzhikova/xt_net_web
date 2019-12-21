@@ -46,15 +46,6 @@ namespace Task5Files
             }
         }
 
-        //private static void OnRenamed(object sender, RenamedEventArgs e)
-        //{
-        //    Watcher watcher = new Watcher();
-
-        //    watcher.CommitNewChanges(watcher);
-
-        //    Console.WriteLine($"- File {e.OldName} renamed to {e.Name + Environment.NewLine}");
-        //}
-
         private static void OnChanged(object sender, FileSystemEventArgs e)
         {
             Watcher watcher = new Watcher();

@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BackupFolder.cs" />
     <Compile Include="BackupsLog.cs" />
+    <Compile Include="BackupWorker.cs" />
     <Compile Include="FileData.cs" />
     <Compile Include="JsonAdapter.cs" />
     <Compile Include="Program.cs" />
