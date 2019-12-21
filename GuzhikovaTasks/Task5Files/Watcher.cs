@@ -24,6 +24,7 @@ namespace Task5Files
             using (FileSystemWatcher watcher = new FileSystemWatcher())
             {
                 watcher.Path = path;
+                watcher.IncludeSubdirectories = true;
 
                 watcher.NotifyFilter = NotifyFilters.LastWrite
                                      | NotifyFilters.FileName

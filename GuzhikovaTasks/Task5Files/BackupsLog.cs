@@ -17,9 +17,9 @@ namespace Task5Files
 
             JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
             BackupFolder mainFloder = new BackupFolder();
+            BackupsLog backupsLog = jsonAdapter.ReadFromJsonFile() ?? new BackupsLog();
 
-                       
-            return jsonAdapter.ReadFromJsonFile().BackupsLogDictionary ?? new Dictionary<DateTime, List<FileData>>();
+            return backupsLog.BackupsLogDictionary;
         }
 
         public void AddChangesToDictionary(DateTime date, List<FileData> files)

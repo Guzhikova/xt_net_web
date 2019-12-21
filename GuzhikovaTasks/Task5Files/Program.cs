@@ -15,7 +15,7 @@ namespace Task5Files
 
             BackupFolder mainFloder = new BackupFolder();
             BackupsLog b = new BackupsLog();
-            BackupsControl logControls = new BackupsControl();
+
             JsonAdapter < BackupsLog > jsonAdapter= new JsonAdapter<BackupsLog>();
 
 
@@ -48,7 +48,7 @@ namespace Task5Files
 
             BackupsLog backupsLog = new BackupsLog();
 
-            Dictionary<DateTime, List < FileData >> dictionary = backupsLog.GetDictionaryFromJson();
+            Dictionary<DateTime, List < FileData >> dictionary = backupsLog.GetDictionaryFromJson() ?? new Dictionary<DateTime, List<FileData>>();
             Console.WriteLine("---------------" + dictionary.Count());
 
 

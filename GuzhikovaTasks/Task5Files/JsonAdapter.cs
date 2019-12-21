@@ -19,9 +19,7 @@ namespace Task5Files
 
             if (!File.Exists(_path))
             {
-                using (FileStream fs = File.Create(_path))
-                {
-                }
+                File.Create(_path).Close();
 
                 //SaveToJsonFile(someObject);
             }
@@ -29,25 +27,42 @@ namespace Task5Files
 
         private string _path = "";
         public string Path { get => _path; }
+        private Stream _stream;
+        private static object _fileLock = new Object();
+
         public void SaveToJsonFile(T someObject)
         {
-          
-            using (StreamWriter fs = new StreamWriter(Path))
-            {
-                string jsonString = JsonConvert.SerializeObject(someObject);
+            string jsonString = JsonConvert.SerializeObject(someObject);
+            jsonString = JObject.Parse(jsonString).ToString(Newtonsoft.Json.Formatting.Indented);
 
-                jsonString = JObject.Parse(jsonString).ToString(Newtonsoft.Json.Formatting.Indented);
-                fs.Write(jsonString);
-            }
+                using (_stream = File.Open(Path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                {
+                    using (StreamWriter writer = new StreamWriter(_stream))
+                    {
+                        writer.Write(jsonString);
+                    }
+                }
+            
         }
 
         public T ReadFromJsonFile()
-        { 
+        {
             if (!File.Exists(Path))
             {
                 throw new FileNotFoundException($"ERROR! This file does not exist.");
             }
-            return JsonConvert.DeserializeObject<T>(File.ReadAllText(Path));
+            string content = "";
+
+                using (_stream = File.Open(Path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using (StreamReader reader = new StreamReader(_stream))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                }
+            
+
+            return JsonConvert.DeserializeObject<T>(content);
         }
 
 

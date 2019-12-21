@@ -13,7 +13,7 @@ namespace Task5Files
         public FileData(FileInfo file)
         {
             Name = file.Name;
-            //       FullName = file.FullName;
+            FullName = file.FullName;
             Path = file.DirectoryName;
             CreatingDate = file.CreationTime;
             Attributes = file.Attributes;
@@ -25,8 +25,7 @@ namespace Task5Files
         }
 
         public string Name { get; set; }
-        //Оставитбь что-то одно?
-        //     public string FullName { get; set; }
+        public string FullName { get; set; }
         public string Path { get; set; }
         public string Content { get; set; }
         public DateTime CreatingDate { get; }
@@ -35,27 +34,33 @@ namespace Task5Files
         public DateTime LastAccessTime { get; set; }
         public DateTime LastWriteTime { get; set; }
 
-        //private string _content;
-
-        //public string Content
-        //{
-        //    get { return _content; }
-        //    set { _content = value; }
-        //}
-
-
-
+        private static object _fileLock = new Object();
         string ReadFileContent(FileInfo file)
         {
             string content = "";
 
-            using (StreamReader sr = file.OpenText())
-            {
-                content = sr.ReadToEnd();
-            }
+                using (Stream stream = File.Open(file.FullName, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        content = reader.ReadToEnd();
+                    }
+                }
 
             return content;
         }
+
+        //string ReadFileContent(FileInfo file)
+        //{
+        //    string content = "";
+
+        //    using        
+        //        (StreamReader sr = file.OpenText())
+        //    {
+        //        content = sr.ReadToEnd();
+        //    }
+        //    return content;
+        //}
 
 
     }

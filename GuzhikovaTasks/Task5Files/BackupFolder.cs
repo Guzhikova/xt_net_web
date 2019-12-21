@@ -33,7 +33,7 @@ namespace Task5Files
             {
                 if (!Info.Exists)
                 {
-                    Info.Create();
+                    File.Create(Info.FullName).Close();
 
                     Console.WriteLine("Successfully created: " + Info.FullName);
                 }
