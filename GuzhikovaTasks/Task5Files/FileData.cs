@@ -16,12 +16,11 @@ namespace Task5Files
             FullName = file.FullName;
             Path = file.DirectoryName;
             CreationTime = file.CreationTime;
-            Attributes = file.Attributes;
             Extension = file.Extension;
             LastAccessTime = file.LastAccessTime;
             LastWriteTime = file.LastWriteTime;
-
             Content = ReadFileContent(file);
+          //  Attributes = file.Attributes;
         }
 
         public string Name { get; set; }
@@ -37,10 +36,10 @@ namespace Task5Files
 
         public void CreateFile()
         {
-            FileInfo fileInfo = new FileInfo(Path + "\\backup__" + Name);
+            FileInfo fileInfo = new FileInfo(FullName);
             fileInfo.Create().Close();
 
-            fileInfo.CreationTime = CreationTime;            
+            //fileInfo.CreationTime = CreationTime;
             fileInfo.LastAccessTime = LastAccessTime;
             fileInfo.LastWriteTime = LastWriteTime;
 
@@ -52,7 +51,7 @@ namespace Task5Files
                 }
             }
 
-            fileInfo.Attributes = Attributes;
+      //     fileInfo.Attributes = Attributes;
         }
 
         string ReadFileContent(FileInfo file)

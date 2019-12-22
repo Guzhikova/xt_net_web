@@ -54,13 +54,16 @@ namespace Task5Files
 
                     string[] folderNames = relativePath.Split(Path.DirectorySeparatorChar);
 
+                    string currentPath = _backupfolder.Info.FullName;
+
                     foreach (var name in folderNames)
                     {
-                        string currentPath = $"{_backupfolder.Info.FullName}\\{name}";
+                        currentPath += Path.DirectorySeparatorChar + name;
 
                         if (!Directory.Exists(currentPath))
                         {
                             Directory.CreateDirectory(currentPath);
+                            //Directory.SetCreationTime(currentPath, file.CreationTime);
                         }
                     }
 
@@ -102,7 +105,7 @@ namespace Task5Files
                     return null;
                 }
 
-                Console.WriteLine("Выбранного номера даты не существует. Пожалуста, введите снова:");
+                Console.WriteLine("Введенные данные некорректны. Пожалуста, введите снова:");
                 index = ReadChosenIndexOfDate();
             }
 
@@ -137,15 +140,24 @@ namespace Task5Files
 
         private void ShowBackupPossibleDates()
         {
-            Console.WriteLine($"{0}Выберите желаемую дату для восстановления и введите соответсвующий ей номер: {0}", Environment.NewLine);
-
-            int index = 1;
-            foreach (DateTime date in _dictionary.Keys)
+            if (_dictionary == null)
             {
-                Console.WriteLine("{0}: {1:f}", index, date);
-                index++;
+                Console.WriteLine("{0}В настоящее время сохраненные изменения отсутствуют.", Environment.NewLine);
             }
-            Console.WriteLine("   Для выхода нажмите 'q'");
+            else
+            {
+                Console.WriteLine("{0}Выберите желаемую дату для восстановления и введите соответсвующий ей номер: {0}", Environment.NewLine);
+
+                int index = 1;
+
+                foreach (DateTime date in _dictionary.Keys)
+                {
+                    Console.WriteLine(" {0}: {1:F}", index, date);
+                    index++;
+                }              
+            } 
+
+            Console.WriteLine("{0}* Для выхода нажмите 'q'{0}", Environment.NewLine);
         }
 
         /// <summary>

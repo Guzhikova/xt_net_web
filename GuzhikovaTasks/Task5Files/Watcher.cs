@@ -37,13 +37,22 @@ namespace Task5Files
                 watcher.Changed += OnChanged;
                 watcher.Created += OnChanged;
                 watcher.Deleted += OnChanged;
-                watcher.Renamed += OnChanged;
+              //  watcher.Renamed += OnRenamed;
 
                 watcher.EnableRaisingEvents = true;
 
-                Console.WriteLine("   Для выхода нажмите 'q'");
+                Console.WriteLine("Для выхода нажмите 'q'");
                 while (Console.Read() != 'q') ;
             }
+        }
+
+        private void OnRenamed(object sender, RenamedEventArgs e)
+        {
+            Watcher watcher = new Watcher();
+
+            watcher.CommitNewChanges(watcher);
+
+            Console.WriteLine($" - File {e.Name}: {e.ChangeType + Environment.NewLine}");
         }
 
         private static void OnChanged(object sender, FileSystemEventArgs e)

@@ -22,10 +22,9 @@ namespace Task5Files
             BackupsLog backupsLog = new BackupsLog();
 
             Dictionary<DateTime, List < FileData >> dictionary = backupsLog.GetDictionaryFromJson() ?? new Dictionary<DateTime, List<FileData>>();
-            Console.WriteLine("---------------" + dictionary.Count());
 
             BackupControl bw = new BackupControl();
-            bw.RestoreFiles(mainFloder.TxtFiles);
+            bw.SuggestAndMakeRestore();
 
             Watcher watcher = new Watcher();
             watcher.Run(mainFloder.Info.FullName);
