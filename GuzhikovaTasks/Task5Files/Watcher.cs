@@ -41,7 +41,7 @@ namespace Task5Files
 
                 watcher.EnableRaisingEvents = true;
 
-                Console.WriteLine("Press 'q' to quit the sample.");
+                Console.WriteLine("   Для выхода нажмите 'q'");
                 while (Console.Read() != 'q') ;
             }
         }

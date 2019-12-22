@@ -13,66 +13,64 @@ namespace Task5Files
 
         public BackupControl()
         {
-            GetBeckupsDictionary();
+            GetBackupsDictionary();
+
             _backupfolder = new BackupFolder();
         }
+
         private Dictionary<DateTime, List<FileData>> _dictionary;
+
         private BackupFolder _backupfolder;
-        public void Restore(List<FileData> backupFiles)
+
+
+        public void SuggestAndMakeRestore()
         {
-            //  DeleteOldFiles(_backupfolder.TxtFiles);
+            ShowBackupPossibleDates();
+
+            List<FileData> backupFiles = GetBackupFilesByChosenDate();
+
+            if (backupFiles != null)
+            {
+                DeleteCurrentFiles(_backupfolder.TxtFiles);
+
+                RestoreFiles(backupFiles);
+            }
+        }
+
+
+        private void RestoreFiles(List<FileData> backupFiles)
+        {
             int endOfBackaupFolderPath = _backupfolder.Info.FullName.Length;
 
             foreach (var file in backupFiles)
             {
-                string relativePath = file.Path.Substring(endOfBackaupFolderPath);
-                if (relativePath.Length == 0)
+                if (file.Path == _backupfolder.Info.FullName)
                 {
-                    FileInfo fileInfo = file.FileDateToFileInfo();
+                    file.CreateFile();
+                }
+                else
+                {
+                    string relativePath = file.Path.Substring(endOfBackaupFolderPath + 1);
 
+                    string[] folderNames = relativePath.Split(Path.DirectorySeparatorChar);
 
-
-                    //fileInfo.Create().Close();
-
-                    using (Stream stream = File.Open(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                    foreach (var name in folderNames)
                     {
-                        using (StreamWriter writer = new StreamWriter(stream, System.Text.Encoding.Default))
+                        string currentPath = $"{_backupfolder.Info.FullName}\\{name}";
+
+                        if (!Directory.Exists(currentPath))
                         {
-                            Console.WriteLine("***********" + file.Content);
-                            writer.Write(file.Content);
+                            Directory.CreateDirectory(currentPath);
                         }
                     }
-                     
+
+                    file.CreateFile();
                 }
 
-                Console.WriteLine($"-------------{relativePath}  = {relativePath.Length}");
             }
 
         }
-
-        /// <summary>
-        /// Gets user chosen date of backup and return list of txt-files from this date
-        /// </summary>
-        public List<FileData> GetBackupByDate()
-        {
-            ShowBackupPossibleDates();
-
-            int index = ReadChosenIndexOfDate();
-
-            while (index < 0 || index >= _dictionary.Count)
-            {
-                Console.WriteLine("Выбранного номера даты не существует. Пожалуста, введите снова:");
-                ReadChosenIndexOfDate();
-            }
-
-            return _dictionary.Values.ElementAt(index);
-        }
-
-        private void GetDirectoriesFromPath()
-        {
-
-        }
-        private void DeleteOldFiles(List<FileData> files)
+        private void DeleteCurrentFiles(List<FileData> files)
         {
             try
             {
@@ -88,18 +86,53 @@ namespace Task5Files
 
         }
 
-        private void GetBeckupsDictionary()
+
+        /// <summary>
+        /// Gets user chosen date of backup and return list of txt-files from this date.
+        /// Return null if user chosen exit
+        /// </summary>
+        private List<FileData> GetBackupFilesByChosenDate()
         {
-            BackupsLog backupsLog = new BackupsLog();
-            _dictionary = new Dictionary<DateTime, List<FileData>>();
-            try
+            int index = ReadChosenIndexOfDate();
+
+            while (index < 0)
             {
-                _dictionary = backupsLog.GetDictionaryFromJson();
+                if (index == -1)
+                {
+                    return null;
+                }
+
+                Console.WriteLine("Выбранного номера даты не существует. Пожалуста, введите снова:");
+                index = ReadChosenIndexOfDate();
             }
-            catch (Exception ex)
+
+            return _dictionary.Values.ElementAt(index);
+        }
+
+
+        /// <summary>
+        /// Read user chosen date of backup
+        /// </summary>
+        /// <returns>
+        /// Return index of chosen date for beckups dictionary.
+        /// Return (-1) if user wants to exit
+        /// Return (-2) if user entered incorrect data
+        /// </returns>
+
+        private int ReadChosenIndexOfDate()
+        {
+            string selected = Console.ReadLine();
+
+            if (selected.ToLower().Equals("q"))
             {
-                ////////////////////написать на отсутствие файла
+                return -1;
             }
+
+            int index = 0;
+
+            Int32.TryParse(selected, out index);
+
+            return (index <= 0 || index > _dictionary.Count) ? -2 : index - 1;
         }
 
         private void ShowBackupPossibleDates()
@@ -112,16 +145,25 @@ namespace Task5Files
                 Console.WriteLine("{0}: {1:f}", index, date);
                 index++;
             }
+            Console.WriteLine("   Для выхода нажмите 'q'");
         }
 
-        private int ReadChosenIndexOfDate()
+        /// <summary>
+        /// Gets backups dictionary from log file and assigns it to field _dictionary.
+        /// </summary>
+        private void GetBackupsDictionary()
         {
-            int index = 0;
+            BackupsLog backupsLog = new BackupsLog();
+            _dictionary = new Dictionary<DateTime, List<FileData>>();
 
-            string selected = Console.ReadLine();
-            Int32.TryParse(selected, out index);
-
-            return index - 1;
+            try
+            {
+                _dictionary = backupsLog.GetDictionaryFromJson();
+            }
+            catch (Exception ex)
+            {
+                ////////////////////написать на отсутствие файла
+            }
         }
     }
 }

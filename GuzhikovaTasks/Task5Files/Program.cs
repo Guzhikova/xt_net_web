@@ -25,7 +25,7 @@ namespace Task5Files
             Console.WriteLine("---------------" + dictionary.Count());
 
             BackupControl bw = new BackupControl();
-            bw.Restore(mainFloder.TxtFiles);
+            bw.RestoreFiles(mainFloder.TxtFiles);
 
             Watcher watcher = new Watcher();
             watcher.Run(mainFloder.Info.FullName);

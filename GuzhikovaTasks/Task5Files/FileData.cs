@@ -35,30 +35,37 @@ namespace Task5Files
         public DateTime LastWriteTime { get; set; }
 
 
-        public FileInfo FileDateToFileInfo()
+        public void CreateFile()
         {
-            FileInfo fileInfo = new FileInfo(Path+"\\backup__"+Name);
+            FileInfo fileInfo = new FileInfo(Path + "\\backup__" + Name);
             fileInfo.Create().Close();
 
-            fileInfo.CreationTime = CreationTime;
-            fileInfo.Attributes = Attributes;
+            fileInfo.CreationTime = CreationTime;            
             fileInfo.LastAccessTime = LastAccessTime;
             fileInfo.LastWriteTime = LastWriteTime;
 
-            return fileInfo;
+            using (Stream stream = File.Open(fileInfo.FullName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (StreamWriter writer = new StreamWriter(stream, System.Text.Encoding.Default))
+                {
+                    writer.Write(Content);
+                }
+            }
 
+            fileInfo.Attributes = Attributes;
         }
+
         string ReadFileContent(FileInfo file)
         {
             string content = "";
 
-                using (Stream stream = File.Open(file.FullName, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            using (Stream stream = File.Open(file.FullName, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (StreamReader reader = new StreamReader(stream, System.Text.Encoding.Default))
                 {
-                    using (StreamReader reader = new StreamReader(stream, System.Text.Encoding.Default))
-                    {
-                        content = reader.ReadToEnd();
-                    }
+                    content = reader.ReadToEnd();
                 }
+            }
 
             return content;
         }
