@@ -41,8 +41,9 @@ namespace Task5Files
 
                 watcher.EnableRaisingEvents = true;
 
-                Console.WriteLine("Для выхода нажмите 'q'");
-                while (Console.Read() != 'q') ;
+                Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
+            
+            while (Console.Read() != 'q') ;
             }
         }
 

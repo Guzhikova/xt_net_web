@@ -11,34 +11,14 @@ namespace Task5Files
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("--------------- Добро пожаловать в BACKUP SYSTEM! ---------------{0}", Environment.NewLine);
 
-
-            BackupFolder mainFloder = new BackupFolder();
-            BackupsLog b = new BackupsLog();
-
-            JsonAdapter < BackupsLog > jsonAdapter= new JsonAdapter<BackupsLog>();
-
-
-            BackupsLog backupsLog = new BackupsLog();
-
-            Dictionary<DateTime, List < FileData >> dictionary = backupsLog.GetDictionaryFromJson() ?? new Dictionary<DateTime, List<FileData>>();
-
-            BackupControl bw = new BackupControl();
-            bw.SuggestAndMakeRestore();
-
-            Watcher watcher = new Watcher();
-            watcher.Run(mainFloder.Info.FullName);
+            ModeControls mode = new ModeControls();
+            mode.ChoosingMode();
 
             Console.ReadKey();
         }
 
-        static void Show<T>(IEnumerable<T> collection)
-        {
 
-            foreach (var item in collection)
-            {
-                Console.WriteLine(item.ToString());
-            }
-        }
     }
 }

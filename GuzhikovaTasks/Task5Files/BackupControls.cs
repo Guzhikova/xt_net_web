@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace Task5Files
 {
 
-    class BackupControl
+    class BackupControls
     {
 
-        public BackupControl()
+        public BackupControls()
         {
             GetBackupsDictionary();
 
@@ -34,6 +34,8 @@ namespace Task5Files
                 DeleteCurrentFiles(_backupfolder.TxtFiles);
 
                 RestoreFiles(backupFiles);
+
+                Console.WriteLine("Файлы восстановлены!");
             }
         }
 
@@ -157,7 +159,7 @@ namespace Task5Files
                 }              
             } 
 
-            Console.WriteLine("{0}* Для выхода нажмите 'q'{0}", Environment.NewLine);
+            Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
         }
 
         /// <summary>
