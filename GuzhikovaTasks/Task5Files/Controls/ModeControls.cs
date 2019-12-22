@@ -10,6 +10,8 @@ namespace Task5Files
     {
         public void ChoosingMode()
         {
+            BackupFolder mainFloder = new BackupFolder();
+
             int mode = 0;
 
             do
@@ -19,23 +21,20 @@ namespace Task5Files
 
                 switch (mode)
                 {
-                    case 1:
-                        BackupFolder mainFloder = new BackupFolder();
+                    case 1:                        
                         Watcher watcher = new Watcher();
                         watcher.Run(mainFloder.Info.FullName);
                         break;
 
                     case 2:
-                        BackupControls bc = new BackupControls();
-                        bc.SuggestAndMakeRestore();
+                        BackupControls backupControls = new BackupControls();
+                        backupControls.SuggestAndMakeRestore();
                         break;
 
                     default:
                         Console.WriteLine("{0}Работа с приложением завершена!", Environment.NewLine);
                         break;
                 }
-
-               // Console.ReadLine();
             } while (mode != 3);
 
         }
@@ -46,8 +45,6 @@ namespace Task5Files
 
             Console.WriteLine("1: НАБЛЮДЕНИЕ {0}2: ОТКАТ {0}3: Завершить работу с BACKUP SYSTEM{0}",
                 Environment.NewLine);
-
-            //  return ReadModeFromConsole();
         }
 
         private int ReadSelectedMode()

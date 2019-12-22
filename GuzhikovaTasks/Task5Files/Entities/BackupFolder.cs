@@ -11,12 +11,13 @@ namespace Task5Files
     {
         public BackupFolder()
         {
-            Info = new DirectoryInfo(_path + _name);
-            CreateIfNotExist();
+                Info = new DirectoryInfo(_path + _name);
+                CreateIfNotExist();
         }
 
         private string _name = "BACKUP";
         private string _path = AppDomain.CurrentDomain.BaseDirectory;
+
         public DirectoryInfo Info { get; }
         public List<FileData> TxtFiles
         {
@@ -33,9 +34,7 @@ namespace Task5Files
             {
                 if (!Info.Exists)
                 {
-                    File.Create(Info.FullName).Close();
-
-                    Console.WriteLine("Successfully created: " + Info.FullName);
+                    Directory.CreateDirectory(Info.FullName);
                 }
             }
             catch (Exception ex)
@@ -44,7 +43,6 @@ namespace Task5Files
             }
         }
 
-        //уточнить из какой папки берет
         List<FileInfo> GetFilesByExtension(string extension)
         {
             List<FileInfo> files = new List<FileInfo>();
@@ -71,35 +69,20 @@ namespace Task5Files
         {
             List<FileData> fileDataList = new List<FileData>();
 
-            foreach (var fileInfo in fileInfoList)
+            try
             {
-                FileData fileData = new FileData(fileInfo);
-                fileDataList.Add(fileData);
+                foreach (var fileInfo in fileInfoList)
+                {
+                    FileData fileData = new FileData(fileInfo);
+                    fileDataList.Add(fileData);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("The process failed: {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace);
             }
             return fileDataList;
         }
 
-        //private List<FileInfo> GetFilesByType(string type)
-        //{
-        //    List<FileInfo> files = new List<FileInfo>();
-
-        //    try
-        //    {
-        //        files = (Info.EnumerateFiles($"*.{type}")).ToList();
-
-        //        var directories = Info.EnumerateDirectories("*", SearchOption.AllDirectories);
-
-        //        foreach (var directory in directories)
-        //        {
-        //            files.AddRange(directory.EnumerateFiles($"*.{type}"));
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("The process failed: {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace);
-        //    }
-        //    return files;
-        //}
     }
 }

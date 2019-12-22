@@ -53,25 +53,27 @@ namespace Task5Files
                 else
                 {
                     string relativePath = file.Path.Substring(endOfBackaupFolderPath + 1);
-
                     string[] folderNames = relativePath.Split(Path.DirectorySeparatorChar);
-
                     string currentPath = _backupfolder.Info.FullName;
 
                     foreach (var name in folderNames)
                     {
                         currentPath += Path.DirectorySeparatorChar + name;
-
-                        if (!Directory.Exists(currentPath))
+                        try
                         {
-                            Directory.CreateDirectory(currentPath);
-                            //Directory.SetCreationTime(currentPath, file.CreationTime);
+                            if (!Directory.Exists(currentPath))
+                            {
+                                Directory.CreateDirectory(currentPath);
+                                //Directory.SetCreationTime(currentPath, file.CreationTime);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("The process failed: {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace);
                         }
                     }
-
                     file.CreateFile();
                 }
-
             }
 
         }
@@ -81,6 +83,7 @@ namespace Task5Files
             {
                 foreach (var file in files)
                 {
+                    File.SetAttributes(file.FullName, FileAttributes.Normal);
                     File.Delete(file.FullName);
                 }
             }
@@ -156,8 +159,8 @@ namespace Task5Files
                 {
                     Console.WriteLine(" {0}: {1:F}", index, date);
                     index++;
-                }              
-            } 
+                }
+            }
 
             Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
         }

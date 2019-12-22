@@ -11,10 +11,8 @@ namespace Task5Files
     {
         public Dictionary<DateTime, List<FileData>>  BackupsLogDictionary { get; set; }
 
-
         public Dictionary<DateTime, List<FileData>> GetDictionaryFromJson()
         {
-
             JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
             BackupFolder mainFloder = new BackupFolder();
             BackupsLog backupsLog = jsonAdapter.ReadFromJsonFile() ?? new BackupsLog();
@@ -26,12 +24,10 @@ namespace Task5Files
         {
             if (BackupsLogDictionary == null)
             {
-                //может в конструктор??
                    BackupsLogDictionary = new Dictionary<DateTime, List<FileData>>();
             }
 
             BackupsLogDictionary.Add(date, files);
-
         }
 
     }

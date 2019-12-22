@@ -21,18 +21,15 @@ namespace Task5Files
 
         public void Run(string path)
         {
-            using (FileSystemWatcher watcher = new FileSystemWatcher())
+            using (FileSystemWatcher watcher = new FileSystemWatcher(path, "*.txt"))
             {
-                watcher.Path = path;
                 watcher.IncludeSubdirectories = true;
 
                 watcher.NotifyFilter = NotifyFilters.LastWrite
                                      | NotifyFilters.FileName
                                      | NotifyFilters.DirectoryName
-                                     |NotifyFilters.CreationTime
+                                     | NotifyFilters.CreationTime
                                      | NotifyFilters.Attributes;
-
-                watcher.Filter = "*.txt";
 
                 watcher.Changed += OnChanged;
                 watcher.Created += OnChanged;
@@ -42,14 +39,13 @@ namespace Task5Files
                 watcher.EnableRaisingEvents = true;
 
                 Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
-
                 string entered = "";
 
                 do
                 {
                     entered = Console.ReadLine();
                 }
-                while (entered != "q");                
+                while (entered != "q");
             }
         }
 
@@ -73,13 +69,20 @@ namespace Task5Files
 
         private void CommitNewChanges(Watcher watcher)
         {
-            BackupFolder backupFolder = new BackupFolder();
-            List<FileData> bacupsList = backupFolder.TxtFiles;
+            try
+            {
+                BackupFolder backupFolder = new BackupFolder();
+                List<FileData> bacupsList = backupFolder.TxtFiles;
 
-            watcher._backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
+                watcher._backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
 
-            JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
-            jsonAdapter.SaveToJsonFile(watcher._backupsLog);
+                JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
+                jsonAdapter.SaveToJsonFile(watcher._backupsLog);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("The process failed: {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace);
+            }
         }
     }
 }
