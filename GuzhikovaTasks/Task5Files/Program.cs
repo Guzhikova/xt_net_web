@@ -24,8 +24,8 @@ namespace Task5Files
             Dictionary<DateTime, List < FileData >> dictionary = backupsLog.GetDictionaryFromJson() ?? new Dictionary<DateTime, List<FileData>>();
             Console.WriteLine("---------------" + dictionary.Count());
 
-            BackupWorker bw = new BackupWorker();
-            bw.ShowBackupPossibleDates();
+            BackupControl bw = new BackupControl();
+            bw.Restore(mainFloder.TxtFiles);
 
             Watcher watcher = new Watcher();
             watcher.Run(mainFloder.Info.FullName);

@@ -15,7 +15,7 @@ namespace Task5Files
             Name = file.Name;
             FullName = file.FullName;
             Path = file.DirectoryName;
-            CreatingDate = file.CreationTime;
+            CreationTime = file.CreationTime;
             Attributes = file.Attributes;
             Extension = file.Extension;
             LastAccessTime = file.LastAccessTime;
@@ -28,20 +28,33 @@ namespace Task5Files
         public string FullName { get; set; }
         public string Path { get; set; }
         public string Content { get; set; }
-        public DateTime CreatingDate { get; }
+        public DateTime CreationTime { get; }
         public FileAttributes Attributes { get; set; }
         public string Extension { get; set; }
         public DateTime LastAccessTime { get; set; }
         public DateTime LastWriteTime { get; set; }
 
-        private static object _fileLock = new Object();
+
+        public FileInfo FileDateToFileInfo()
+        {
+            FileInfo fileInfo = new FileInfo(Path+"\\backup__"+Name);
+            fileInfo.Create().Close();
+
+            fileInfo.CreationTime = CreationTime;
+            fileInfo.Attributes = Attributes;
+            fileInfo.LastAccessTime = LastAccessTime;
+            fileInfo.LastWriteTime = LastWriteTime;
+
+            return fileInfo;
+
+        }
         string ReadFileContent(FileInfo file)
         {
             string content = "";
 
                 using (Stream stream = File.Open(file.FullName, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    using (StreamReader reader = new StreamReader(stream))
+                    using (StreamReader reader = new StreamReader(stream, System.Text.Encoding.Default))
                     {
                         content = reader.ReadToEnd();
                     }

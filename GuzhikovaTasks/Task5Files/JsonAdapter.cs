@@ -37,8 +37,8 @@ namespace Task5Files
 
                 using (_stream = File.Open(Path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
                 {
-                    using (StreamWriter writer = new StreamWriter(_stream))
-                    {
+                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
+                {
                         writer.Write(jsonString);
                     }
                 }
@@ -55,7 +55,7 @@ namespace Task5Files
 
                 using (_stream = File.Open(Path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    using (StreamReader reader = new StreamReader(_stream))
+                    using (StreamReader reader = new StreamReader(_stream, System.Text.Encoding.Default))
                     {
                         content = reader.ReadToEnd();
                     }

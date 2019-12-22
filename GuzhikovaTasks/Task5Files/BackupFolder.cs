@@ -67,7 +67,6 @@ namespace Task5Files
             }
             return files;
         }
-
         List<FileData> ConvertFileInfoToFileDataList(List<FileInfo> fileInfoList)
         {
             List<FileData> fileDataList = new List<FileData>();
