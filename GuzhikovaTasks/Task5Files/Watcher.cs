@@ -37,13 +37,19 @@ namespace Task5Files
                 watcher.Changed += OnChanged;
                 watcher.Created += OnChanged;
                 watcher.Deleted += OnChanged;
-              //  watcher.Renamed += OnRenamed;
+                watcher.Renamed += OnRenamed;
 
                 watcher.EnableRaisingEvents = true;
 
                 Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
-            
-            while (Console.Read() != 'q') ;
+
+                string entered = "";
+
+                do
+                {
+                    entered = Console.ReadLine();
+                }
+                while (entered != "q");                
             }
         }
 
@@ -53,7 +59,7 @@ namespace Task5Files
 
             watcher.CommitNewChanges(watcher);
 
-            Console.WriteLine($" - File {e.Name}: {e.ChangeType + Environment.NewLine}");
+            Console.WriteLine($"~ Изменение сохранено: File {e.Name}: {e.ChangeType + Environment.NewLine}");
         }
 
         private static void OnChanged(object sender, FileSystemEventArgs e)
@@ -62,7 +68,7 @@ namespace Task5Files
 
             watcher.CommitNewChanges(watcher);
 
-            Console.WriteLine($" - File {e.Name}: {e.ChangeType + Environment.NewLine}");
+            Console.WriteLine($"~ Изменение сохранено:  File {e.Name}: {e.ChangeType + Environment.NewLine}");
         }
 
         private void CommitNewChanges(Watcher watcher)

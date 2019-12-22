@@ -35,7 +35,7 @@ namespace Task5Files
                         break;
                 }
 
-
+               // Console.ReadLine();
             } while (mode != 3);
 
         }
@@ -53,11 +53,10 @@ namespace Task5Files
         private int ReadSelectedMode()
         {
             int mode = 0;
-            string selected = "";
 
             do
             {
-                selected = Console.ReadLine();
+                string selected = Console.ReadLine();
 
                 Int32.TryParse(selected, out mode);
 

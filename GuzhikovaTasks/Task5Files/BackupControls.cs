@@ -35,7 +35,7 @@ namespace Task5Files
 
                 RestoreFiles(backupFiles);
 
-                Console.WriteLine("Файлы восстановлены!");
+                Console.WriteLine("Файлы восстановлены!{0}", Environment.NewLine);
             }
         }
 
