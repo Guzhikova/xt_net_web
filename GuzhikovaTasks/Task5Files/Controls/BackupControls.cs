@@ -179,7 +179,7 @@ namespace Task5Files
             }
             catch (Exception ex)
             {
-                ////////////////////написать на отсутствие файла
+                Console.WriteLine(ex.Message + Environment.NewLine + ex.StackTrace);
             }
         }
     }

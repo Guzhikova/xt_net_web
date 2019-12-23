@@ -27,7 +27,7 @@ namespace Task5Files
         public string FullName { get; set; }
         public string Path { get; set; }
         public string Content { get; set; }
-        public DateTime CreationTime { get; }
+        public DateTime CreationTime { get; set; }
         public FileAttributes Attributes { get; set; }
         public string Extension { get; set; }
         public DateTime LastAccessTime { get; set; }
@@ -41,7 +41,7 @@ namespace Task5Files
                 FileInfo fileInfo = new FileInfo(FullName);
                 fileInfo.Create().Close();
 
-                //   fileInfo.CreationTime = CreationTime;
+                fileInfo.CreationTime = CreationTime;
                 fileInfo.LastAccessTime = LastAccessTime;
                 fileInfo.LastWriteTime = LastWriteTime;
 
