@@ -16,27 +16,28 @@ namespace Task5Files
             _backupsLog.BackupsLogDictionary = _backupsLog.GetDictionaryFromJson();
         }
 
-
+        private FileSystemWatcher _watcherFS;
         private BackupsLog _backupsLog;
+
 
         public void Run(string path)
         {
-            using (FileSystemWatcher watcher = new FileSystemWatcher(path, "*.txt"))
+            using (_watcherFS = new FileSystemWatcher(path, "*.txt"))
             {
-                watcher.IncludeSubdirectories = true;
+                _watcherFS.IncludeSubdirectories = true;
 
-                watcher.NotifyFilter = NotifyFilters.LastWrite
+                _watcherFS.NotifyFilter = NotifyFilters.LastWrite
                                      | NotifyFilters.FileName
                                      | NotifyFilters.DirectoryName
                                      | NotifyFilters.CreationTime
                                      | NotifyFilters.Attributes;
 
-                watcher.Changed += OnChanged;
-                watcher.Created += OnChanged;
-                watcher.Deleted += OnChanged;
-                watcher.Renamed += OnRenamed;
+                _watcherFS.Changed += OnChanged;
+                _watcherFS.Created += OnChanged;
+                _watcherFS.Deleted += OnChanged;
+                _watcherFS.Renamed += OnRenamed;
 
-                watcher.EnableRaisingEvents = true;
+                _watcherFS.EnableRaisingEvents = true;
 
                 Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
                 string entered = "";
@@ -51,33 +52,49 @@ namespace Task5Files
 
         private void OnRenamed(object sender, RenamedEventArgs e)
         {
-            Watcher watcher = new Watcher();
+            try
+            {
+                _watcherFS.EnableRaisingEvents = false;
 
-            watcher.CommitNewChanges(watcher);
+                CommitNewChanges();
 
-            Console.WriteLine($"~ Изменение сохранено: File {e.Name}: {e.ChangeType + Environment.NewLine}");
+                Console.WriteLine($"~ Изменение сохранено: File {e.Name}: {e.ChangeType + Environment.NewLine}");
+            }
+            finally
+            {
+                _watcherFS.EnableRaisingEvents = true;
+            }
+
+
         }
 
-        private static void OnChanged(object sender, FileSystemEventArgs e)
+        private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            Watcher watcher = new Watcher();
+            try
+            {
+                _watcherFS.EnableRaisingEvents = false;
 
-            watcher.CommitNewChanges(watcher);
+                CommitNewChanges();
 
-            Console.WriteLine($"~ Изменение сохранено:  File {e.Name}: {e.ChangeType + Environment.NewLine}");
+                Console.WriteLine($"~ Изменение сохранено:  File {e.Name}: {e.ChangeType + Environment.NewLine}");
+            }
+            finally
+            {
+                _watcherFS.EnableRaisingEvents = true;
+            }
         }
 
-        private void CommitNewChanges(Watcher watcher)
+        private void CommitNewChanges()
         {
             try
             {
                 BackupFolder backupFolder = new BackupFolder();
                 List<FileData> bacupsList = backupFolder.TxtFiles;
 
-                watcher._backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
+                _backupsLog.AddChangesToDictionary(DateTime.Now, bacupsList);
 
                 JsonAdapter<BackupsLog> jsonAdapter = new JsonAdapter<BackupsLog>();
-                jsonAdapter.SaveToJsonFile(watcher._backupsLog);
+                jsonAdapter.SaveToJsonFile(_backupsLog);
             }
             catch (Exception ex)
             {
