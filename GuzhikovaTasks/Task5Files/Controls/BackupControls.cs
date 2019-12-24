@@ -53,7 +53,7 @@ namespace Task5Files
 
                     foreach (var name in folderNames)
                     {
-                        currentPath += Path.DirectorySeparatorChar + name;
+                        currentPath = Path.Combine(currentPath, name);
                         try
                         {
                             if (!Directory.Exists(currentPath))

@@ -18,7 +18,7 @@ namespace Task5Files
         {
             BackupFolder mainFloder = new BackupFolder();
 
-            Path = mainFloder.Info.FullName + System.IO.Path.DirectorySeparatorChar + "Log.json";
+            Path = System.IO.Path.Combine(mainFloder.Info.FullName, "Log.json");
 
             if (!File.Exists(Path))
             {

@@ -14,7 +14,7 @@ namespace Task5Files
 
         public BackupFolder()
         {
-            Info = new DirectoryInfo(_path + _name);
+            Info = new DirectoryInfo(Path.Combine(_path, _name));
             CreateIfNotExist();
         }
 
