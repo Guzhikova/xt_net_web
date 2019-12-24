@@ -16,28 +16,28 @@ namespace Task5Files
             _backupsLog.BackupsLogDictionary = _backupsLog.GetDictionaryFromJson();
         }
 
-        private FileSystemWatcher _watcherFS;
+        private FileSystemWatcher _watcher;
         private BackupsLog _backupsLog;
 
 
         public void Run(string path)
         {
-            using (_watcherFS = new FileSystemWatcher(path, "*.txt"))
+            using (_watcher = new FileSystemWatcher(path, ".txt"))
             {
-                _watcherFS.IncludeSubdirectories = true;
+                _watcher.IncludeSubdirectories = true;
 
-                _watcherFS.NotifyFilter = NotifyFilters.LastWrite
+                _watcher.NotifyFilter = NotifyFilters.LastWrite
                                      | NotifyFilters.FileName
                                      | NotifyFilters.DirectoryName
                                      | NotifyFilters.CreationTime
                                      | NotifyFilters.Attributes;
 
-                _watcherFS.Changed += OnChanged;
-                _watcherFS.Created += OnChanged;
-                _watcherFS.Deleted += OnChanged;
-                _watcherFS.Renamed += OnRenamed;
+                _watcher.Changed += OnChanged;
+                _watcher.Created += OnChanged;
+                _watcher.Deleted += OnChanged;
+                _watcher.Renamed += OnChanged;
 
-                _watcherFS.EnableRaisingEvents = true;
+                _watcher.EnableRaisingEvents = true;
 
                 Console.WriteLine("{0} Для выхода из режима нажмите 'q'{0}", Environment.NewLine);
                 string entered = "";
@@ -50,37 +50,38 @@ namespace Task5Files
             }
         }
 
-        private void OnRenamed(object sender, RenamedEventArgs e)
-        {
-            try
-            {
-                _watcherFS.EnableRaisingEvents = false;
+        //private void OnRenamed(object sender, RenamedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        _watcherFS.EnableRaisingEvents = false;
 
-                CommitNewChanges();
+        //        CommitNewChanges();
 
-                Console.WriteLine($"~ Изменение сохранено: File {e.Name}: {e.ChangeType + Environment.NewLine}");
-            }
-            finally
-            {
-                _watcherFS.EnableRaisingEvents = true;
-            }
+        //        Console.WriteLine($"~ Изменение сохранено: File {e.Name}: {e.ChangeType + Environment.NewLine}");
+        //    }
+        //    finally
+        //    {
+        //        _watcherFS.EnableRaisingEvents = true;
+        //    }
 
 
-        }
+        //}
 
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             try
             {
-                _watcherFS.EnableRaisingEvents = false;
+                _watcher.EnableRaisingEvents = false;
 
                 CommitNewChanges();
 
-                Console.WriteLine($"~ Изменение сохранено:  File {e.Name}: {e.ChangeType + Environment.NewLine}");
+                Console.WriteLine($"~ Изменение сохранено:  File {e.FullPath}: {e.ChangeType + Environment.NewLine}");
+
             }
             finally
             {
-                _watcherFS.EnableRaisingEvents = true;
+                _watcher.EnableRaisingEvents = true;
             }
         }
 
