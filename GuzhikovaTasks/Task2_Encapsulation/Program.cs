@@ -27,7 +27,6 @@ namespace Task2_Encapsulation
         }
 
 
-
         static int ReadNumberFromConsole()
         {
             int number;
@@ -61,12 +60,13 @@ namespace Task2_Encapsulation
             param3 = ReadNumberFromConsole();
         }
 
-        static void Round()
+        #region Round 
+        private static void Round()
         {
             Round round = new Round();
 
             Console.WriteLine("КРУГ ПО УМОЛЧАНИЮ: ");
-            Round_GetInfo(round);
+            round.GetInfo();
 
             int number;
             do
@@ -79,10 +79,10 @@ namespace Task2_Encapsulation
                 switch (number)
                 {
                     case 1:
-                        Round_Change(round);
+                        Change(round);
                         break;
                     case 2:
-                        Round_CreateNew();
+                        CreateNew();
                         break;
 
                     default:
@@ -91,12 +91,7 @@ namespace Task2_Encapsulation
 
             } while (number == 1 || number == 2);
         }
-        static void Round_GetInfo(Round round)
-        {
-            Console.WriteLine("Центр ({0}, {1}). Радиус {2}. Длина описанной окружности {3}. Площадь круга {4}.",
-          round.X, round.Y, round.Radius, round.Length.ToString("0.0"), round.Area.ToString("0.0"));
-        }
-        static void Round_Change(Round round)
+        private static void Change(Round round)
         {
             int x, y, radius;
             GetParameters("X", "Y", "Radius", out x, out y, out radius);
@@ -116,9 +111,9 @@ namespace Task2_Encapsulation
             }
 
             Console.WriteLine($"{Environment.NewLine}ПАРАМЕТРЫ ТЕКУЩЕГО КРУГА ИЗМЕНЕНЫ: ");
-            Round_GetInfo(round);
+            round.GetInfo();
         }
-        static void Round_CreateNew()
+        private static void CreateNew()
         {
             int x, y, radius;
             GetParameters("X", "Y", "Radius", out x, out y, out radius);
@@ -137,10 +132,11 @@ namespace Task2_Encapsulation
             }
 
             Console.WriteLine($"{Environment.NewLine}ЗАДАН НОВЫЙ КРУГ: ");
-            Round_GetInfo(round);
+            round.GetInfo();
         }
+        #endregion
 
-        static void Triangle()
+        private static void Triangle()
         {
             Console.WriteLine("Расчёт периметра и площади треугольника по трем сторонам");
             Triangle triangle = new Triangle();
@@ -168,7 +164,7 @@ namespace Task2_Encapsulation
             Console.WriteLine($"Периметр данного треугольника равен {triangle.GetPerimeter()}, площадь равна {triangle.GetArea().ToString("0.00")}");
         }
 
-        static void MyString()
+        private static void MyString()
         {
             MyString myString1 = new MyString("Моя_строка");
 
@@ -202,209 +198,7 @@ namespace Task2_Encapsulation
         }
     }
 
-    class Round
-    {
-        public Round(int x = 0, int y = 0, int radius = 1)
-        {
-            X = x;
-            Y = y;
-            Radius = radius;
-        }
 
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        private int _radius;
-        public int Radius
-        {
-            get => _radius;
-            set
-            {
-                if (value <= 0)
-                    throw new ArgumentException("ERROR! Radius should be more than zero");
-                _radius = value;
-            }
-        }
-
-        public double Length => 2 * Math.PI * Radius;
-        public double Area => Math.PI * Radius * Radius;
-    }
-
-    class Triangle
-    {
-        public Triangle()
-        {
-            A = 1;
-            B = 1;
-            C = 1;
-        }
-
-        public Triangle(int a, int b, int c)
-        {
-            if (a <= 0 || b <= 0 || c <= 0)
-                throw new ArgumentException("Error! The side of triangle should be more than zero.");
-
-            if (a > (b + c) || b > (a + c) || c > (a + b))
-                throw new ArithmeticException("Error! The side of triangle can't be greater than sum of other 2 sides.");
-
-            A = a;
-            B = b;
-            C = c;
-        }
-
-        public int A { get; }
-        public int B { get; }
-        public int C { get; }
-
-        public int GetPerimeter()
-        {
-            return A + B + C;
-        }
-
-        public double GetArea()
-        {
-            double p = (double)GetPerimeter() / 2;
-
-            return Math.Sqrt(p * (p - A) * (p - B) * (p - C));
-        }
-    }
-
-    class MyString
-    {
-        public MyString(string newString = "")
-        {
-            Value = newString;
-        }
-
-        private char[] _chars;
-
-        public string Value
-        {
-            get { return ConvertToString(); }
-            set { _chars = value.ToArray(); }
-        }
-
-
-        private string ConvertToString(char[] chars)
-        {
-            StringBuilder sb = new StringBuilder(chars.Length);
-
-            for (int i = 0; i < chars.Length; i++)
-            {
-                sb.Append(chars[i]);
-            }
-            return sb.ToString();
-        }
-
-        public string ConvertToString()
-        {
-            return ConvertToString(_chars);
-        }
-
-        public char[] ConvertToArray()
-        {
-            return _chars;
-        }
-
-
-        private bool Equals(MyString myString)
-        {
-            if (ReferenceEquals(myString, null)) return false;
-            if (ReferenceEquals(myString, this)) return true;
-            return Array.Equals(_chars, myString._chars);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-
-            return Equals(obj as MyString);
-        }
-
-        public override int GetHashCode()
-        {
-            return _chars?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(MyString myString1, MyString myString2)
-        {
-            return Equals(myString1, myString2);
-        }
-
-        public static bool operator !=(MyString myString1, MyString myString2)
-        {
-            return !Equals(myString1, myString2);
-        }
-
-
-        public void Concatenate(MyString myString)
-        {
-            MyString sumString = this + myString;
-            _chars = sumString._chars;
-        }
-
-        public static MyString operator +(MyString myString1, MyString myString2)
-        {
-            char[] chars1 = myString1._chars;
-            char[] chars2 = myString2._chars;
-
-            int sumLength = chars1.Length + chars2.Length;
-            char[] charsSum = new char[sumLength];
-
-            chars1.CopyTo(charsSum, 0);
-            chars2.CopyTo(charsSum, chars1.Length);
-
-            MyString myString = new MyString();
-            myString.Value = myString.ConvertToString(charsSum);
-
-            return myString;
-        }
-
-
-        public int IndexOf(MyString myString)
-        {
-            char[] chars2 = myString._chars;
-            bool isEquals = false;
-            int index = -1;
-
-            if (_chars.Length >= chars2.Length && chars2.Length != 0)
-            {
-                index = Array.IndexOf(_chars, chars2[0]);
-
-                if (index >= 0)
-                {
-                    do
-                    {
-                        index = Array.IndexOf(_chars, chars2[0], index);
-
-                        if (chars2.Length <= _chars.Length - index)
-                        {
-                            isEquals = true;
-
-                            for (int i = 0; i < chars2.Length; i++)
-                            {
-                                if (_chars[index + i] != chars2[i])
-                                {
-                                    isEquals = false;
-                                    index++;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (isEquals)
-                            break;
-
-                    } while (index < _chars.Length);
-                }
-            }
-
-            return index;
-
-
-        }
-    }
 
 }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class BackupsLog
+    internal class BackupsLog
     {
         public Dictionary<DateTime, List<FileData>>  BackupsLogDictionary { get; set; }
 
