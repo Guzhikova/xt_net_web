@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class FileData
+    internal class FileData
     {
         public FileData() { }
         public FileData(FileInfo file)
@@ -61,7 +61,7 @@ namespace Task5Files
             }
         }
 
-        string ReadFileContent(FileInfo file)
+        private string ReadFileContent(FileInfo file)
         {
             string content = "";
 

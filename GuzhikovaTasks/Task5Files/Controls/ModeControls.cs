@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class ModeControls
+    internal class ModeControls
     {
         public void ChoosingMode()
         {

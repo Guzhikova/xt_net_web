@@ -8,20 +8,16 @@ using System.Threading.Tasks;
 namespace Task5Files
 {
 
-    class BackupControls
+    internal class BackupControls
     {
+        private Dictionary<DateTime, List<FileData>> _dictionary;
+        private BackupFolder _backupfolder;
 
         public BackupControls()
         {
             GetBackupsDictionary();
-
             _backupfolder = new BackupFolder();
         }
-
-        private Dictionary<DateTime, List<FileData>> _dictionary;
-
-        private BackupFolder _backupfolder;
-
 
         public void SuggestAndMakeRestore()
         {
@@ -38,7 +34,6 @@ namespace Task5Files
                 Console.WriteLine("Файлы восстановлены!{0}", Environment.NewLine);
             }
         }
-
 
         private void RestoreFiles(List<FileData> backupFiles)
         {

@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class BackupFolder
+    internal class BackupFolder
     {
-        public BackupFolder()
-        {
-                Info = new DirectoryInfo(_path + _name);
-                CreateIfNotExist();
-        }
-
         private string _name = "BACKUP";
         private string _path = AppDomain.CurrentDomain.BaseDirectory;
+
+        public BackupFolder()
+        {
+            Info = new DirectoryInfo(_path + _name);
+            CreateIfNotExist();
+        }
 
         public DirectoryInfo Info { get; }
         public List<FileData> TxtFiles
@@ -28,7 +28,7 @@ namespace Task5Files
             }
         }
 
-        void CreateIfNotExist()
+        private void CreateIfNotExist()
         {
             try
             {
@@ -42,8 +42,7 @@ namespace Task5Files
                 Console.WriteLine("The process failed: {0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace);
             }
         }
-
-        List<FileInfo> GetFilesByExtension(string extension)
+        private List<FileInfo> GetFilesByExtension(string extension)
         {
             List<FileInfo> files = new List<FileInfo>();
 
@@ -65,7 +64,7 @@ namespace Task5Files
             }
             return files;
         }
-        List<FileData> ConvertFileInfoToFileDataList(List<FileInfo> fileInfoList)
+        private List<FileData> ConvertFileInfoToFileDataList(List<FileInfo> fileInfoList)
         {
             List<FileData> fileDataList = new List<FileData>();
 

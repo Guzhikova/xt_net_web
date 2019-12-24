@@ -10,23 +10,22 @@ using System.Threading.Tasks;
 
 namespace Task5Files
 {
-    class JsonAdapter<T>
+    internal class JsonAdapter<T>
     {
+        private Stream _stream;
+
         public JsonAdapter()
         {
             BackupFolder mainFloder = new BackupFolder();
 
-            _path = mainFloder.Info.FullName + System.IO.Path.DirectorySeparatorChar + "Log.json";
+            Path = mainFloder.Info.FullName + System.IO.Path.DirectorySeparatorChar + "Log.json";
 
-            if (!File.Exists(_path))
+            if (!File.Exists(Path))
             {
-                File.Create(_path).Close();
+                File.Create(Path).Close();
             }
         }
-
-        private string _path = "";
-        public string Path { get => _path; }
-        private Stream _stream;
+        public string Path { get ; }
 
         public void SaveToJsonFile(T someObject)
         {
