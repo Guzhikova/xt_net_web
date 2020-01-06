@@ -1,0 +1,36 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Users.Dao.Interfaces;
+using Users.Entities;
+
+namespace Users.DAL
+{
+    public class UserFakeDao: IUserDao
+    {
+        private static readonly Dictionary<int, User> _users = new Dictionary<int, User>();
+        public User Add(User user)
+        {
+            var lastId = _users.Keys.Count > 0
+                ? _users.Keys.Max()
+                : 0;
+
+            user.Id = lastId + 1;
+            _users.Add(user.Id, user);
+
+            return user;
+        }
+
+        public void Delete(User user)
+        {
+
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            return _users.Values;
+        }
+    }
+}
