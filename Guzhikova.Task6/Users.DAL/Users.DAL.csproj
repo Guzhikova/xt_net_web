@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Users.BLLInterfaces\Users.BLLInterfaces.csproj">
+      <Project>{704e732a-7f77-4153-b5aa-515fe893494f}</Project>
+      <Name>Users.BLLInterfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Users.Dao.Interfaces\Users.Dao.Interfaces.csproj">
       <Project>{13864549-1021-43B7-AF28-8BC58285584D}</Project>
       <Name>Users.Dao.Interfaces</Name>

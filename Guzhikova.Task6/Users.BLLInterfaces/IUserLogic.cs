@@ -11,7 +11,7 @@ namespace Users.BLLInterfaces
     {
         User Add(User user);
 
-        void Delete(User user);
+        void DeleteById(int id);
 
         IEnumerable<User> GetAll();
     }

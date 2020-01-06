@@ -23,8 +23,13 @@ namespace Users.DAL
             return user;
         }
 
-        public void Delete(User user)
+        public void DeleteById(int id)
         {
+            if (!_users.ContainsKey(id))
+            {
+                throw new ArgumentOutOfRangeException("Id", "Error! User with this id does not exist!");
+            }
+            _users.Remove(id);
 
         }
 

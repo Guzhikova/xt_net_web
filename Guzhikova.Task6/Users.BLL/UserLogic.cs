@@ -11,26 +11,26 @@ namespace Users.BLL
 {
     public class UserLogic : IUserLogic
     {
-        private readonly IUserDao _userFakeDao;
+        private readonly IUserDao _userDao;
 
         public UserLogic(IUserDao userDao)
         {
-            _userFakeDao = userDao;
+            _userDao = userDao;
         }
 
         public User Add(User user)
         {
-            return _userFakeDao.Add(user);
+            return _userDao.Add(user);
         }
 
-        public void Delete(User user)
+        public void DeleteById(int id)
         {
-            _userFakeDao.Delete(user);
+            _userDao.DeleteById(id);
         }
 
         public IEnumerable<User> GetAll()
         {
-            return _userFakeDao.GetAll();
+            return _userDao.GetAll();
         }
     }
 }
