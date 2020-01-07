@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Users.Entities
+namespace Guzhikova.Task6.Entities
 {
     public class User
     {

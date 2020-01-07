@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Users.Entities;
+using Guzhikova.Task6.Entities;
 
-namespace Users.Dao.Interfaces
+namespace Guzhikova.Task6.Dao.Interfaces
 {
     public interface IUserDao
     {

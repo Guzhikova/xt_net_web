@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Users.Entities;
+using Guzhikova.Task6.Entities;
 
-namespace Users.BLLInterfaces
+namespace Guzhikova.Task6.BLLInterfaces
 {
     public interface IUserLogic
     {
@@ -14,5 +14,8 @@ namespace Users.BLLInterfaces
         void DeleteById(int id);
 
         IEnumerable<User> GetAll();
+
+        string SaveUsersToFile();
+
     }
 }

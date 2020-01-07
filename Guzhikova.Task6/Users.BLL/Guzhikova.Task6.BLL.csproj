@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,18 +48,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Users.BLLInterfaces\Users.BLLInterfaces.csproj">
+    <ProjectReference Include="..\Users.BLLInterfaces\Guzhikova.Task6.BLLInterfaces.csproj">
       <Project>{704E732A-7F77-4153-B5AA-515FE893494F}</Project>
-      <Name>Users.BLLInterfaces</Name>
+      <Name>Guzhikova.Task6.BLLInterfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Users.Dao.Interfaces\Users.Dao.Interfaces.csproj">
+    <ProjectReference Include="..\Users.Dao.Interfaces\Guzhikova.Task6.Dao.Interfaces.csproj">
       <Project>{13864549-1021-43B7-AF28-8BC58285584D}</Project>
-      <Name>Users.Dao.Interfaces</Name>
+      <Name>Guzhikova.Task6.Dao.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Users.Entities\Users.Entities.csproj">
+    <ProjectReference Include="..\Users.Entities\Guzhikova.Task6.Entities.csproj">
       <Project>{29C2E00E-0030-4A92-B238-8D768BA1544B}</Project>
-      <Name>Users.Entities</Name>
+      <Name>Guzhikova.Task6.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

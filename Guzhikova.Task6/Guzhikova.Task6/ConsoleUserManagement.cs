@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Users.BLLInterfaces;
-using Users.Entities;
+using Guzhikova.Task6.BLLInterfaces;
+using Guzhikova.Task6.Entities;
 using UsersAndAwards.Ioc;
 
 namespace Guzhikova.Task6
@@ -34,13 +34,23 @@ namespace Guzhikova.Task6
                         DeleteUser();
                         break;
                     default:
-                        Console.WriteLine("Работа со списком завершена!");
+                        CloseAndSave();
                         break;
                 }
             }
             while (command == 1 || command == 2 || command == 3);
         }
 
+        private void ShowMenu()
+        {
+            Console.WriteLine($"{Environment.NewLine}*********************************");
+            Console.WriteLine($"{Environment.NewLine}Выберите действие:");
+            Console.WriteLine("1: Вывести список пользователей");
+            Console.WriteLine("2: Создать нового пользователя");
+            Console.WriteLine("3: Удалить пользователя");
+            Console.WriteLine($"Для завершения работы со списком и сохранения данных введите любoe другое значение{Environment.NewLine}");
+            Console.WriteLine($"*********************************{Environment.NewLine}");
+        }
         private void ShowAll()
         {
             if (_logic.GetAll().Count() != 0)
@@ -76,7 +86,7 @@ namespace Guzhikova.Task6
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"{Environment.NewLine} {ex.Message}");
                 СhooseAction();
             }
 
@@ -115,15 +125,37 @@ namespace Guzhikova.Task6
             return id;
         }
 
-        private void ShowMenu()
+        private void CloseAndSave()
         {
-            Console.WriteLine($"{Environment.NewLine}Выберите действие:");
-            Console.WriteLine("1: Вывести список пользователей");
-            Console.WriteLine("2: Создать нового пользователя");
-            Console.WriteLine("3: Удалить пользователя");
-            Console.WriteLine($"Для завершения работы со списком введите любoe другое значение{Environment.NewLine}");
+            try
+            {
+              string filePath = _logic.SaveUsersToFile();
+
+                Console.WriteLine("Работа со списком завершена!{0}Все изменения успешно сохранены в файл {1}!", 
+                    Environment.NewLine, filePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("{0}К сожалению, не удалось сохранить данные в файл!{0}{1}{0}{2}",
+                    Environment.NewLine, e.Message, e.StackTrace);
+
+                MenuOrExit();
+            }
         }
 
+        private void MenuOrExit()
+        {
+            Console.WriteLine($"{Environment.NewLine}Для повторного вызова меню нажмите 1, для выхода - любую клавишу");
+
+            if (Console.ReadLine() == "1")
+            {
+                СhooseAction();
+            }
+            else
+            {
+                Console.WriteLine("Работа со списком завершена, изменения не сохранены!");
+            }
+        }
 
     }
 }

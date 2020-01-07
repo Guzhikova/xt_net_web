@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Users.Dao.Interfaces;
-using Users.Entities;
+using Guzhikova.Task6.Dao.Interfaces;
+using Guzhikova.Task6.Entities;
 
-namespace Users.DAL
+namespace Guzhikova.Task6.DAL
 {
     public class UserFakeDao: IUserDao
     {

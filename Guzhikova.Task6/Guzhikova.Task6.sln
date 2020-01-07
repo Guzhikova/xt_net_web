@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAndAwards.ConsolePL", "Guzhikova.Task6\UsersAndAwards.ConsolePL.csproj", "{F2062B42-2A87-4275-99BD-9F8E22255EBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.BLL", "Users.BLL\Users.BLL.csproj", "{401F3DD9-9B2D-4597-AC9C-3D51C470CED9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guzhikova.Task6.BLL", "Users.BLL\Guzhikova.Task6.BLL.csproj", "{401F3DD9-9B2D-4597-AC9C-3D51C470CED9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{264B43D7-82FB-4859-8AD6-29AE953B5D7E}"
 EndProject
@@ -15,15 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{3AE0EC17-28D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C7CE45BB-C935-4D8C-AAE6-BE4493BAE819}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.BLLInterfaces", "Users.BLLInterfaces\Users.BLLInterfaces.csproj", "{704E732A-7F77-4153-B5AA-515FE893494F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guzhikova.Task6.BLLInterfaces", "Users.BLLInterfaces\Guzhikova.Task6.BLLInterfaces.csproj", "{704E732A-7F77-4153-B5AA-515FE893494F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.Entities", "Users.Entities\Users.Entities.csproj", "{29C2E00E-0030-4A92-B238-8D768BA1544B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guzhikova.Task6.Entities", "Users.Entities\Guzhikova.Task6.Entities.csproj", "{29C2E00E-0030-4A92-B238-8D768BA1544B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.DAL", "Users.DAL\Users.DAL.csproj", "{A74F6612-3F5F-4F27-B6EB-A04361C74616}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guzhikova.Task6.DAL", "Users.DAL\Guzhikova.Task6.DAL.csproj", "{A74F6612-3F5F-4F27-B6EB-A04361C74616}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Users.Dao.Interfaces", "Users.Dao.Interfaces\Users.Dao.Interfaces.csproj", "{13864549-1021-43B7-AF28-8BC58285584D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guzhikova.Task6.Dao.Interfaces", "Users.Dao.Interfaces\Guzhikova.Task6.Dao.Interfaces.csproj", "{13864549-1021-43B7-AF28-8BC58285584D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersAndAwards.Ioc", "UsersAndAwards.Ioc\UsersAndAwards.Ioc.csproj", "{E8AA2CD2-7AC8-402E-9B06-428768D19A07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Guzhikova.Task6.Common", "UsersAndAwards.Ioc\Guzhikova.Task6.Common.csproj", "{E8AA2CD2-7AC8-402E-9B06-428768D19A07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +70,7 @@ Global
 		{29C2E00E-0030-4A92-B238-8D768BA1544B} = {C7CE45BB-C935-4D8C-AAE6-BE4493BAE819}
 		{A74F6612-3F5F-4F27-B6EB-A04361C74616} = {3AE0EC17-28D5-4EC2-AD16-CAA3A137C37F}
 		{13864549-1021-43B7-AF28-8BC58285584D} = {3AE0EC17-28D5-4EC2-AD16-CAA3A137C37F}
+		{E8AA2CD2-7AC8-402E-9B06-428768D19A07} = {C7CE45BB-C935-4D8C-AAE6-BE4493BAE819}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCD92887-491D-463C-A7E3-CDDCEF045653}
