@@ -48,10 +48,9 @@ namespace Guzhikova.Task6.Entities
                 return (DateOfBirth > _today.AddYears(-_age)) ? _age-- : _age;
             }
         }
-
         public override string ToString()
         {
-            return String.Format($"{Name}. Дата рождения: {DateOfBirth:D} Полных лет: {Age}. ID = {Id}");
+            return String.Format($"ID = {Id}. {Name}. Дата рождения: {DateOfBirth:D} Полных лет: {Age}. ");
         }
 
     }

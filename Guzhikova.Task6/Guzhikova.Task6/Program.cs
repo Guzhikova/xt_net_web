@@ -15,7 +15,7 @@ namespace Guzhikova.Task6
         static void Main(string[] args)
         {
 
-            var consoleManage = new ConsoleUserManagement();
+            var consoleManage = new ConsoleManage();
 
             consoleManage.СhooseAction();
 
