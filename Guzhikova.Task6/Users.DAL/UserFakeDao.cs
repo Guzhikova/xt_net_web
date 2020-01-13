@@ -13,11 +13,14 @@ namespace Guzhikova.Task6.DAL
         private static readonly Dictionary<int, User> _users = new Dictionary<int, User>();
         public User Add(User user)
         {
-            var lastId = _users.Keys.Count > 0
+            if (user.Id == default(int))
+            {
+                var lastId = _users.Keys.Count > 0
                 ? _users.Keys.Max()
                 : 0;
 
-            user.Id = lastId + 1;
+                user.Id = lastId + 1;
+            }
             _users.Add(user.Id, user);
 
             return user;

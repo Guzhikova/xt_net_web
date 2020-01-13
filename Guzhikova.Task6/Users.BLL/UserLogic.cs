@@ -62,13 +62,11 @@ namespace Guzhikova.Task6.BLL
             IEnumerable<User> users = GetAll();
             string jsonString = JsonConvert.SerializeObject(users);
 
-            using (_stream = File.Open(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
+                using (StreamWriter writer = new StreamWriter(_path, false, System.Text.Encoding.Default))
                 {
                     writer.Write(jsonString);
                 }
-            }
+
             return _path;
         }
 

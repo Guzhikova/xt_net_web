@@ -13,15 +13,15 @@ using Users.Dao.Interfaces;
 
 namespace Users.BLL
 {
-    public class AwardLogic: IAwardLogic
+    public class AwardLogic : IAwardLogic
     {
-        private readonly IAwardDao _awardDao; 
+        private readonly IAwardDao _awardDao;
         private System.IO.Stream _stream;
         private string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Awards.json");
 
         public AwardLogic(IAwardDao awardDao)
         {
-            _awardDao = awardDao; 
+            _awardDao = awardDao;
 
             IEnumerable<Award> awards = null;
 
@@ -31,7 +31,7 @@ namespace Users.BLL
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{e.Message} {Environment.NewLine}{e.StackTrace}");
+                Console.WriteLine($"+ {e.Message} {Environment.NewLine}{e.StackTrace}");
             }
 
             if (awards != null)
@@ -60,7 +60,7 @@ namespace Users.BLL
 
         public Award GetById(int id)
         {
-           return _awardDao.GetById(id);
+            return _awardDao.GetById(id);
         }
 
         public Award RewriteAward(Award award)
@@ -73,13 +73,14 @@ namespace Users.BLL
             IEnumerable<Award> awards = GetAll();
             string jsonString = JsonConvert.SerializeObject(awards);
 
-            using (_stream = File.Open(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
+            //using (System.IO.Stream stream = File.Open(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+            //{
+
+                using (StreamWriter writer = new StreamWriter(_path, false, System.Text.Encoding.Default))
                 {
                     writer.Write(jsonString);
                 }
-            }
+            //}
             return _path;
         }
 

@@ -50,14 +50,17 @@ namespace Guzhikova.Task6
                     case 7:
                         DeleteAward();
                         break;
+                    case 8:
+                        Save();
+                        break;
                     default:
-                        CloseAndSave();
+                        Console.WriteLine("Работа завершена!");
                         break;
                 }
 
                 Console.WriteLine($"----");
             }
-            while (command > 0 && command <= 6);
+            while (command > 0 && command <= 8);
         }
 
 
@@ -72,7 +75,8 @@ namespace Guzhikova.Task6
             Console.WriteLine("5: Вывести список наград");
             Console.WriteLine("6: Создать новую награду");
             Console.WriteLine("7: Удалить награду");
-            Console.WriteLine("{0}Для завершения работы и СОХРАНЕНИЯ данных введите любoe другое значение", Environment.NewLine);
+            Console.WriteLine($"{Environment.NewLine}8: СОХРАНИТЬ ИЗМЕНЕНИЯ");
+            Console.WriteLine("{0}Для завершения работы введите любoe другое значение", Environment.NewLine);
             Console.WriteLine($"{Environment.NewLine}************************************{Environment.NewLine}");
         }
         private void ShowUsers()
@@ -176,7 +180,6 @@ namespace Guzhikova.Task6
 
         }
 
-
         private void ShowAwards()
         {
             IEnumerable<Award> awards = _awardLogic.GetAll();
@@ -209,7 +212,7 @@ namespace Guzhikova.Task6
 
             try
             {
-                _userLogic.DeleteById(id);
+                _awardLogic.DeleteById(id);
                 Console.WriteLine($"{Environment.NewLine}Награда удалена!");
 
             }
@@ -260,14 +263,14 @@ namespace Guzhikova.Task6
             return id;
         }
 
-        private void CloseAndSave()
+        private void Save()
         {
             try
             {
                 string userFilePath = _userLogic.SaveUsersToFile();
                 string awardFilePath = _awardLogic.SaveAwardsToFile();
 
-                Console.WriteLine("Работа завершена!{0}Все изменения успешно сохранены в папку {1} : {2} и {3}!",
+                Console.WriteLine("{0}Все изменения успешно сохранены в папку {1} : {2} и {3}!",
                     Environment.NewLine, Path.GetDirectoryName(userFilePath), Path.GetFileName(userFilePath), Path.GetFileName(awardFilePath));
             }
             catch (Exception e)
@@ -275,23 +278,10 @@ namespace Guzhikova.Task6
                 Console.WriteLine("{0}К сожалению, не удалось сохранить данные в файл!{0}{1}{0}{2}",
                     Environment.NewLine, e.Message, e.StackTrace);
 
-                MenuOrExit();
-            }
-        }
-
-        private void MenuOrExit()
-        {
-            Console.WriteLine($"{Environment.NewLine}Для повторного вызова меню нажмите 1, для выхода - любую клавишу");
-
-            if (Console.ReadLine() == "1")
-            {
                 СhooseAction();
             }
-            else
-            {
-                Console.WriteLine("Работа со списком завершена, изменения не сохранены!");
-            }
         }
+
 
     }
 }

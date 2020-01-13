@@ -13,11 +13,14 @@ namespace Users.DAL
         private static readonly Dictionary<int, Award> _awards = new Dictionary<int, Award>();
         public Award Add(Award award)
         {
-            var lastId = _awards.Keys.Count > 0
-                ? _awards.Keys.Max()
-                : 0;
+            if (award.Id == default(int))
+            {
+                var lastId = _awards.Keys.Count > 0
+                  ? _awards.Keys.Max()
+                  : 0;
 
-            award.Id = lastId + 1;
+                award.Id = lastId + 1;
+            }
             _awards.Add(award.Id, award);
 
             return award;
