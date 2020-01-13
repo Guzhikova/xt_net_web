@@ -15,7 +15,7 @@ namespace Guzhikova.Task6.BLL
     public class UserLogic : IUserLogic
     {
         private readonly IUserDao _userDao;
-        private System.IO.Stream _stream;
+        private FileStream _stream = null;
         private string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.json");
 
         public UserLogic(IUserDao userDao)
@@ -57,16 +57,23 @@ namespace Guzhikova.Task6.BLL
             return _userDao.GetAll();
         }
 
+        public User GetById(int id)
+        {
+            return _userDao.GetById(id);
+        }
+
         public string SaveUsersToFile()
         {
             IEnumerable<User> users = GetAll();
             string jsonString = JsonConvert.SerializeObject(users);
 
-                using (StreamWriter writer = new StreamWriter(_path, false, System.Text.Encoding.Default))
+            using (_stream = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
                 {
                     writer.Write(jsonString);
                 }
-
+            }
             return _path;
         }
 

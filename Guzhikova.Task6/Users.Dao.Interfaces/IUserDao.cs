@@ -13,6 +13,8 @@ namespace Guzhikova.Task6.Dao.Interfaces
 
         void DeleteById(int id);
 
+        User GetById(int id);
+
         IEnumerable<User> GetAll();
     }
 }

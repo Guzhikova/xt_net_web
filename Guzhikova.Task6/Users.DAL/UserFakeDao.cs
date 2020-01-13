@@ -40,5 +40,14 @@ namespace Guzhikova.Task6.DAL
         {
             return _users.Values;
         }
+
+        public User GetById(int id)
+        {
+            if (!_users.ContainsKey(id))
+            {
+                throw new ArgumentOutOfRangeException("Id", "Error! User with this id does not exist!");
+            }
+            return _users[id];
+        }
     }
 }

@@ -24,7 +24,6 @@ namespace Guzhikova.Task6
 
             do
             {
-
                 Int32.TryParse(Console.ReadLine(), out command);
 
                 switch (command)
@@ -54,7 +53,8 @@ namespace Guzhikova.Task6
                         Save();
                         break;
                     default:
-                        Console.WriteLine("Работа завершена!");
+                        Save();
+                        Console.WriteLine($"{Environment.NewLine} Работа завершена!");
                         break;
                 }
 
@@ -89,9 +89,9 @@ namespace Guzhikova.Task6
                 {
                     Console.WriteLine(user.ToString());
 
-                    IEnumerable<Award> userAwards = GetAwardsForUser(user.Id);
+                    IEnumerable<Award> userAwards = _awardLogic.GetAll().Where(item => item.UsersId.Contains(user.Id));
 
-                    if (userAwards != null && userAwards.Count() >0)
+                    if (userAwards != null && userAwards.Count() > 0)
                     {
                         Console.Write("    + Награды: ");
 
@@ -99,8 +99,7 @@ namespace Guzhikova.Task6
                         {
                             Console.Write($"\"{award.Title}\" ");
                         }
-
-                        Console.WriteLine();
+                        Console.WriteLine(Environment.NewLine);
                     }
                 }
             }
@@ -108,14 +107,6 @@ namespace Guzhikova.Task6
             {
                 Console.WriteLine($"Список пользователей пуст!{Environment.NewLine}");
             }
-        }
-
-        private IEnumerable<Award> GetAwardsForUser(int userId)
-        {
-            IEnumerable<Award> userAwards = _awardLogic.GetAll().Where(item => item.UsersId.Contains(userId));
-
-            return userAwards;
-
         }
 
         private void AddUser()
@@ -142,42 +133,86 @@ namespace Guzhikova.Task6
                 Console.WriteLine($"{Environment.NewLine} {ex.Message}");
                 СhooseAction();
             }
-
         }
 
         private void RewardUser()
         {
-            int awardId = -1;
-            int userId = -1;
-
             Console.WriteLine($"{Environment.NewLine}Укажите id пользователя, которого желаете наградить:");
+            User user = ReadUserIfExist();
+
+            if (user != null)
+            {
+                Console.WriteLine($"{Environment.NewLine}Через пробел перчислите id наград, которыми нужно наградить пользователя:");
+                List<Award> awards = ReadAwardsIdFromConsole();
+
+                if (awards.Count > 0)
+                {
+                    string pluralChar = (awards.Count() > 1) ? "ы" : "а";
+
+                    Console.Write($"{Environment.NewLine}Наград{pluralChar} ");
+
+                    foreach (var award in awards)
+                    {
+                        award.UsersId.Add(user.Id);
+
+                        _awardLogic.RewriteAward(award);
+
+                        Console.Write($"\"{award.Title}\" ");
+                    }
+                    Console.Write($"присвоен{pluralChar} пользователю {user.Name}.{Environment.NewLine}");
+                }
+            }
+        }
+
+        private User ReadUserIfExist()
+        {
+            int userId = -1;
+            User user = null;
+
             userId = ReadIdFromConsole();
 
-            Console.WriteLine($"{Environment.NewLine}Через пробел перчислите id наград, которыми нужно наградить пользователя:");
-            string[] awardsIdArray = Console.ReadLine().Split(' ');
-
-            while (awardsIdArray.Length == 0 || awardsIdArray == null)
+            try
             {
-                Console.WriteLine("Неверный формат ввода! Введите заново:");
-                awardsIdArray = Console.ReadLine().Split(' ');
+                user = _userLogic.GetById(userId);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Ошибка! Пользователя с таким Id не существует!");
             }
 
-            foreach (var item in awardsIdArray)
+            return user;
+        }
+
+        private List<Award> ReadAwardsIdFromConsole()
+        {
+            int awardId = -1;
+            List<Award> awards = new List<Award>();
+
+            string[] awardsIdString = Console.ReadLine().Split(' ');
+
+            while (awardsIdString.Length == 0 || awardsIdString == null)
+            {
+                Console.WriteLine("Неверный формат ввода! Введите заново:");
+                awardsIdString = Console.ReadLine().Split(' ');
+            }
+
+            foreach (var item in awardsIdString)
             {
                 if (Int32.TryParse(item, out awardId))
                 {
-                    var award = _awardLogic.GetById(awardId);
-
-                    if (award.UsersId == null)
+                    try
                     {
-                        award.UsersId = new HashSet<int>();
+                        var award = _awardLogic.GetById(awardId);
+                        awards.Add(award);
                     }
-                    award.UsersId.Add(userId);
-
-                    _awardLogic.RewriteAward(award);
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.WriteLine($"{Environment.NewLine}Ошибка! Награды с Id = {awardId} не существует!");
+                    }
                 }
             }
 
+            return awards;
         }
 
         private void ShowAwards()

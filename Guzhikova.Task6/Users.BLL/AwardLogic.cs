@@ -16,7 +16,7 @@ namespace Users.BLL
     public class AwardLogic : IAwardLogic
     {
         private readonly IAwardDao _awardDao;
-        private System.IO.Stream _stream;
+        private FileStream _stream = null;
         private string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Awards.json");
 
         public AwardLogic(IAwardDao awardDao)
@@ -73,14 +73,15 @@ namespace Users.BLL
             IEnumerable<Award> awards = GetAll();
             string jsonString = JsonConvert.SerializeObject(awards);
 
-            //using (System.IO.Stream stream = File.Open(_path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-            //{
+            using (_stream = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
 
-                using (StreamWriter writer = new StreamWriter(_path, false, System.Text.Encoding.Default))
+                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
                 {
                     writer.Write(jsonString);
+
                 }
-            //}
+            }
             return _path;
         }
 
