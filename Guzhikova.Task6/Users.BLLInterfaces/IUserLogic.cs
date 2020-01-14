@@ -17,7 +17,7 @@ namespace Guzhikova.Task6.BLLInterfaces
 
         User GetById(int id);
 
-        string SaveUsersToFile();
+        string SaveUsers();
 
     }
 }

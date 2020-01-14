@@ -40,9 +40,9 @@ namespace Guzhikova.Task6.BLL
             return _userDao.GetById(id);
         }
 
-        public string SaveUsersToFile()
+        public string SaveUsers()
         {
-            return _userDao.SaveUsersToFile();
+            return _userDao.SaveUsers();
         }   
     }
 }

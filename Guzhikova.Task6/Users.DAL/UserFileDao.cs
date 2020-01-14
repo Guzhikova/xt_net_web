@@ -1,31 +1,27 @@
-﻿using System;
+﻿using Guzhikova.Task6.Dao.Interfaces;
+using Guzhikova.Task6.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Guzhikova.Task6.Dao.Interfaces;
-using Guzhikova.Task6.Entities;
 using Newtonsoft.Json;
 
-
-namespace Guzhikova.Task6.DAL
+namespace Users.DAL
 {
-    public class UserMemoryDao : IUserDao
+    public class UserFileDao : IUserDao
     {
-        private readonly Dictionary<int, User> _users = null;
-
         private FileStream _stream = null;
+        private Dictionary<int, User> _users = null;
         private string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.json");
 
-        public UserMemoryDao()
-        {
-            _users = ReadUsersFromFile() ?? new Dictionary<int, User>();
-           
-        }
+
         public User Add(User user)
         {
-            if (user.Id == default(int))
+            _users = ReadUsersFromFile();
+
+            if (user.Id == 0)
             {
                 var lastId = _users.Keys.Count > 0
                 ? _users.Keys.Max()
@@ -35,26 +31,34 @@ namespace Guzhikova.Task6.DAL
             }
             _users.Add(user.Id, user);
 
+            WriteToFile();
+
             return user;
+
         }
 
         public void DeleteById(int id)
         {
+            _users = ReadUsersFromFile();
+
             if (!_users.ContainsKey(id))
             {
                 throw new ArgumentOutOfRangeException("Id", "Error! User with this id does not exist!");
             }
             _users.Remove(id);
 
+            WriteToFile();
         }
 
         public IEnumerable<User> GetAll()
         {
-            return _users.Values;
+            return ReadUsersFromFile().Values;
         }
 
         public User GetById(int id)
         {
+            _users = ReadUsersFromFile();
+
             if (!_users.ContainsKey(id))
             {
                 throw new ArgumentOutOfRangeException("Id", "Error! User with this id does not exist!");
@@ -64,16 +68,6 @@ namespace Guzhikova.Task6.DAL
 
         public string SaveUsers()
         {
-
-            string jsonString = JsonConvert.SerializeObject(_users);
-
-            using (_stream = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
-            {
-                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
-                {
-                    writer.Write(jsonString);
-                }
-            }
             return _path;
         }
 
@@ -88,8 +82,23 @@ namespace Guzhikova.Task6.DAL
                     content = reader.ReadToEnd();
                 }
             }
+            Dictionary<int, User> users = JsonConvert.DeserializeObject<Dictionary<int, User>>(content)
+                ?? new Dictionary<int, User>();
 
-            return JsonConvert.DeserializeObject<Dictionary<int, User>>(content);
+            return users;
+        }
+
+        private void WriteToFile()
+        {
+            string jsonString = JsonConvert.SerializeObject(_users);
+
+            using (_stream = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
+                {
+                    writer.Write(jsonString);
+                }
+            }
         }
     }
 }

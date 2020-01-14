@@ -17,7 +17,7 @@ namespace Users.BLLInterfaces
 
         Award GetById(int id);
 
-        string SaveAwardsToFile();
+        string SaveAwards();
 
         Award RewriteAward(Award award);
     }

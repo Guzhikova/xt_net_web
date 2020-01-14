@@ -46,9 +46,9 @@ namespace Users.BLL
             return _awardDao.RewriteAward(award);
         }
 
-        public string SaveAwardsToFile()
+        public string SaveAwards()
         {
-            return _awardDao.SaveAwardsToFile();
+            return _awardDao.SaveAwards();
         }
 
     }

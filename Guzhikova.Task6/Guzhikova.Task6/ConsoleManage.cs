@@ -75,7 +75,7 @@ namespace Guzhikova.Task6
             Console.WriteLine("5: Вывести список наград");
             Console.WriteLine("6: Создать новую награду");
             Console.WriteLine("7: Удалить награду");
-            Console.WriteLine($"{Environment.NewLine}8: СОХРАНИТЬ ИЗМЕНЕНИЯ");
+            Console.WriteLine($"{Environment.NewLine}8: СОХРАНЕНИЕ");
             Console.WriteLine("{0}Для завершения работы введите любoe другое значение", Environment.NewLine);
             Console.WriteLine($"{Environment.NewLine}************************************{Environment.NewLine}");
         }
@@ -301,10 +301,10 @@ namespace Guzhikova.Task6
         {
             try
             {
-                string userFilePath = _userLogic.SaveUsersToFile();
-                string awardFilePath = _awardLogic.SaveAwardsToFile();
+                string userFilePath = _userLogic.SaveUsers();
+                string awardFilePath = _awardLogic.SaveAwards();
 
-                Console.WriteLine("{0}Все изменения успешно сохранены в папку {1} : {2} и {3}!",
+                Console.WriteLine("{0}Изменения сохранены в папку {1} : {2} и {3}!",
                     Environment.NewLine, Path.GetDirectoryName(userFilePath), Path.GetFileName(userFilePath), Path.GetFileName(awardFilePath));
             }
             catch (Exception e)

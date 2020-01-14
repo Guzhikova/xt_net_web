@@ -18,7 +18,8 @@ namespace Users.Dao.Interfaces
 
         Award RewriteAward(Award award);
 
-        string SaveAwardsToFile();
+        /// <returns>Returns info where awards saved</returns>
+        string SaveAwards();
 
 
     }
