@@ -1,16 +1,27 @@
 ﻿using Guzhikova.Task6.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Users.Dao.Interfaces;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Users.DAL
 {
-    public class AwardFakeDao: IAwardDao 
+    public class AwardMemoryDao : IAwardDao
     {
-        private static readonly Dictionary<int, Award> _awards = new Dictionary<int, Award>();
+        private readonly Dictionary<int, Award> _awards = new Dictionary<int, Award>();
+        private FileStream _stream = null;
+        private string _path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Awards.json");
+
+        public AwardMemoryDao()
+        {
+            _awards = ReadAwardsFromFile() ?? new Dictionary<int, Award>();
+        }
+
         public Award Add(Award award)
         {
             if (award.Id == default(int))
@@ -60,6 +71,36 @@ namespace Users.DAL
             _awards[award.Id] = award;
 
             return award;
+        }
+
+        public string SaveAwardsToFile()
+        {
+            string jsonString = JsonConvert.SerializeObject(_awards);
+
+            using (_stream = new FileStream(_path, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+
+                using (StreamWriter writer = new StreamWriter(_stream, System.Text.Encoding.Default))
+                {
+                    writer.Write(jsonString);
+                }
+            }
+            return _path;
+        }
+
+        private Dictionary<int, Award> ReadAwardsFromFile()
+        {
+            string content = "";
+
+            using (_stream = File.Open(_path, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (StreamReader reader = new StreamReader(_stream, System.Text.Encoding.Default))
+                {
+                    content = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Dictionary<int, Award>>(content);
         }
     }
 }

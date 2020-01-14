@@ -126,7 +126,6 @@ namespace Guzhikova.Task6
             {
                 _userLogic.DeleteById(id);
                 Console.WriteLine($"{Environment.NewLine}Пользователь успешно удален!");
-
             }
             catch (ArgumentOutOfRangeException ex)
             {

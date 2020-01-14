@@ -22,10 +22,10 @@ namespace UsersAndAwards.Ioc
         private static IAwardDao _awardDao;
         private static IAwardLogic _awardLogic;
 
-        public static IUserDao UserDao => _userDao ?? (_userDao = new UserFakeDao());    
+        public static IUserDao UserDao => _userDao ?? (_userDao = new UserMemoryDao());    
         public static IUserLogic UserLogic => _userLogic ?? (_userLogic = new UserLogic(UserDao));
 
-        public static IAwardDao AwardDao => _awardDao ?? (_awardDao = new AwardFakeDao());
+        public static IAwardDao AwardDao => _awardDao ?? (_awardDao = new AwardMemoryDao());
         public static IAwardLogic AwardLogic => _awardLogic ?? (_awardLogic = new AwardLogic(AwardDao));
 
     }

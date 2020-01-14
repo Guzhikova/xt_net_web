@@ -16,5 +16,9 @@ namespace Guzhikova.Task6.Dao.Interfaces
         User GetById(int id);
 
         IEnumerable<User> GetAll();
+
+        string SaveUsersToFile();
+
+
     }
 }
