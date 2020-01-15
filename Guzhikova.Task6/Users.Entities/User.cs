@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -50,7 +51,8 @@ namespace Guzhikova.Task6.Entities
         }
         public override string ToString()
         {
-            return String.Format($"ID = {Id}. {Name}. Дата рождения: {DateOfBirth:D} Полных лет: {Age}. ");
+            string dateOfBirth = DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
+            return String.Format($"ID = {Id}. {Name}. Date of birth: {dateOfBirth}. Age: {Age}. ");
         }
 
     }

@@ -25,7 +25,7 @@ namespace Guzhikova.Task6.Entities
 
         public override string ToString()
         {
-            return String.Format($"ID = {Id}. Награда \"{Title}\".");
+            return String.Format($"ID = {Id}. Award \"{Title}\".");
         }
     }
 }

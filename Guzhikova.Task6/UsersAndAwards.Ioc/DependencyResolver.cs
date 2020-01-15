@@ -17,18 +17,35 @@ namespace UsersAndAwards.Ioc
 {
     public class DependencyResolver
     {
-        static DependencyResolver()
-        {
-            _userDao = SetUserDaoFromConfiguration() ?? new UserMemoryDao();
-            _awardDao = SetAwardDaoFromConfiguration() ?? new AwardMemoryDao();
-        }
-
         private static IUserDao _userDao;
         private static IUserLogic _userLogic;
 
         private static IAwardDao _awardDao;
         private static IAwardLogic _awardLogic;
 
+        static DependencyResolver()
+        {
+            string value = ReadConfigurationValue("DAL");
+
+            switch (value)
+            {
+                case "Memory":
+                    _userDao = new UserMemoryDao();
+                    _awardDao = new AwardMemoryDao();
+                    break;
+
+                case "File":
+                    _userDao = new UserFileDao();
+                    _awardDao = new AwardFileDao();
+                    break;
+
+                default:
+                    _userDao = new UserMemoryDao();
+                    _awardDao = new AwardMemoryDao();
+                    break;
+            }
+        }
+    
         public static IUserDao UserDao => _userDao;
         public static IUserLogic UserLogic => _userLogic ?? (_userLogic = new UserLogic(UserDao));
 
@@ -45,42 +62,9 @@ namespace UsersAndAwards.Ioc
             }
             catch
             {
-                return "";
+                return "Error";
             }
-        }
-
-        private static IUserDao SetUserDaoFromConfiguration()
-        {
-            string userDaoValue = ReadConfigurationValue("UserDAL");
-
-            switch (userDaoValue)
-            {
-                case "Memory":
-                    return new UserMemoryDao();
-
-                case "File":
-                    return new UserFileDao();
-
-                default:
-                    return null;
-            }
-        }
-        private static IAwardDao SetAwardDaoFromConfiguration() { 
-
-            string awardDaoValue = ReadConfigurationValue("AwardDAL");
-
-            switch (awardDaoValue)
-            {
-                case "Memory":
-                    return new AwardMemoryDao();
-
-                case "File":
-                    return new AwardFileDao();
-
-                default:
-                    return null;
-            }
-        }
+        }    
 
     }
 }

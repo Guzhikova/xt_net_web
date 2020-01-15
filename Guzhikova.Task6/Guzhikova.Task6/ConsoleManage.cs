@@ -54,7 +54,7 @@ namespace Guzhikova.Task6
                         break;
                     default:
                         Save();
-                        Console.WriteLine($"{Environment.NewLine} Работа завершена!");
+                        Console.WriteLine($"{Environment.NewLine} Programme completed!");
                         break;
                 }
 
@@ -67,16 +67,16 @@ namespace Guzhikova.Task6
         private void ShowMenu()
         {
             Console.WriteLine($"{Environment.NewLine}************************************{Environment.NewLine}");
-            Console.WriteLine($"Выберите действие:{Environment.NewLine}");
-            Console.WriteLine("1: Вывести список пользователей");
-            Console.WriteLine("2: Создать нового пользователя");
-            Console.WriteLine("3: Удалить пользователя");
-            Console.WriteLine($"4: Наградить пользователя{Environment.NewLine}");
-            Console.WriteLine("5: Вывести список наград");
-            Console.WriteLine("6: Создать новую награду");
-            Console.WriteLine("7: Удалить награду");
-            Console.WriteLine($"{Environment.NewLine}8: СОХРАНЕНИЕ");
-            Console.WriteLine("{0}Для завершения работы введите любoe другое значение", Environment.NewLine);
+            Console.WriteLine($"Choose action:{Environment.NewLine}");
+            Console.WriteLine("1: Show users");
+            Console.WriteLine("2: Create new user");
+            Console.WriteLine("3: Delete user");
+            Console.WriteLine($"4: Reward user{Environment.NewLine}");
+            Console.WriteLine("5: Show awards");
+            Console.WriteLine("6: Create new award");
+            Console.WriteLine("7: Delete award");
+            Console.WriteLine($"{Environment.NewLine}8: SAVE");
+            Console.WriteLine("{0}Press another value for exit", Environment.NewLine);
             Console.WriteLine($"{Environment.NewLine}************************************{Environment.NewLine}");
         }
         private void ShowUsers()
@@ -93,19 +93,19 @@ namespace Guzhikova.Task6
 
                     if (userAwards != null && userAwards.Count() > 0)
                     {
-                        Console.Write("    + Награды: ");
+                        Console.Write("    + Awards: ");
 
                         foreach (var award in userAwards)
                         {
                             Console.Write($"\"{award.Title}\" ");
                         }
-                        Console.WriteLine(Environment.NewLine);
+                        Console.WriteLine();
                     }
                 }
             }
             else
             {
-                Console.WriteLine($"Список пользователей пуст!{Environment.NewLine}");
+                Console.WriteLine($"User list is empty!{Environment.NewLine}");
             }
         }
 
@@ -114,18 +114,18 @@ namespace Guzhikova.Task6
             User user = GetUserFromConsole();
             _userLogic.Add(user);
 
-            Console.WriteLine("{0}Успешно добавлен пользователь:{0}  {1}{0}", Environment.NewLine, user.ToString());
+            Console.WriteLine("{0}The user successfully added:{0}  {1}{0}", Environment.NewLine, user.ToString());
         }
 
         private void DeleteUser()
         {
-            Console.WriteLine($"{Environment.NewLine}Введите id пользователя, которого необходимо удалить");
+            Console.WriteLine($"{Environment.NewLine}Enter user ID to delete");
             int id = ReadIdFromConsole();
 
             try
             {
                 _userLogic.DeleteById(id);
-                Console.WriteLine($"{Environment.NewLine}Пользователь успешно удален!");
+                Console.WriteLine($"{Environment.NewLine}The user successfully deleted!");
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -136,19 +136,19 @@ namespace Guzhikova.Task6
 
         private void RewardUser()
         {
-            Console.WriteLine($"{Environment.NewLine}Укажите id пользователя, которого желаете наградить:");
+            Console.WriteLine($"{Environment.NewLine}Enter user ID to reward:");
             User user = ReadUserIfExist();
 
             if (user != null)
             {
-                Console.WriteLine($"{Environment.NewLine}Через пробел перчислите id наград, которыми нужно наградить пользователя:");
+                Console.WriteLine($"{Environment.NewLine}Set ID of awards separated by a space to reward user:");
                 List<Award> awards = ReadAwardsIdFromConsole();
 
                 if (awards.Count > 0)
                 {
-                    string pluralChar = (awards.Count() > 1) ? "ы" : "а";
+                    string pluralChar = (awards.Count() > 1) ? "s" : "";
 
-                    Console.Write($"{Environment.NewLine}Наград{pluralChar} ");
+                    Console.Write($"{Environment.NewLine}Award{pluralChar} ");
 
                     foreach (var award in awards)
                     {
@@ -158,7 +158,7 @@ namespace Guzhikova.Task6
 
                         Console.Write($"\"{award.Title}\" ");
                     }
-                    Console.Write($"присвоен{pluralChar} пользователю {user.Name}.{Environment.NewLine}");
+                    Console.Write($"assigned to user {user.Name}.{Environment.NewLine}");
                 }
             }
         }
@@ -174,9 +174,9 @@ namespace Guzhikova.Task6
             {
                 user = _userLogic.GetById(userId);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (ArgumentOutOfRangeException ex)
             {
-                Console.WriteLine("Ошибка! Пользователя с таким Id не существует!");
+                Console.WriteLine(ex.Message);
             }
 
             return user;
@@ -191,7 +191,7 @@ namespace Guzhikova.Task6
 
             while (awardsIdString.Length == 0 || awardsIdString == null)
             {
-                Console.WriteLine("Неверный формат ввода! Введите заново:");
+                Console.WriteLine("Invalid input format! Please enter again: ");
                 awardsIdString = Console.ReadLine().Split(' ');
             }
 
@@ -204,9 +204,9 @@ namespace Guzhikova.Task6
                         var award = _awardLogic.GetById(awardId);
                         awards.Add(award);
                     }
-                    catch (ArgumentOutOfRangeException)
+                    catch (ArgumentOutOfRangeException ex)
                     {
-                        Console.WriteLine($"{Environment.NewLine}Ошибка! Награды с Id = {awardId} не существует!");
+                        Console.WriteLine($"{Environment.NewLine}Id = {awardId}: {ex.Message}!");
                     }
                 }
             }
@@ -227,7 +227,7 @@ namespace Guzhikova.Task6
             }
             else
             {
-                Console.WriteLine($"Список наград пуст!{Environment.NewLine}");
+                Console.WriteLine($"List of awards is empty!{Environment.NewLine}");
             }
         }
 
@@ -236,18 +236,18 @@ namespace Guzhikova.Task6
             Award award = GetAwardFromConsole();
             _awardLogic.Add(award);
 
-            Console.WriteLine("{0}Награда успешно добавлена:{0}  {1}{0}", Environment.NewLine, award.ToString());
+            Console.WriteLine("{0}Award successfully added:{0}  {1}{0}", Environment.NewLine, award.ToString());
         }
         private void DeleteAward()
         {
-            Console.WriteLine($"{Environment.NewLine}Введите id награды, которую необходимо удалить:");
+            Console.WriteLine($"{Environment.NewLine}Enter award ID to delete:");
 
             int id = ReadIdFromConsole();
 
             try
             {
                 _awardLogic.DeleteById(id);
-                Console.WriteLine($"{Environment.NewLine}Награда удалена!");
+                Console.WriteLine($"{Environment.NewLine}Award successfully deleted!");
 
             }
             catch (ArgumentOutOfRangeException ex)
@@ -258,7 +258,7 @@ namespace Guzhikova.Task6
         }
         private Award GetAwardFromConsole()
         {
-            Console.WriteLine($"{Environment.NewLine}Введите наименование награды:");
+            Console.WriteLine($"{Environment.NewLine}Enter awards title:");
             string title = Console.ReadLine();
 
             return new Award(title);
@@ -271,14 +271,14 @@ namespace Guzhikova.Task6
             string name = "";
             DateTime dateOfBirth = default(DateTime);
 
-            Console.WriteLine($"{Environment.NewLine}Введите имя:");
+            Console.WriteLine($"{Environment.NewLine}Enter user name:");
             name = Console.ReadLine();
 
-            Console.WriteLine($"Введите дату рождения");
+            Console.WriteLine($"Enter date of birth");
 
             while (!DateTime.TryParse(Console.ReadLine(), out dateOfBirth))
             {
-                Console.WriteLine($"{Environment.NewLine}Неверный формат даты! Пожалуйста, введите снова:");
+                Console.WriteLine($"{Environment.NewLine}Invalid input format! Please enter again: ");
             }
 
             return new User(name, dateOfBirth);
@@ -291,7 +291,7 @@ namespace Guzhikova.Task6
 
             while (!Int32.TryParse(Console.ReadLine(), out id) && id >= 0)
             {
-                Console.WriteLine($"{Environment.NewLine}Неверный формат Id! Пожалуйста, введите снова:");
+                Console.WriteLine($"{Environment.NewLine}Invalid ID input format! Please enter again:");
             }
 
             return id;
@@ -304,12 +304,12 @@ namespace Guzhikova.Task6
                 string userFilePath = _userLogic.SaveUsers();
                 string awardFilePath = _awardLogic.SaveAwards();
 
-                Console.WriteLine("{0}Изменения сохранены в папку {1} : {2} и {3}!",
+                Console.WriteLine("{0}Changes saved in folder {1} : {2} и {3}!",
                     Environment.NewLine, Path.GetDirectoryName(userFilePath), Path.GetFileName(userFilePath), Path.GetFileName(awardFilePath));
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0}К сожалению, не удалось сохранить данные в файл!{0}{1}{0}{2}",
+                Console.WriteLine("{0}Failed to save data to file!!{0}{1}{0}{2}",
                     Environment.NewLine, e.Message, e.StackTrace);
 
                 СhooseAction();
