@@ -1,0 +1,21 @@
+body{
+    font-family: 'Times New Roman', 'Myriad Pro';
+    font-size: 11pt;
+    letter-spacing: -0.5px;
+}
+div.menu {
+    width: 200px;
+    background-color:rgb(255, 213, 98);
+    border-radius: 10px;
+    border: 2px solid grey;
+    box-shadow: 5px 5px maroon;  
+    color: maroon;  
+    font-weight: bolder;
+    line-height: 1.5;    
+    }
+ul {
+    list-style: none inside;
+    margin-block-end: 10px;
+    margin-block-start: 10px;
+    padding-inline-start: 10px;    
+    }
