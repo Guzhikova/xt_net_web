@@ -1,0 +1,58 @@
+body
+{
+    width: 100%;
+    font-family: Helvetica, 'Times New Roman', Times, serif;
+    font-size: 12pt;    
+    line-height: 1.5;
+}
+
+h2
+{
+    padding-left: 20px;
+    font-size: 18pt;
+    font-weight: normal;
+    line-height: 1;
+}
+
+form
+{
+    padding: 30px 20px;
+    border-top: solid 1px white;
+}
+
+button
+{
+ background-color: rgb(253, 209, 127);
+ border: 0;
+ padding: 7px;
+}
+
+div.form 
+{
+    width: 400px;
+    background-color: rgb(19, 144, 194);
+    color: white;    
+    border: solid 4px rgb(29, 104, 216);
+}
+
+div.password
+{    
+    display:  flex;
+    margin-bottom: 30px;
+}
+
+.password section
+{
+    margin-top: 20px;
+    width: 50%;
+}
+
+.email input
+{
+    width: 330px;
+}
+
+.password input
+{
+    width: 150px;
+}
