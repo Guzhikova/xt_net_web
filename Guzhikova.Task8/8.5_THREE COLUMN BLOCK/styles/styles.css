@@ -1,0 +1,72 @@
+
+body
+{
+    background-color: rgb(67, 89, 110);
+    font-family: 'Times New Roman', Times, serif;
+    font-size:10pt;
+    line-height: 12px;
+}
+
+h2
+{
+    font-size: 11pt;
+    color:  rgb(255, 123, 47);
+}
+
+button
+{
+    padding: 3px 6px;
+    font-family: inherit;
+    font-size:inherit;
+    background-color: rgb(255, 123, 47);
+    color: white;
+    border: none;
+    border-radius: 2px;  
+
+}
+
+div.general
+{
+    width: 604px;
+    height: 150px;
+    margin: auto;
+    background-color: white;
+    border: 1px solid rgb(82, 81, 81);
+    border-radius: 5px;
+    box-shadow: 0 0 60px 5px rgb(58, 58, 58);
+
+} 
+
+.general > div
+{    
+    float:left;
+    width: 200px;
+    padding-top: 42px;
+    margin-top:6px;
+    text-align: center;       
+    background: scroll  url(/images/img.png) no-repeat; 
+}
+
+div.info
+{
+    padding-top: 7px;
+    background-color: white;
+}
+
+#option1
+{
+    background-position:  center top;
+}
+
+#option2
+{
+    background-position: center top -42px;
+    border: 2px solid rgb(236, 236, 236);
+    border-top: none;
+    border-bottom: none;
+}
+
+#option3
+{
+    background-position:  center top -84px;
+}
