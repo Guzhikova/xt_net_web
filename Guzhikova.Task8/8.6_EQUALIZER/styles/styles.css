@@ -1,0 +1,56 @@
+
+body
+{
+    background-color: rgb(58, 58, 58);    
+}
+
+div.equalizer
+{
+    height: 150px;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.equalizer > div
+{
+    vertical-align: bottom;
+    display: inline-block;
+    margin-right: 3px;
+    max-height: 150px;
+    width: 30px;
+    background:  repeating-linear-gradient(to top, transparent 0, transparent 13px,  rgb(58, 58, 58) 13px, rgb(58, 58, 58) 15px),
+     linear-gradient(to top, rgb(238, 155, 0),rgb(226, 186, 110));
+    border-radius: 7px 7px 0 0;
+
+}
+
+#eq1
+{
+    height: 75px;
+}
+
+#eq2
+{
+    height: 30px;
+}
+
+#eq3
+{
+    height: 120px;
+}
+
+#eq4
+{
+    height: 200px;
+}
+
+#eq5
+{
+    height: 75px;
+}
+
+#eq6
+{
+    height: 45px;
+}
+
