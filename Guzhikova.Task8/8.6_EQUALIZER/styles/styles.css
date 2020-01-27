@@ -5,23 +5,27 @@ body
 }
 
 div.equalizer
-{
-    height: 150px;
+{ 
     display: table-cell;
     vertical-align: bottom;
+    
+    height: 150px;
 }
 
 .equalizer > div
 {
-    vertical-align: bottom;
     display: inline-block;
-    margin-right: 3px;
-    max-height: 150px;
+    vertical-align: bottom;
+
     width: 30px;
+    max-height: 150px;
+    
+    margin-right: 3px;
+    
     background:  repeating-linear-gradient(to top, transparent 0, transparent 13px,  rgb(58, 58, 58) 13px, rgb(58, 58, 58) 15px),
      linear-gradient(to top, rgb(238, 155, 0),rgb(226, 186, 110));
-    border-radius: 7px 7px 0 0;
 
+    border-radius: 7px 7px 0 0;
 }
 
 #eq1

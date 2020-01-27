@@ -1,42 +1,67 @@
-
 body
-{
-    width: 100%;
-    background-color:#edeef0;    
+{  
+    margin: 0;
+    padding: 0;   
+
     font-family: -apple-system,BlinkMacSystemFont,Roboto,Open Sans,Helvetica Neue,"Noto Sans Armenian","Noto Sans Bengali","Noto Sans Cherokee","Noto Sans Devanagari","Noto Sans Ethiopic","Noto Sans Georgian","Noto Sans Hebrew","Noto Sans Kannada","Noto Sans Khmer","Noto Sans Lao","Noto Sans Osmanya","Noto Sans Tamil","Noto Sans Telugu","Noto Sans Thai",sans-serif;
     font-size:13px;
+    font-weight: 400; 
+    line-height: 1.154; 
 
-    
-    line-height: 1.154;
-    font-weight: 400;
-
-    padding: 0;
-    margin: 0;
-    
+    background-color:#edeef0;           
 }
 
-div{
-    border: 1px solid red;
+h4
+{    
+    font-size:15px;
+    font-weight: normal;
+    text-align: left;
+    text-indent: 20px;
 }
 
-/* Head part */
+a, a:link, a:visited
+{
+    color: #1a548d;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+p.main_info
+{
+    text-align: center;
+}
+
+/*--------------------------------------------------
+            ---=== HEAD PART ===---
+---------------------------------------------------*/
 
 .top_back
 {
     position: fixed;
     top:0;
+
+    height: 40px; 
     width: 100%;
-    height: 40px;
-    background-color: #4a76a8; 
+
+    padding-left: 10px; 
+    
+    background-color: #4a76a8;     
+    z-index: 1;
 }
 
 .header
-{
+{    
     position: relative;
+    display: flex;        
+
     margin: auto;
-    width: 980px; 
-    display: flex;
     align-items: center;
+
+    width: 980px;     
 }
 
 .header > *
@@ -44,29 +69,184 @@ div{
     display: inline-block;
 }
 
-img.logo 
+.header img.logo 
 {
+    margin-left: 15px;
     width: 35px;
 }
 
-.search
+/* The elements of some quick functions as icons */
+
+.header .item
 {
-    border: 0;
-    box-sizing: border-box;
-    padding: 6px 6px 6px 19px;
-    margin: 7px 0px 7px 150px;
-    height: 28px;
-    line-height: 16px;
-    width: 230px;
-    border-radius: 14px;
-    transition: background-color 0.05s, color 0.05s;
-    background: #224b7a url(/images/ic_head_loupe.svg) no-repeat;
-    padding-left: 19px;
-    border-left: 8px solid transparent;
-    background-position: left 8px;
-    color: #d9e2ec;
-    
+    height: 40px;
+    width: 40px;
+
+    margin-top: -2px;   
+    text-align: center;      
 }
+
+.header .item > img
+{
+    width: 20px;
+    height: 20px;       
+}
+
+.header .item > *
+{
+    margin: 25% 0;
+}
+
+.header .item:hover
+{
+   background-color: #3d678f;
+   text-decoration: none;
+}
+
+/* Play audio element */
+
+.play 
+{
+    position: relative;
+
+    width: 20px; 
+    height: 20px;
+
+    margin-left: 5px;
+
+    background-color: #274b6e;    
+    border-radius: 3px;
+}
+
+.play::after 
+{
+    content: ''; 
+
+    position: absolute;
+    left: -8px; 
+    top: 6px;
+
+    border: 4px solid transparent;
+    border-right: 4px solid #274b6e;
+}
+
+.play::before
+{
+    content: ''; 
+
+    position: absolute;
+    left: 7px; 
+    top: 5px;
+
+    border: 5px solid transparent;
+    border-left: 8px solid #dddddd;
+}
+
+.play:hover
+{
+    background-color: #16406e;
+}
+
+.play:hover::after
+{
+    border-right-color:  #16406e;
+}
+
+/* Block with info about user */
+
+.header .right
+{
+    position: absolute;
+    right: 10px; 
+    top: 0;    
+}
+
+.right #head_photo
+{
+    position: relative;
+    display: block;
+
+    width: auto;
+
+    padding-left: 5px;   
+}
+
+#head_photo > *
+{
+    display: inline-block;
+    
+    margin-right: 10px;
+    margin-top: 0;
+
+    text-align: center;
+    vertical-align: middle; 
+
+    line-height: 45px;
+    font-size: 9pt;
+    
+    color: #fafafa;    
+}
+
+#head_photo .photo
+{
+    width: 30px;
+    height: 30px;
+    
+    padding: 0; 
+    
+    border-radius: 50%;   
+    overflow: hidden;
+}
+
+#head_photo .photo img
+{
+    height: 30px;
+    width: 30px;        
+}
+
+#head_photo .user_name
+{
+    font-weight: bold;
+}
+
+#head_photo .user_more
+{
+    height: 4px;
+    width: 4px;
+
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    
+    transform: rotate(-45deg);
+}
+
+/* Block with site searching */
+
+.search
+{    
+    box-sizing: border-box;
+    height: 28px;
+    width: 230px;
+
+    margin: 7px 10px 7px 120px; 
+    padding: 6px 6px 6px 19px;    
+    
+    line-height: 16px;        
+    
+    background: #224b7a url(/images/ic_head_loupe.svg) left 8px no-repeat;
+    transition: background-color 0.05s, color 0.05s; 
+
+    border: 0;
+    border-left: 8px solid transparent;
+    border-radius: 14px;
+
+    color: #d9e2ec;    
+}
+
+.search::-webkit-input-placeholder {color:#bfcbf0; opacity:0.8;} /* webkit */
+.search::-moz-placeholder          {color:#bfcbf0; opacity:0.8;} /* Firefox 19+ */
+.search:-moz-placeholder           {color:#bfcbf0; opacity:0.8;} /* Firefox 18- */
+.search:-ms-input-placeholder      {color:#bfcbf0; opacity:0.8;} /* IE */
 
 .search:focus
 {
@@ -74,14 +254,25 @@ img.logo
     outline: none;
 }
 
-/* --- */
+.search:focus::-webkit-input-placeholder {opacity:0;} 
+.search:focus::-moz-placeholder          {opacity:0;} 
+.search:focus:-moz-placeholder           {opacity:0;} 
+.search:focus:-ms-input-placeholder      {opacity:0;} 
+
+
+/*--------------------------------------------------
+            ---=== MAIN PART ===---
+---------------------------------------------------*/
+
 .general
 {
-    width: 980px;
-    margin: auto; 
-    padding-top: 15px;
     position: relative; 
     top: 42px;
+
+    width: 980px;
+
+    margin: auto; 
+    padding-top: 15px;    
 }
 
 .menu, .content, .auxiliary_menu
@@ -89,59 +280,69 @@ img.logo
     position: absolute;
 }
 
-.menu 
-{
-    width: 180px;    
-}
-    
-.content
-{
-    left: 180px;
-    width: 550px;  
-    
-    background-color: white;
-}
-
-.auxiliary_menu
-{
-    right: 0;
-    width: 230px;
-    padding: 7px 0;
-    background-color: white;
-    
-}
-
-
-
-
-/*  */
-
 .content, .auxiliary_menu
 {
-    border: 1px solid #d1d1d1;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
 }
 
-/* Left menu */
+
+/*--------------------
+---=== LEFT MENU ===---
+----------------------*/
+
+.menu 
+{
+    width: 180px;    
+    padding-left: 10px;
+}
+    
+.menu a, .menu a:link, .menu a:visited
+{
+    padding-left: 35px;
+    text-decoration: none;    
+}
+
+.menu li:hover a
+{
+    display: block;
+    margin-right: 13px;
+
+    background-color: rgba(194, 201, 212, 0.3);
+    
+    border-radius: 2px;    
+}
 
 .menu ul 
 {
+    position: relative;
 
-    color: #0d2f52;
-    padding: 0; margin: 0;
-
+    margin: 0;
+    padding: 10px;    
 }
 
 .menu ul > li
 {
     display: block;
+
     line-height: 21pt;
     list-style-type: none;
 
     background:  left 3px top 2px  no-repeat;
 }
 
+.menu .next::before
+{
+    content: " ";
 
+    position: absolute;
+    top: 0;
+    right: 26px;
+
+    width: 112px;
+
+    border-top: 1px solid #d3d3d3; 
+}
 
 .menu #left_main
 {
@@ -188,34 +389,113 @@ img.logo
     background-image: url(/images/left_menu/games.png);
 }
 
-.menu a, .menu a:link, .menu a:visited
+.menu #left_pay
 {
-    
-    color: #0d2f52;
-    text-decoration: none;
-    padding-left: 35px;
-
+    background-image: url(/images/left_menu/pay.png);
 }
 
-.menu li:hover a
+.menu #left_market
 {
-    display: block;
-    margin-right: 13px;
-    background-color: rgba(194, 201, 212, 0.3);
-    border-radius: 2px;
-    
+    background-image: url(/images/left_menu/market.png);
 }
 
-/* Auxiliary right menu */
+.menu #left_bookmarks
+{
+    background-image: url(/images/left_menu/bookmarks.png);
+}
+
+.menu #left_documents
+{
+    background-image: url(/images/left_menu/documents.png);
+}
+
+/*-------------------
+---=== CONTENT ===---
+------------------- */
+
+.content
+{
+    left: 180px;
+
+    width: 550px; 
+    line-height: 25px;
+    
+    background-color: #fafbfc;     
+}
+
+.for_forms
+{   
+    width: 510px;
+
+    padding: 0 20px;
+
+    background-color: #fff;
+
+    border:  1px solid #e0e0e0;    
+    border-left: none;
+    border-right: none;    
+}
+
+.for_forms > div 
+{
+    padding: 15px 0;
+    border-bottom:  1px solid #e0e0e0;    
+}
+
+.for_forms > div.last
+{
+    border-bottom: none;
+}
+
+.for_forms > div > div
+{
+    display: inline-block;
+    vertical-align: top;    
+}
+
+.for_forms .setup_title, .for_forms span.title
+{
+    width: 150px;    
+    color: #585858;
+}
+
+.for_forms .setup_info
+{
+    position: relative;    
+}
+
+.for_forms p
+{
+    margin: 0;
+}
+
+.cont_right
+{
+   float: right;
+}
+
+/*----------------------------
+-== AUXILIARY (RIGHT) MENU ==-
+-----------------------------*/
+
+.auxiliary_menu
+{
+    right: 0;
+
+    width: 230px;
+    padding: 7px 0;
+
+    background-color: white;    
+}
 
 .auxiliary_menu > a, .auxiliary_menu > a:link, .auxiliary_menu > a:visited
 {
     display: block;
-    line-height: 25pt;
+
     padding-left: 20px;
-    color: #0d2f52;
-    text-decoration: none;
-   
+    line-height: 25pt;
+    
+    text-decoration: none;   
 }
 
 .auxiliary_menu > a:hover
@@ -226,8 +506,90 @@ img.logo
 #aux_general
 {
     background-color: #f0f2f5;
-    border-left: 2px solid #4a76a8;
-    color: #000;
-    font-weight: bold;
     
+    color: #000;
+    font-weight: bold;  
+    
+    border-left: 2px solid #4a76a8;  
+}
+
+/*--------------------------------------------------
+            ---=== OTHER ===---
+---------------------------------------------------*/
+
+/* --- CHECKBOX - new style --- */
+
+input[type="checkbox"] 
+{
+    display: none;
+}
+
+.checkbox 
+{
+    padding-left: 25px;
+}
+
+.checkbox label 
+{
+    position: relative;    
+}
+
+.checkbox label::before
+{
+    content: "";
+
+    position: absolute;
+    left: -25px;
+    top: -1px;
+
+    display: inline-block;
+    
+    height: 14px;
+    width: 14px;
+
+    border: 1px solid #cfcfcf; 
+    border-radius: 4px;
+}    
+   
+.checkbox label::after 
+{
+    content: "";
+
+    position: absolute;
+    left: -22px;
+    top: 3px;
+
+    display: inline-block;
+
+    height: 3px;
+    width: 7px;
+
+    border-left: 1.5px solid white;
+    border-bottom: 1.5px solid white;
+    
+    transform: rotate(-45deg);
+}
+
+.checkbox input[type="checkbox"] + label::after 
+{
+    content: none;
+}
+
+.checkbox input[type="checkbox"]:checked + label::after 
+{
+    content: "";    
+}
+
+.checkbox input[type="checkbox"]:checked + label::before
+{
+    height: 15px;
+    width: 15px;
+
+    background-color: #5e8dc2;
+    border: none;
+}
+
+.checkbox input[type="checkbox"]:focus + label::before 
+{
+    outline: rgb(59, 153, 252) auto 5px;
 }

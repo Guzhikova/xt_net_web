@@ -1,6 +1,7 @@
 body
 {
     width: 100%;
+
     font-family: Helvetica, 'Times New Roman', Times, serif;
     font-size: 12pt;    
     line-height: 1.5;
@@ -9,6 +10,7 @@ body
 h2
 {
     padding-left: 20px;
+
     font-size: 18pt;
     font-weight: normal;
     line-height: 1;
@@ -22,16 +24,19 @@ form
 
 button
 {
- background-color: rgb(253, 209, 127);
- border: 0;
  padding: 7px;
+ 
+ background-color: rgb(253, 209, 127);
+ border: 0; 
 }
 
 div.form 
 {
     width: 400px;
+
+    color: white;
     background-color: rgb(19, 144, 194);
-    color: white;    
+        
     border: solid 4px rgb(29, 104, 216);
 }
 
@@ -43,8 +48,8 @@ div.password
 
 .password section
 {
-    margin-top: 20px;
     width: 50%;
+    margin-top: 20px;    
 }
 
 .email input

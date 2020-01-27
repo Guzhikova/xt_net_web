@@ -1,21 +1,30 @@
-body{
+body
+{
     font-family: 'Times New Roman', 'Myriad Pro';
     font-size: 11pt;
     letter-spacing: -0.5px;
 }
-div.menu {
+
+div.menu 
+{
     width: 200px;
-    background-color:rgb(255, 213, 98);
-    border-radius: 10px;
-    border: 2px solid grey;
-    box-shadow: 5px 5px maroon;  
+
     color: maroon;  
     font-weight: bolder;
-    line-height: 1.5;    
-    }
-ul {
-    list-style: none inside;
+    line-height: 1.5; 
+
+    background-color:rgb(255, 213, 98);
+
+    border: 2px solid grey;
+    border-radius: 10px;    
+    box-shadow: 5px 5px maroon;         
+}
+
+ul 
+{
+    padding-inline-start: 10px;
     margin-block-end: 10px;
-    margin-block-start: 10px;
-    padding-inline-start: 10px;    
-    }
+    margin-block-start: 10px;   
+    
+    list-style: none inside;     
+}

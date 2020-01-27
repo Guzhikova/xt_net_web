@@ -8,23 +8,27 @@ nav
 
 nav ul 
 {
+    position: relative;
+
     padding:0;
     margin:0;
-    list-style: none;
-    position: relative;
+
+    list-style: none;    
 }
 
 nav li 
 {  
-    padding: 1px 3px;;
     display: inline-block;
+    padding: 1px 3px;    
 }
 
 nav a 
 {
     position: relative;
-    display: block;;
-    padding:0 10px;
+    display: block;
+
+    padding: 0 10px;
+
     text-decoration:none; 
 }
 
@@ -35,35 +39,37 @@ a:link, a:visited
 
 a.menu
 { 
-    color: blue;
-    text-decoration: underline;
-    padding-bottom: 3px;
     margin-bottom: -1px;
+    padding-bottom: 3px;
+
+    color: blue;
+    text-decoration: underline;    
 }
 
-/* изменяем цвет фона при наведении курсора */
-.submenu a:hover {
+.submenu a:hover 
+{
     color: white;
     background-color: rgb(54, 190, 243);
 }
 
-/* скрываем выпадающие списки по умолчанию
-			 * и задаем абсолютное позиционирование */
- ul.submenu  
+ul.submenu  
 {
-    display: none;
     position: absolute;
     top: 100%;
-    background-color: white;
-    margin-top: -1px;
+
+    display: none;
+
     margin-left: 0px;
+    margin-top: -1px;    
     padding-top: 5px;
-    z-index: -1; 
+
+    background-color: white;   
+     
     border: 1px solid  rgb(204, 204, 204);
-}
-			
-			/* отображаем выпадающий список при наведении */
- ul.menu li:hover > ul 
+    z-index: -1;
+}			
+
+ul.menu li:hover > ul 
 {
     display:inherit;
 }
@@ -72,31 +78,34 @@ ul li:hover a.menu
 {
     color: black;
     text-decoration: none;    
+    
+    background-color: white;
+    
     border: 1px solid  rgb(204, 204, 204); 
     border-bottom: none; 
-    background-color: white;
 }
-
-
 
 ul li:hover a.menu::after 
 {
-    content: "1" ; /* Добавляем пустое содержание для тени */
-    display: block; /* Блочный элемент */
-    position: absolute; /* Абсолютное позиционирование */
+    content: "." ; 
+
+    display: block; 
+    
+    position: absolute; 
     top: -1px; bottom: 0px;
     left: -1px; right: -1px;
-    z-index: -1; /* Тень под блоком текста */ 
+     
     border-radius: 5px 5px 0 0;
+    z-index: -1;
 }
 
-			/* первый уровень выпадающего списка */
 ul.submenu li 
 {
-    min-width:100px;
-    float:none;
     display:list-item;
+    float: none;
     position: relative;  
+
+    min-width: 100px;
 }
 
 ul li:hover a.menu::after, ul.menu li:hover > ul 

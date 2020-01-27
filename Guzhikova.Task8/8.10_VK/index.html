@@ -3,23 +3,40 @@
 
 <head>
      <meta charset="utf-8">
-     <title>8.5. THREE COLUMN BLOCK</title>
+     <title>8.10. VK - Settings</title>
      <link rel="stylesheet" type="text/css" href="styles/styles.css">
-     
+
 </head>
 
-<body>   
+<body>
      <div class="top_back">
           <div class="header">
                <a href="https://vk.com">
                     <img src="/images/ic_head_logo.svg" class="logo" alt="vk">
                </a>
                <form>
-                    <input type="text" aria-label="Поиск" class="search">
+                    <input type="text" placeholder="Поиск" class="search">
                </form>
+               <a href="#" class="item">
+                    <img src="/images/ic_head_notify.svg" class="notification" alt="notification">
+               </a>
+               <a href="#" class="item">
+                    <img src="/images/ic_head_audio.svg" class="audio" alt="audio">
+               </a>
+               <a href="#" class="play"></a>
+
+               <div class="right">
+                    <a href="#" class="item" id="head_photo">
+                         <p class="user_name">User</p>
+                         <span class="photo">
+                              <img src="/images/photo.jpg" alt="photo">
+                         </span>
+                         <p class="user_more"></p>
+                    </a>
+               </div>
           </div>
-     </div>  
-     <div class="general">          
+     </div>
+     <div class="general">
           <div class="menu">
                <ul>
                     <li id="left_main"><a href="#">Моя страница</a></li>
@@ -33,9 +50,100 @@
                     <li id="left_games"><a href="#">Игры</a></li>
                </ul>
 
-               
+               <ul class="next">
+                    <li id="left_pay"><a href="#">VK Pay</a></li>
+               </ul>
+               <ul class="next">
+                    <li id="left_market"><a href="#">Товары</a></li>
+                    <li id="left_bookmarks"><a href="#">Закладки</a></li>
+                    <li id="left_documents"><a href="#">Документы</a></li>
+               </ul>
           </div>
-          <div class="content">Центральная колонка</div>
+          <div class="content">
+               <h4>Общее</h4>
+               <div class="for_forms">
+                    <div>
+                         <div class="setup_title">Меню сайта</div>
+                         <div class="setup_info"><a href="#">Настроить отображение пунктов меню</a></div>
+                    </div>
+                    <div>
+                         <div class="setup_title">Настройки профиля</div>
+                         <div class="setup_info">
+                              <form class="checkbox">
+                                   <input type="checkbox" id="check1">
+                                   <label for="check1">Скрывать блок подарков</label><br>
+                                   <input type="checkbox" id="check2">
+                                   <label for="check2">При открытии профиля показывать мои записи</label><br>
+                                   <input type="checkbox" id="check3">
+                                   <label for="check3">Отключить комментирование записей</label><br>
+                                   <input type="checkbox" id="check4">
+                                   <label for="check4">Специальные возможности</label><br>
+                              </form>
+                         </div>
+                    </div>
+                    <div>
+                         <div class="setup_title">Настройки контента</div>
+                         <div class="setup_info">
+                              <form class="checkbox">
+                                   <input type="checkbox" id="check5" checked>
+                                   <label for="check5">Автоматически воспроизводить видео</label><br>
+                                   <input type="checkbox" id="check6" checked>
+                                   <label for="check6">Автоматически воспроизводить GIF-анимации</label><br>
+                                   <input type="checkbox" id="check7" checked>
+                                   <label for="check7">Подсказывать стикеры в полях ввода</label><br>
+                                   <input type="checkbox" id="check8">
+                                   <label for="check8">Автоматически отмечать друзей на фотографиях</label><br>
+                                   <p>Сортировка комментариев: <a href="#">сначала интересные</a></p>
+                                   <p><a href="#">Посмотреть заблокированные приложения</a></p>
+                              </form>
+                         </div>
+                    </div>
+                    <div>
+                         <div class="setup_title">Пароль</div>
+                         <div class="setup_info">
+                              <p id="password">Обновлен год назад</p>
+                         </div>
+                         <a class="cont_right">Изменить</a>
+                    </div>
+                    <div>
+                         <div class="setup_title">Электронная почта</div>
+                         <div class="setup_info">
+                              <p id="email">my***@ya.ru</p>
+                         </div>
+                         <a class="cont_right">Изменить</a>
+                    </div>
+                    <div>
+                         <div class="setup_title">Номер телефона</div>
+                         <div class="setup_info">
+                              <p id="email">+7 *** *** ** 43</p>
+                         </div>
+                         <a class="cont_right">Изменить</a>
+                    </div>
+                    <div>
+                         <div class="setup_title">Адрес страницы</div>
+                         <div class="setup_info">
+                              <p id="email"><span class="title">https://vk.com/</span>id0000004</p>
+                         </div>
+                         <a class="cont_right">Изменить</a>
+                    </div>
+                    <div>
+                         <div class="setup_title">Верификация</div>
+                         <div class="setup_info">
+                              <p id="verification">Страница не верифицирована</p>
+                         </div>
+                         <a class="cont_right">Подать заявку</a>
+                    </div>
+                    <div class="last">
+                         <div class="setup_title">Язык</div>
+                         <div class="setup_info">
+                              <p id="language">Русский</p>
+                         </div>
+                         <a class="cont_right">Изменить</a>
+                    </div>
+               </div>
+               <p class="main_info">Вы можете <a href="#">удалить свою страницу</a>.</p>
+          </div>
+          
           <div class="auxiliary_menu">
                <a href="#" id="aux_general">Общее</a>
                <a href="#">Безопасность</a>

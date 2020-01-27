@@ -5,14 +5,15 @@ body
     font-size:12pt;
 }
 
-
 div.upper
 {   
     height: 45px;
     padding-left: 10px;
-    background-color: rgb(18, 173, 122);
-    color: white;
+    
     text-align: left;
+    color: white;
+
+    background-color: rgb(18, 173, 122);       
 }
 
 div.upper p
@@ -25,11 +26,14 @@ div.lower
 {
     width: 90%;
     min-height: 50px;
-    background-color: rgb(228, 228, 228);
+
     margin: -10px 0 0 auto;
-    border: 1px solid white;
-    border-right: none;
     padding: 10px;
+
+    background-color: rgb(228, 228, 228);
+    
+    border: 1px solid white;
+    border-right: none;    
 }
 
 div.lower p
