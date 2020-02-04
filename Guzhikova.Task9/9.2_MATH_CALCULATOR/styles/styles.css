@@ -1,0 +1,46 @@
+
+div
+{
+    width: 500px;
+
+    color: rgb(131, 63, 0);
+    background-color: rgb(255, 254, 173);        
+    border: solid 1px rgb(131, 63, 0);
+}
+
+form
+{
+    padding: 30px 20px;
+    border-top: solid 1px white;    
+}
+legend
+{
+    text-align: center;
+}
+
+button
+{
+    height: 20px;
+    width: 350px;
+}
+
+input
+{    
+    height: 25px;
+    min-width: 350px;
+    margin-bottom: 15px;
+}
+
+ .error 
+ {
+    text-transform: uppercase;
+    font-weight: bold;  
+    color: red;  
+ }
+
+ #result
+ {
+     font-size: 16pt;
+     font-weight: bold;
+ }
+
