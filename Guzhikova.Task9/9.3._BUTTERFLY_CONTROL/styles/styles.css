@@ -1,0 +1,54 @@
+
+div.main
+{
+    width: 500px;
+
+    margin: auto;
+    color: rgb(68, 68, 68);
+    background-color: rgb(238, 238, 238);        
+    border:  3px ridge rgb(177, 177, 177);
+}
+
+form
+{
+    padding: 20px;
+    border-top: solid 1px white;    
+}
+
+legend
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+form > div, form > select
+{
+    display: inline-block;    
+    vertical-align: middle;
+    margin-top: 0px;
+}
+
+select
+{
+    width: 200px;
+    height: 200px;
+}
+
+button
+{
+    display: block;
+
+    height: 20px;
+    width: 35px;
+
+    margin: 20px 5px;
+}
+
+form .error
+{
+    margin: 5px;
+    text-align: center;
+    
+    color:red;
+    font-weight: bold;
+}

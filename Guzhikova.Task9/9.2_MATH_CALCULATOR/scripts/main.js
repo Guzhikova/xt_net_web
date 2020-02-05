@@ -35,7 +35,6 @@ function calculate() {
           var signRegex = /[-+]?\d+[.]?\d*/;
 
           var parts = mathString.match(numbersRegex);
-          var temp = mathString.replace(numbersRegex, '');
 
           parts.forEach(function (part, index) {
                number = (index < parts.length - 1)
