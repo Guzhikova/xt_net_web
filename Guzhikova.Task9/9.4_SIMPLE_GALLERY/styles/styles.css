@@ -1,0 +1,21 @@
+
+div.main
+{
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    padding: 15px;
+       
+    border:  2px ridge rgb(255, 248, 216);
+}
+
+.action
+{
+    border-radius: 5px;
+    color: darkcyan;
+}
+
+.action:focus
+{
+    outline: none;
+}
