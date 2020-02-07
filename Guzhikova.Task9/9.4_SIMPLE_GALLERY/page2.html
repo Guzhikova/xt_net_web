@@ -7,13 +7,13 @@
      <link rel="stylesheet" type="text/css" href="styles/styles.css">
 </head>
 
-<body onload="allToRight()">
+<body onload="runCountdown ()">
      <div class="main">
          <h1>Страница 2</h1>
-         <a href="#">&lArr; Назад</a>
-         <p>До перехода на следующую страницу осталось 
-              <span id="countdown">00</span> секунд 
-              <button type="button" class="action" onclick="allToRight()">&#10074;&#10074;</button>
+         <a href="#" id="back" onclick="back()">&lArr; Назад</a>
+         <p id="pageScrollingInfo">До перехода на следующую страницу осталось: 
+              <span id="countdown"></span> 
+              <button type="button" class="action"  id="pause-run" onclick="pauseCountdown()">pause</button>
           </p>
      </div>
 

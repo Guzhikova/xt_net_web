@@ -9,8 +9,10 @@ div.main
     border:  2px ridge rgb(255, 248, 216);
 }
 
+
 .action
 {
+    width: 50px;
     border-radius: 5px;
     color: darkcyan;
 }
@@ -18,4 +20,23 @@ div.main
 .action:focus
 {
     outline: none;
+}
+
+#pageScrollingInfo
+{
+    text-align: center;
+}
+
+#pageScrollingInfo a 
+{
+    display: inline-block;
+    
+    margin: 10px;
+    padding: 10px;
+
+    background-color: rgb(66, 66, 75);
+    border: 1px solid;
+    
+    color: cornsilk;
+    text-decoration: none;
 }
