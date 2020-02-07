@@ -8,8 +8,8 @@ function calculate() {
      errorMessage.textContent = '';
      resultInfo.textContent = '';
 
-     var regex = /^[-+]?\d+[.]?\d*(( ?[+-/*] ?)([-+]?\d+[.]?\d*))* ?=$/;
-     var regexWithoutEqualSign = /^[-+]?\d+[.]?\d*(( ?[+-/*] ?)([-+]?\d+[.]?\d*))* ?$/;
+     var regex = /^[\-+]?\d+[.]?\d*( ?[+\-\/*] ?[\-+]?\d+[.]?\d*)+ ?=$/;
+     var regexWithoutEqualSign = /^[\-+]?\d+[.]?\d*( ?[+\-\/*] ?[\-+]?\d+[.]?\d*)+ ?$/;
 
      var mathString = inputMath.value;
      var number;
@@ -31,9 +31,8 @@ function calculate() {
      if (regex.test(mathString)) {
           mathString = mathString.replace(/ /g, '');
 
-          var numbersRegex = /[-+]?\d+[.]?\d*( ?[+-/*] ?)?/g;
-          var signRegex = /[-+]?\d+[.]?\d*/;
-
+          var numbersRegex = /[\-+]?\d+[.]?\d*[+\-\/*]?/g;
+          
           var parts = mathString.match(numbersRegex);
 
           parts.forEach(function (part, index) {
