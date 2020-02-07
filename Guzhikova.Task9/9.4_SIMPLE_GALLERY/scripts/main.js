@@ -1,4 +1,3 @@
-// &#9658;
 
 var pages = ['index.html', 'page2.html', 'page3.html', 'page4.html'];
 
@@ -9,8 +8,6 @@ var intervalId = {};
 var remainingTime = 3;
 
 
-//localStorage["pageIndex"] = 3; 
-
 function back() {
      var backElement = document.getElementById('back'); 
 
@@ -19,8 +16,6 @@ function back() {
      } else {
           document.location.href = pages[pages.length - 1];
      }
-
-
 }
 
 function getPageIndex() {
@@ -55,7 +50,6 @@ console.log(getPageIndex());
 
                clearInterval(intervalId);
 
-
                var index = pageIndex();
                if (index < pages.length) {
 
@@ -77,7 +71,6 @@ function pauseCountdown() {
 function generateQuery() {
      var queryElement = document.getElementById('pageScrollingInfo');
      queryElement.textContent = "Прокрутка страниц завершена!";
-
 
      var br = document.createElement('br');
      queryElement.appendChild(br);

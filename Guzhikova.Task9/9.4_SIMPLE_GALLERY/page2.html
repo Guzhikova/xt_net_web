@@ -9,12 +9,15 @@
 
 <body onload="runCountdown ()">
      <div class="main">
-         <h1>Страница 2</h1>
-         <a href="#" id="back" onclick="back()">&lArr; Назад</a>
-         <p id="pageScrollingInfo">До перехода на следующую страницу осталось: 
-              <span id="countdown"></span> 
-              <button type="button" class="action"  id="pause-run" onclick="pauseCountdown()">pause</button>
-          </p>
+          <h1>Весна</h1>
+          <a href="#" id="back" onclick="back()">&#8617; Назад</a>
+          <div id="pageScrollingInfo">
+               <p>До перехода на следующую страницу осталось:
+                    <button type="button" class="action" id="pause-run" onclick="pauseCountdown()">pause</button>
+               </p>
+               <span id="countdown"></span>
+          </div>
+          <img src="/img/2.jpg" alt="времена года">
      </div>
 
      <script src="scripts/main.js"></script>
