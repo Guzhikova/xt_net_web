@@ -41,6 +41,11 @@ namespace Users.BLL
             return _awardDao.GetById(id);
         }
 
+        public IEnumerable<Award> GetUserAwardsByUserId(int id)
+        {
+            return GetAll().Where(item => item.UsersId.Contains(id));
+        }
+
         public Award RewriteAward(Award award)
         {
             return _awardDao.RewriteAward(award);

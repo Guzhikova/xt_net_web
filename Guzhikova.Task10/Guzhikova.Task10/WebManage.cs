@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web.Http;
 using Users.BLLInterfaces;
 using UsersAndAwards.Ioc;
@@ -19,9 +20,5 @@ namespace Guzhikova.Task10
         public IUserLogic UserLogic => DependencyResolver.UserLogic;
         public IAwardLogic AwardLogic => DependencyResolver.AwardLogic;
 
-        public void A()
-        {
-
-        }
-    }
+      }
 }

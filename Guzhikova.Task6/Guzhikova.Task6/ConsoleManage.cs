@@ -89,7 +89,7 @@ namespace Guzhikova.Task6
                 {
                     Console.WriteLine(user.ToString());
 
-                    IEnumerable<Award> userAwards = _awardLogic.GetAll().Where(item => item.UsersId.Contains(user.Id));
+                    IEnumerable<Award> userAwards = _awardLogic.GetUserAwardsByUserId(user.Id);
 
                     if (userAwards != null && userAwards.Count() > 0)
                     {
