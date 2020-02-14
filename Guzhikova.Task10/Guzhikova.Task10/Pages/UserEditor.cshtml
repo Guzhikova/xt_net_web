@@ -13,15 +13,15 @@
 
 
 
-<form class="edit">
+<form class="edit" action="/?entity=user" method="post">
     <fieldset>
         <legend>User</legend>
         <div class="form-group">
             <label for="userName">Name</label>
-            <input type="text" id="userName" class="form-control" placeholder="User name">
+            <input type="text" name="userName" id="userName" class="form-control" placeholder="User name">
             <br />
             <label for="myPassword">Date of birth</label>
-            <input type="date" id="myPassword" class="form-control" placeholder="dd.mm.yyyy">
+            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" placeholder="dd.mm.yyyy">
             <br />
 
             @if (awards != null && awards.Count() > 0)
@@ -32,14 +32,14 @@
             @foreach (var award in awards)
             {
                 <div class="checkbox">
-                    <label><input type="checkbox" value=""> @award.Title</label>
+                    <label><input type="checkbox" name="award" value="@award.Id"> @award.Title</label>
                 </div>
             }
 
 
             <button type="submit" class="btn btn-success" id="save">Save</button>
             <text>	&emsp;</text>
-            <button type="submit" class="btn btn-danger" id="cancel">Cancel</button>
+            <a href="/" class="btn btn-danger">Cancel</a>
         </div>
     </fieldset>
 </form>

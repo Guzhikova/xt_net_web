@@ -136,6 +136,7 @@
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Pages\UserEditor.cshtml" />
     <Content Include="Pages\Layouts\_FullLayout.cshtml" />
+    <Content Include="Pages\AwardEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

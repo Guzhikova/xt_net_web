@@ -1,0 +1,29 @@
+﻿@using Guzhikova.Task10;
+@using Guzhikova.Task6.Entities;
+
+@{
+    Layout = "~/Pages/Layouts/_Layout.cshtml";
+    Page.Title = "User data";
+
+    WebManage manage = new WebManage();
+
+    IEnumerable<User> users = manage.UserLogic.GetAll();
+    IEnumerable<Award> awards = manage.AwardLogic.GetAll();
+}
+
+
+
+<form class="edit" action="/?entity=award" method="post">
+    <fieldset>
+        <legend>Award</legend>
+        <div class="form-group">
+            <label for="awardTitle">Title</label>
+            <input type="text" name="awardTitle" id="awardTitle" class="form-control" placeholder="Award title">
+            <br />
+
+            <button type="submit" class="btn btn-success" id="save">Save</button>
+            <text>	&emsp;</text>
+            <a href="/" class="btn btn-danger">Cancel</a>
+        </div>
+    </fieldset>
+</form>
