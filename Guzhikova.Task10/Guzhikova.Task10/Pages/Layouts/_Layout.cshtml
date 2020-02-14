@@ -4,7 +4,7 @@
     Layout = null;
 
 }
-    
+
 <!DOCTYPE html>
 
 <html>
@@ -12,31 +12,21 @@
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/css/main.css" rel="stylesheet" />
-    <title></title>
+    <title> @Page.Title </title>
 </head>
+
+
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="header">
-            <h3 class="align-middle">Task 10. Users and Awards</h3>
-        </div>
-    </header>
+    @RenderSection("Header", false)
     <!-- ОСНОВНОЕ СОДЕРЖИМОЕ -->
     <section>
         <div class="container ">
             @RenderBody()
         </div>
     </section>
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
 
-        </div>
-    </footer>
-    <div class="align-self-auto">
-
-    </div>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+
 </body>
 </html>

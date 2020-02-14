@@ -30,6 +30,24 @@ img.img-icon {
         opacity: 1.0;
     }
 
-button.max-width {
-    width: 100%;
+.nav-link, .nav-link:link, .nav-link:hover {
+    color: mediumseagreen;
 }
+
+/* User Editor */
+form.edit{
+
+    width: 500px;
+    margin: 20px;
+    
+    color: antiquewhite;
+}
+
+#save{
+    width: 200px;
+}
+
+#cancel{
+    width: 90px;
+}
+

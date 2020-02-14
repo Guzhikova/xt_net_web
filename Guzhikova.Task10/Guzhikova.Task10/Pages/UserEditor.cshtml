@@ -1,0 +1,45 @@
+﻿@using Guzhikova.Task10;
+@using Guzhikova.Task6.Entities;
+
+@{
+    Layout = "~/Pages/Layouts/_Layout.cshtml";
+    Page.Title = "User data";
+
+    WebManage manage = new WebManage();
+
+    IEnumerable<User> users = manage.UserLogic.GetAll();
+    IEnumerable<Award> awards = manage.AwardLogic.GetAll();
+}
+
+
+
+<form class="edit">
+    <fieldset>
+        <legend>User</legend>
+        <div class="form-group">
+            <label for="userName">Name</label>
+            <input type="text" id="userName" class="form-control" placeholder="User name">
+            <br />
+            <label for="myPassword">Date of birth</label>
+            <input type="date" id="myPassword" class="form-control" placeholder="dd.mm.yyyy">
+            <br />
+
+            @if (awards != null && awards.Count() > 0)
+            {
+                <h5>Awards:</h5>
+            }
+
+            @foreach (var award in awards)
+            {
+                <div class="checkbox">
+                    <label><input type="checkbox" value=""> @award.Title</label>
+                </div>
+            }
+
+
+            <button type="submit" class="btn btn-success" id="save">Save</button>
+            <text>	&emsp;</text>
+            <button type="submit" class="btn btn-danger" id="cancel">Cancel</button>
+        </div>
+    </fieldset>
+</form>
