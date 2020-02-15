@@ -9,19 +9,47 @@
 
     IEnumerable<User> users = manage.UserLogic.GetAll();
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
+    IEnumerable<Award> userAwards = null;
+
+    string actionParameter = "add";
+    string userName = "";
+    string dateOfBurth = "";
+    string userIdAttribute = "";
+    string checkedAttribute = "";
+    string placeholderAttribute = "placeholder=\"dd.mm.yyyy\"";
+
+
+    if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
+    {
+
+        int id;
+        Int32.TryParse(Request.QueryString["id"], out id);
+
+        userIdAttribute = id.ToString();
+
+        User currentUser = manage.UserLogic.GetById(id);
+        userName = currentUser.Name;
+        dateOfBurth = currentUser.DateOfBirth.ToString("yyyy-MM-dd");
+        placeholderAttribute = "";
+
+        userAwards = manage.AwardLogic.GetUserAwardsByUserId(currentUser.Id);
+
+        actionParameter = "update";
+    }
 }
 
 
 
-<form class="edit" action="/?entity=user" method="post">
+<form class="edit" action="/?entity=user&action=@actionParameter" method="post">
     <fieldset>
         <legend>User</legend>
         <div class="form-group">
+            <input type="hidden" name="userId" id="userId" value=@userIdAttribute>
             <label for="userName">Name</label>
-            <input type="text" name="userName" id="userName" class="form-control" placeholder="User name">
+            <input type="text" name="userName" id="userName" class="form-control" placeholder="User name" value=@userName>
             <br />
             <label for="myPassword">Date of birth</label>
-            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" placeholder="dd.mm.yyyy">
+            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" @placeholderAttribute value=@dateOfBurth>
             <br />
 
             @if (awards != null && awards.Count() > 0)
@@ -31,9 +59,25 @@
 
             @foreach (var award in awards)
             {
+
+                if (userAwards != null)
+                {
+                    foreach (var userAward in userAwards)
+                    {
+                        if (userAward.Id == award.Id)
+                        {
+                            checkedAttribute = "checked";
+                        }
+
+
+                    }
+                }
+
                 <div class="checkbox">
-                    <label><input type="checkbox" name="awards" value="@award.Id"> @award.Title</label>
+                    <label><input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title</label>
                 </div>
+
+                @(checkedAttribute = "")
             }
 
 

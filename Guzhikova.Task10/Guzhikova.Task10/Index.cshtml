@@ -21,13 +21,22 @@
 
         if (entity == "user")
         {
-            manage.AddUser(Request["userName"], Request["dateOfBirth"], Request["awards"]);
+            if (Request["action"] == "update")
+            { 
+                 manage.UpdateUser(Request["userId"], Request["userName"], Request["dateOfBirth"], Request.Form.GetValues("awards"));          
+            }
+            else
+            {
+                manage.AddUser(Request["userName"], Request["dateOfBirth"], Request.Form.GetValues("awards"));
+            }
+
         }
         else if (entity == "award")
         {
             manage.AddAward(Request["awardTitle"]);
         }
-    }else if(Request.QueryString["action"] == "delete")
+    }
+    else if (Request.QueryString["action"] == "delete")
     {
         manage.Delete(entity, Request.QueryString["id"]);
     }
@@ -84,7 +93,7 @@
                         </td>
                         <td>
                             <a href="~/Pages/Confirmation?entity=user&id=@user.Id" title="Delete"> <img class="img-icon" src="~/Content/images/delete.svg"></a><text>&#8195;</text>
-                            <a href="~/Pages/UserEditor?id=@user.Id" title="Edit"> <img class="img-icon" src="~/Content/images/edit.svg"></a>
+                            <a href="~/Pages/UserEditor?action=edit&id=@user.Id" title="Edit"> <img class="img-icon" src="~/Content/images/edit.svg"></a>
                         </td>
                     </tr>
                 }

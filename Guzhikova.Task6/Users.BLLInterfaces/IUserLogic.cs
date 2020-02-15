@@ -10,6 +10,7 @@ namespace Guzhikova.Task6.BLLInterfaces
     public interface IUserLogic
     {
         User Add(User user);
+        User Update(User user);
 
         void DeleteById(int id);
 

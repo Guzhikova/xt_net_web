@@ -77,6 +77,17 @@ namespace Guzhikova.Task6.DAL
             return _path;
         }
 
+        public User Update(User user)
+        {
+            if (!_users.ContainsKey(user.Id))
+            {
+                throw new ArgumentOutOfRangeException("Id", "Error! User with this id does not exist!");
+            }
+
+          return _users[user.Id] = user;
+
+        }
+
         private Dictionary<int, User> ReadUsersFromFile()
         {
             string content = "";

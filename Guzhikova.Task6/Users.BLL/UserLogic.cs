@@ -43,6 +43,11 @@ namespace Guzhikova.Task6.BLL
         public string SaveUsers()
         {
             return _userDao.SaveUsers();
-        }   
+        }
+
+        public User Update(User user)
+        {
+           return _userDao.Update(user);
+        }
     }
 }
