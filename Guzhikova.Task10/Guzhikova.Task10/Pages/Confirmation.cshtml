@@ -1,0 +1,47 @@
+﻿@using Guzhikova.Task10;
+@using Guzhikova.Task6.Entities;
+
+
+@{
+    Layout = "~/Pages/Layouts/_Layout.cshtml";
+    Page.Title = "confirmation of action";
+
+    WebManage manage = new WebManage();
+    User user = null;
+    Award award = null;
+
+    string entity = Request.QueryString["entity"]; 
+    int id = 0;
+
+
+
+    if (entity == "user")
+    {
+        Int32.TryParse(Request.QueryString["id"], out id);
+        user = manage.UserLogic.GetById(id);
+
+    }
+    else if (entity == "award")
+    {
+        Int32.TryParse(Request.QueryString["id"], out id);
+        award = manage.AwardLogic.GetById(id);
+    }
+}
+
+<div class="alert alert-warning text-center" role="alert">
+    Are you sure you want to delete @Request.QueryString["entity"]
+
+    @if (user != null)
+    {
+        <span class="font-weight-bold"> @user.Name, @user.Age years old</span>
+
+    }
+    else if (award != null)
+    {
+        <span class="font-weight-bold"> @award.Title</span>
+    }
+    ?
+    <br /><br />
+    <a href="/?action=delete&entity=@entity&id=@id" class="btn btn-warning">Yes</a> <text>	&emsp;</text>
+    <a href="/" class="btn btn-danger">Cancel</a>
+</div>

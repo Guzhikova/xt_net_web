@@ -137,6 +137,7 @@
     <Content Include="Pages\UserEditor.cshtml" />
     <Content Include="Pages\Layouts\_FullLayout.cshtml" />
     <Content Include="Pages\AwardEditor.cshtml" />
+    <Content Include="Pages\Confirmation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
