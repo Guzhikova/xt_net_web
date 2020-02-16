@@ -19,8 +19,11 @@ namespace Users.BLLInterfaces
 
         string SaveAwards();
 
-        Award RewriteAward(Award award);
+        Award UpdateAward(Award award);
 
         IEnumerable<Award> GetUserAwardsByUserId(int id);
+
+        void DeleteUserAwardsByUserId(int id);
+
     }
 }

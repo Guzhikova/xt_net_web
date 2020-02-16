@@ -16,7 +16,7 @@ namespace Users.Dao.Interfaces
         IEnumerable<Award> GetAll();
         Award GetById(int id);
 
-        Award RewriteAward(Award award);
+        Award UpdateAward(Award award);
 
         /// <returns>Returns info where awards saved</returns>
         string SaveAwards();

@@ -51,6 +51,9 @@ namespace Guzhikova.Task10
             UserLogic.Update(_currentUser);
 
             UserLogic.SaveUsers();
+
+                AwardLogic.DeleteUserAwardsByUserId(userId);
+                AwardLogic.SaveAwards();
                 AddAwardsForUser(userId, awardsId);
             }
         }
@@ -74,6 +77,8 @@ namespace Guzhikova.Task10
                 {
                     UserLogic.DeleteById(id);
                     UserLogic.SaveUsers();
+                    AwardLogic.DeleteUserAwardsByUserId(id);
+                    AwardLogic.SaveAwards();
                 }
                 else if (entity == "award")
                 {
@@ -83,6 +88,20 @@ namespace Guzhikova.Task10
             }
         }
 
+        public void UpdateAward(string id, string title)
+        {
+            if (id != null)
+            {
+                int currentId = 0;
+
+                Int32.TryParse(id, out currentId);
+                _currentAward = new Award(title);
+                _currentAward.Id = currentId;
+
+                AwardLogic.UpdateAward(_currentAward);
+                AwardLogic.SaveAwards();
+            }
+        }
         private User GenerateUserData(string userName, string dateOfBirth)
         {
             DateTime date;

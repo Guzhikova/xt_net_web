@@ -46,9 +46,9 @@ namespace Users.BLL
             return GetAll().Where(item => item.UsersId.Contains(id));
         }
 
-        public Award RewriteAward(Award award)
+        public Award UpdateAward(Award award)
         {
-            return _awardDao.RewriteAward(award);
+            return _awardDao.UpdateAward(award);
         }
 
         public string SaveAwards()
@@ -56,6 +56,17 @@ namespace Users.BLL
             return _awardDao.SaveAwards();
         }
 
+        public void DeleteUserAwardsByUserId(int id)
+        {
+            List<Award> userAwards = GetAll().Where(item => item.UsersId.Contains(id)).ToList();           
+
+            foreach (var award in userAwards)
+            {
+                award.UsersId.Remove(id);
+                _awardDao.UpdateAward(award);
+            }           
+
+        }
     }
 }
 

@@ -154,7 +154,7 @@ namespace Guzhikova.Task6
                     {
                         award.UsersId.Add(user.Id);
 
-                        _awardLogic.RewriteAward(award);
+                        _awardLogic.UpdateAward(award);
 
                         Console.Write($"\"{award.Title}\" ");
                     }

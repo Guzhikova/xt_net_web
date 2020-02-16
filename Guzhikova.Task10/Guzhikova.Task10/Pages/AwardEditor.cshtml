@@ -10,17 +10,40 @@
     IEnumerable<User> users = manage.UserLogic.GetAll();
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
 
-    
+    string awardIdAttribute = "";
+
+
+    string actionParameter = "add";
+    string awardTitle = "";
+
+
+    if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
+    {
+
+        int id;
+        Int32.TryParse(Request.QueryString["id"], out id);
+
+        awardIdAttribute = id.ToString();
+
+        Award currentAward = manage.AwardLogic.GetById(id);
+        awardTitle = currentAward.Title;
+
+
+        actionParameter = "update";
+    }
+}
+
 }
 
 
 
-<form class="edit" action="/?entity=award" method="post">
+<form class="edit" action="/?entity=award&action=@actionParameter" method="post">
     <fieldset>
         <legend>Award</legend>
         <div class="form-group">
+            <input type="hidden" name="awardId" id="awardId" value=@awardIdAttribute>
             <label for="awardTitle">Title</label>
-            <input type="text" name="awardTitle" id="awardTitle" class="form-control" placeholder="Award title">
+            <input type="text" name="awardTitle" id="awardTitle" class="form-control" placeholder="Award title" value=@awardTitle>
             <br />
 
             <button type="submit" class="btn btn-success" id="save">Save</button>

@@ -61,7 +61,7 @@ namespace Users.DAL
             return _awards[id];
         }
 
-        public Award RewriteAward(Award award)
+        public Award UpdateAward(Award award)
         {
             if (!_awards.ContainsKey(award.Id))
             {

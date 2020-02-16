@@ -16,7 +16,6 @@
     string dateOfBurth = "";
     string userIdAttribute = "";
     string checkedAttribute = "";
-    string placeholderAttribute = "placeholder=\"dd.mm.yyyy\"";
 
 
     if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
@@ -30,7 +29,6 @@
         User currentUser = manage.UserLogic.GetById(id);
         userName = currentUser.Name;
         dateOfBurth = currentUser.DateOfBirth.ToString("yyyy-MM-dd");
-        placeholderAttribute = "";
 
         userAwards = manage.AwardLogic.GetUserAwardsByUserId(currentUser.Id);
 
@@ -49,7 +47,7 @@
             <input type="text" name="userName" id="userName" class="form-control" placeholder="User name" value=@userName>
             <br />
             <label for="myPassword">Date of birth</label>
-            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" @placeholderAttribute value=@dateOfBurth>
+            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" placeholder="dd.mm.yyyy" value=@dateOfBurth>
             <br />
 
             @if (awards != null && awards.Count() > 0)
