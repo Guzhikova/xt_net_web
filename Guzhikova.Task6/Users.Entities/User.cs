@@ -24,11 +24,11 @@ namespace Guzhikova.Task6.Entities
             DateOfBirth = dateOfBirth;
         }
 
-        public User(string name, DateTime dateOfBirth, string imagePath)
+        public User(string name, DateTime dateOfBirth, byte[] image)
         {
             Name = name;
             DateOfBirth = dateOfBirth;
-            ImagePath = imagePath;
+            Image = image;
         }
 
         public int Id { get; set; }
@@ -57,7 +57,7 @@ namespace Guzhikova.Task6.Entities
             }
         }
 
-        public string ImagePath { get; set; }
+        public byte[] Image { get; set; }
         public override string ToString()
         {
             string dateOfBirth = DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));

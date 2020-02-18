@@ -16,7 +16,8 @@
     string dateOfBurth = "";
     string userIdAttribute = "";
     string checkedAttribute = "";
-
+    string userAvatarSrc = "";
+    string awardAvatarSrc = "";
 
     if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
     {
@@ -30,17 +31,29 @@
         userName = currentUser.Name;
         dateOfBurth = currentUser.DateOfBirth.ToString("yyyy-MM-dd");
 
+        userAvatarSrc = (currentUser.Image != null)
+                            ? $"data:image/png;base64,{Convert.ToBase64String(currentUser.Image)}"
+                                : @"/Content/images/user.png";
+
+       
+
         userAwards = manage.AwardLogic.GetUserAwardsByUserId(currentUser.Id);
 
         actionParameter = "update";
     }
+
 }
 
 
-
-<form class="edit" action="/?entity=user&action=@actionParameter" method="post">
+<form class="edit" action="/?entity=user&action=@actionParameter" enctype="multipart/form-data" method="post">
     <fieldset>
-        <legend>User</legend>
+        <legend>User 
+        @if (actionParameter=="update")
+        {
+            <img class="w-25 h-25 rounded-circle" src=@userAvatarSrc>
+        }
+        
+        </legend>
         <div class="form-group">
             <input type="hidden" name="userId" id="userId" value=@userIdAttribute>
             <label for="userName">Name</label>
@@ -48,6 +61,9 @@
             <br />
             <label for="myPassword">Date of birth</label>
             <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" placeholder="dd.mm.yyyy" value=@dateOfBurth>
+            <br />
+            <label for="userImage">Image</label>
+            <input type="file" name="userImage" class="form-control" />
             <br />
 
             @if (awards != null && awards.Count() > 0)
@@ -57,6 +73,9 @@
 
             @foreach (var award in awards)
             {
+                 awardAvatarSrc = (award.Image != null)
+                    ? $"data:image/png;base64,{Convert.ToBase64String(award.Image)}"
+                        : @"/Content/images/award.png";
 
                 if (userAwards != null)
                 {
@@ -71,8 +90,12 @@
                     }
                 }
 
+
                 <div class="checkbox">
-                    <label><input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title</label>
+                    <label>
+                        <img class="rounded-circle" src=@awardAvatarSrc style="width: 30px; padding-bottom: 10px;">                    
+                        <input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title
+                    </label>
                 </div>
 
                 @(checkedAttribute = "")

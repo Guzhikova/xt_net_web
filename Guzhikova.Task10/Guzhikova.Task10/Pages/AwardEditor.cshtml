@@ -3,7 +3,7 @@
 
 @{
     Layout = "~/Pages/Layouts/_Layout.cshtml";
-    Page.Title = "User data";
+    Page.Title = "Award data";
 
     WebManage manage = new WebManage();
 
@@ -15,6 +15,7 @@
 
     string actionParameter = "add";
     string awardTitle = "";
+    string awardAvatarSrc = "";
 
 
     if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
@@ -28,48 +29,28 @@
         Award currentAward = manage.AwardLogic.GetById(id);
         awardTitle = currentAward.Title;
 
+        awardAvatarSrc = (currentAward.Image != null)
+                    ? $"data:image/png;base64,{Convert.ToBase64String(currentAward.Image)}"
+                        : @"/Content/images/award.png";
 
         actionParameter = "update";
     }
 
-    //Image
 
-    WebImage photo = null;
-    var newFileName = "";
-    var imagePath = "";
-
-    var myFileName = "";
-
-    if (IsPost)
-    {
-        photo = WebImage.GetImageFromRequest();
-        if (photo != null)
-        {
-           // newFileName = Guid.NewGuid().ToString() + "_" +
-                Path.GetFileName(photo.FileName);
-
-            newFileName = Path.GetFileName(photo.FileName);
-
-
-            imagePath = @"content\images\awards\" + newFileName;
-
-            photo.Save(@"~\" + imagePath);
-
-
-            //   myFileName=  Path.GetFileName(photo.FileName);
-
-              WebClient myWebClient = new WebClient();
-              string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"content\images\awards", myFileName);
-             myWebClient.UploadFile(imagePath, fileName);
-        }
-    }
 }
 
 
 
-<form class="edit" action="" enctype="multipart/form-data" method="post">
+
+<form class="edit" action="/?entity=award&action=@actionParameter" enctype="multipart/form-data" method="post">
     <fieldset>
-        <legend>Award</legend>
+        <legend>
+            Award
+            @if (actionParameter == "update")
+            {
+                <img class="w-25 h-25 rounded-circle" src=@awardAvatarSrc>
+            }
+        </legend>
         <div class="form-group">
             <input type="hidden" name="awardId" id="awardId" value=@awardIdAttribute>
             <label for="awardTitle">Title</label>
@@ -82,18 +63,12 @@
             <button type="submit" class="btn btn-success" id="save">Save</button>
             <text>	&emsp;</text>
             <a href="/" class="btn btn-danger">Cancel</a>
-            <input type="submit" value="Upload" />
+
         </div>
     </fieldset>
 </form>
 
-@if (imagePath != "")
-{
-    <div class="result">
-        <img src="@imagePath" alt="image" />
+<!--
+    <img src="data:image/gif;base64, img" />
 
-    </div>
-
-    <p> newFileName @newFileName</p>
-    <p> imagePath @imagePath</p>
-}
+   -->

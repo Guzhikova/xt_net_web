@@ -21,8 +21,8 @@
 
 
 img.img-icon {
-    width: 20px;
-    height: 20px;
+    min-width: 20px;
+   min-height: 20px;
     opacity: 0.7;
 }
 
@@ -33,6 +33,7 @@ img.img-icon {
 .nav-link, .nav-link:link, .nav-link:hover {
     color: antiquewhite;
 }
+
 
 /* User Editor */
 form.edit{

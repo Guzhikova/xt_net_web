@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Web.Helpers;
 using System.Web.Http;
 using Users.BLLInterfaces;
 using UsersAndAwards.Ioc;
@@ -25,7 +26,7 @@ namespace Guzhikova.Task10
 
         public void AddUser(string userName, string dateOfBirth, string[] awardsId)
         {
-            _currentUser = GenerateUserData(userName, dateOfBirth); 
+            _currentUser = GenerateUserData(userName, dateOfBirth);
 
             UserLogic.Add(_currentUser);
 
@@ -42,15 +43,15 @@ namespace Guzhikova.Task10
                 int userId;
 
                 Int32.TryParse(id, out userId);
-          
 
-          _currentUser =  GenerateUserData(userName, dateOfBirth);
+
+                _currentUser = GenerateUserData(userName, dateOfBirth);
 
                 _currentUser.Id = userId;
 
-            UserLogic.Update(_currentUser);
+                UserLogic.Update(_currentUser);
 
-            UserLogic.SaveUsers();
+                UserLogic.SaveUsers();
 
                 AwardLogic.DeleteUserAwardsByUserId(userId);
                 AwardLogic.SaveAwards();
@@ -60,7 +61,10 @@ namespace Guzhikova.Task10
 
         public void AddAward(string title)
         {
-            _currentAward = new Award(title);
+            byte[] image = GetAndResizeImageFromRequest();
+
+            _currentAward = new Award(title, image);
+
             AwardLogic.Add(_currentAward);
             AwardLogic.SaveAwards();
         }
@@ -95,7 +99,9 @@ namespace Guzhikova.Task10
                 int currentId = 0;
 
                 Int32.TryParse(id, out currentId);
-                _currentAward = new Award(title);
+                byte[] image = GetAndResizeImageFromRequest();
+
+                _currentAward = new Award(title, image);
                 _currentAward.Id = currentId;
 
                 AwardLogic.UpdateAward(_currentAward);
@@ -106,8 +112,9 @@ namespace Guzhikova.Task10
         {
             DateTime date;
             DateTime.TryParse(dateOfBirth, out date);
+            byte[] image = GetAndResizeImageFromRequest();
 
-            return new User(userName, date);
+            return new User(userName, date, image);
         }
 
         private void AddAwardsForUser(int userId, string[] awardsId)
@@ -124,6 +131,21 @@ namespace Guzhikova.Task10
                 }
                 AwardLogic.SaveAwards();
             }
+        }
+
+        private byte[] GetAndResizeImageFromRequest(int width = 100, int height = 100)
+        {
+            byte[] imageBytes = null;
+            WebImage image = WebImage.GetImageFromRequest();
+
+            if (image != null)
+            {
+                image.Resize(width, height, false, true);
+
+               imageBytes = image.GetBytes();
+            }
+
+            return imageBytes;
         }
     }
 }

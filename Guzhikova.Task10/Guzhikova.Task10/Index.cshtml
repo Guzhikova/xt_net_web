@@ -14,8 +14,8 @@
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
 
     string entity = Request.QueryString["entity"] ?? "";
-
-    
+    string userAvatarSrc = "";
+    string awardAvatarSrc = @"/Content/images/award.png";
 
     if (IsPost)
     {
@@ -42,6 +42,12 @@
             else
             {
                 manage.AddAward(Request["awardTitle"]);
+
+
+
+                // img =   Convert.ToBase64String(imageBytes);
+
+
             }
         }
     }
@@ -71,6 +77,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th></th>
                     <th scope="col">Name</th>
                     <th scope="col">Date of birth</th>
                     <th scope="col">Age</th>
@@ -81,8 +88,14 @@
             <tbody>
                 @foreach (var user in users)
                 {
-                    <tr title="User ID = @user.Id">
+
+                    userAvatarSrc = (user.Image != null)
+                    ? $"data:image/png;base64,{Convert.ToBase64String(user.Image)}"
+                        : @"/Content/images/user.png";
+
+                    <tr>
                         <th scope="row">@(userIndex++)</th>
+                        <td><img class="img-icon rounded-circle" src=@userAvatarSrc></td>
                         <td>@user.Name</td>
                         <td>@user.DateOfBirth.ToString("d MMMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
                         <td>@user.Age</td>
@@ -117,6 +130,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col"></th>
                     <th scope="col">Title</th>
                     <th></th>
                 </tr>
@@ -124,8 +138,13 @@
             <tbody>
                 @foreach (var award in awards)
                 {
-                    <tr title="Award ID = @award.Id">
+                    awardAvatarSrc = (award.Image != null)
+                    ? $"data:image/png;base64,{Convert.ToBase64String(award.Image)}"
+                        : @"/Content/images/award.png";
+
+                    <tr>
                         <th scope="row">@(awardIndex++)</th>
+                        <td><img class="img-icon rounded-circle" src=@awardAvatarSrc></td>
                         <td>@award.Title</td>
                         <td>
                             <a href="~/Pages/Confirmation?entity=award&id=@award.Id" title="Delete"> <img class="img-icon" src="~/Content/images/delete.svg"></a><text>&#8195;</text>
@@ -137,6 +156,7 @@
         </table>
 
         <a href="~/Pages/AwardEditor" class="btn btn-success">Create new AWARD</a>
+
     </section>
 </div>
 
