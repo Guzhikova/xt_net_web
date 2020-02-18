@@ -31,13 +31,43 @@
 
         actionParameter = "update";
     }
+
+    //Image
+
+    WebImage photo = null;
+    var newFileName = "";
+    var imagePath = "";
+
+    var myFileName = "";
+
+    if (IsPost)
+    {
+        photo = WebImage.GetImageFromRequest();
+        if (photo != null)
+        {
+           // newFileName = Guid.NewGuid().ToString() + "_" +
+                Path.GetFileName(photo.FileName);
+
+            newFileName = Path.GetFileName(photo.FileName);
+
+
+            imagePath = @"content\images\awards\" + newFileName;
+
+            photo.Save(@"~\" + imagePath);
+
+
+            //   myFileName=  Path.GetFileName(photo.FileName);
+
+              WebClient myWebClient = new WebClient();
+              string fileName = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"content\images\awards", myFileName);
+             myWebClient.UploadFile(imagePath, fileName);
+        }
+    }
 }
 
-}
 
 
-
-<form class="edit" action="/?entity=award&action=@actionParameter" method="post">
+<form class="edit" action="" enctype="multipart/form-data" method="post">
     <fieldset>
         <legend>Award</legend>
         <div class="form-group">
@@ -45,10 +75,25 @@
             <label for="awardTitle">Title</label>
             <input type="text" name="awardTitle" id="awardTitle" class="form-control" placeholder="Award title" value=@awardTitle>
             <br />
+            <label for="awardImage">Image</label>
+            <input type="file" name="awardImage" class="form-control" />
+            <br />
 
             <button type="submit" class="btn btn-success" id="save">Save</button>
             <text>	&emsp;</text>
             <a href="/" class="btn btn-danger">Cancel</a>
+            <input type="submit" value="Upload" />
         </div>
     </fieldset>
 </form>
+
+@if (imagePath != "")
+{
+    <div class="result">
+        <img src="@imagePath" alt="image" />
+
+    </div>
+
+    <p> newFileName @newFileName</p>
+    <p> imagePath @imagePath</p>
+}

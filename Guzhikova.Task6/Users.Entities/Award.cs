@@ -19,8 +19,17 @@ namespace Guzhikova.Task6.Entities
             UsersId = new HashSet<int>();
         }
 
+        public Award(string title, string imagePath)
+        {
+            Title = title;
+            ImagePath = imagePath;
+            UsersId = new HashSet<int>();
+        }
+
         public int Id { get; set; }
         public string Title { get; set; }
+
+        public string ImagePath{ get; set; }
         public HashSet<int> UsersId { get; set; }
 
         public override string ToString()

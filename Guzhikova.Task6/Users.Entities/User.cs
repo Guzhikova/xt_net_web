@@ -24,6 +24,13 @@ namespace Guzhikova.Task6.Entities
             DateOfBirth = dateOfBirth;
         }
 
+        public User(string name, DateTime dateOfBirth, string imagePath)
+        {
+            Name = name;
+            DateOfBirth = dateOfBirth;
+            ImagePath = imagePath;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DateOfBirth
@@ -49,6 +56,8 @@ namespace Guzhikova.Task6.Entities
                 return (DateOfBirth > _today.AddYears(-_age)) ? _age-- : _age;
             }
         }
+
+        public string ImagePath { get; set; }
         public override string ToString()
         {
             string dateOfBirth = DateOfBirth.ToString("d", CultureInfo.CreateSpecificCulture("en-US"));
