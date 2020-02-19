@@ -120,8 +120,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\LoginModel.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebManage.cs" />
+    <Compile Include="Control\WebManage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\bootstrap-grid.css.map" />
@@ -140,6 +142,7 @@
     <Content Include="Pages\Layouts\_FullLayout.cshtml" />
     <Content Include="Pages\AwardEditor.cshtml" />
     <Content Include="Pages\Confirmation.cshtml" />
+    <Content Include="Pages\Registration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
