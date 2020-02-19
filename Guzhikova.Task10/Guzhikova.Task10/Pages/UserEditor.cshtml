@@ -11,7 +11,12 @@
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
     IEnumerable<Award> userAwards = null;
 
-    string actionParameter = "add";
+    
+
+
+    string actionParameter = Request.QueryString["action"];
+    string idParameter = Request.QueryString["id"];
+
     string userName = "";
     string dateOfBurth = "";
     string userIdAttribute = "";
@@ -19,29 +24,22 @@
     string userAvatarSrc = "";
     string awardAvatarSrc = "";
 
-    if (Request.QueryString["action"] == "edit" && Request.QueryString["id"] != null)
+
+    if (actionParameter == "edit" && idParameter != null)
     {
-
-        int id;
-        Int32.TryParse(Request.QueryString["id"], out id);
-
-        userIdAttribute = id.ToString();
+        userIdAttribute = idParameter;
+        Int32.TryParse(idParameter, out int id);        
 
         User currentUser = manage.UserLogic.GetById(id);
         userName = currentUser.Name;
         dateOfBurth = currentUser.DateOfBirth.ToString("yyyy-MM-dd");
 
-        userAvatarSrc = (currentUser.Image != null)
-                            ? $"data:image/png;base64,{Convert.ToBase64String(currentUser.Image)}"
-                                : @"/Content/images/user.png";
-
-       
+        userAvatarSrc = manage.GetUserAvatar(currentUser);       
 
         userAwards = manage.AwardLogic.GetUserAwardsByUserId(currentUser.Id);
 
         actionParameter = "update";
     }
-
 }
 
 
@@ -73,9 +71,7 @@
 
             @foreach (var award in awards)
             {
-                 awardAvatarSrc = (award.Image != null)
-                    ? $"data:image/png;base64,{Convert.ToBase64String(award.Image)}"
-                        : @"/Content/images/award.png";
+                 awardAvatarSrc = manage.GetAwardAvatar(award);
 
                 if (userAwards != null)
                 {
@@ -85,11 +81,8 @@
                         {
                             checkedAttribute = "checked";
                         }
-
-
                     }
                 }
-
 
                 <div class="checkbox">
                     <label>

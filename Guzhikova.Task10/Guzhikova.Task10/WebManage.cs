@@ -37,13 +37,10 @@ namespace Guzhikova.Task10
 
         public void UpdateUser(string id, string userName, string dateOfBirth, string[] awardsId)
         {
-
             if (id != null)
             {
-                int userId;
 
-                Int32.TryParse(id, out userId);
-
+                Int32.TryParse(id, out int userId);
 
                 _currentUser = GenerateUserData(userName, dateOfBirth);
 
@@ -73,9 +70,7 @@ namespace Guzhikova.Task10
         {
             if (currentId != null)
             {
-                int id = 0;
-
-                Int32.TryParse(currentId, out id);
+                Int32.TryParse(currentId, out int id);
 
                 if (entity == "user")
                 {
@@ -96,9 +91,7 @@ namespace Guzhikova.Task10
         {
             if (id != null)
             {
-                int currentId = 0;
-
-                Int32.TryParse(id, out currentId);
+                Int32.TryParse(id, out int currentId);
                 byte[] image = GetAndResizeImageFromRequest();
 
                 _currentAward = new Award(title, image);
@@ -108,10 +101,28 @@ namespace Guzhikova.Task10
                 AwardLogic.SaveAwards();
             }
         }
+
+        public string GetUserAvatar(User user)
+        {
+            string src = (user.Image != null)
+                        ? $"data:image/png;base64,{Convert.ToBase64String(user.Image)}"
+                            : @"/Content/images/user.png";
+
+            return src;
+        }
+
+        public string GetAwardAvatar(Award award)
+        {
+            string src = (award.Image != null)
+                        ? $"data:image/png;base64,{Convert.ToBase64String(award.Image)}"
+                            : @"/Content/images/award.png"; 
+
+            return src;
+        }
+
         private User GenerateUserData(string userName, string dateOfBirth)
         {
-            DateTime date;
-            DateTime.TryParse(dateOfBirth, out date);
+            DateTime.TryParse(dateOfBirth, out DateTime date);
             byte[] image = GetAndResizeImageFromRequest();
 
             return new User(userName, date, image);

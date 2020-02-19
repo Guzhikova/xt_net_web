@@ -7,156 +7,153 @@
     Page.Title = "Users and awards";
 
     WebManage manage = new WebManage();
-    int userIndex = 0;
-    int awardIndex = 0;
 
     IEnumerable<User> users = manage.UserLogic.GetAll();
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
 
-    string entity = Request.QueryString["entity"] ?? "";
+    int userIndex = 0;
+    int awardIndex = 0;
+
+    string entity = Request.QueryString["entity"];
+    string action = Request["action"];
+    
     string userAvatarSrc = "";
     string awardAvatarSrc = @"/Content/images/award.png";
 
     if (IsPost)
     {
-
         if (entity == "user")
         {
-            if (Request["action"] == "update")
+            string id = Request["userId"];
+            string name = Request["userName"];
+            string dateOfBirth = Request["dateOfBirth"];
+            string[] userAwards = Request.Form.GetValues("awards");
+            
+            if (action == "update")
             {
-                manage.UpdateUser(Request["userId"], Request["userName"], Request["dateOfBirth"], Request.Form.GetValues("awards"));
+                manage.UpdateUser(id, name, dateOfBirth, userAwards);
             }
             else
             {
-                manage.AddUser(Request["userName"], Request["dateOfBirth"], Request.Form.GetValues("awards"));
+                manage.AddUser(name, dateOfBirth, userAwards);
             }
 
         }
         else if (entity == "award")
         {
 
-            if (Request["action"] == "update")
+            string id = Request["awardId"];
+            string title = Request["awardTitle"];
+
+            if (action == "update")
             {
-                manage.UpdateAward(Request["awardId"], Request["awardTitle"]);
+                manage.UpdateAward(id, title);
             }
             else
             {
-                manage.AddAward(Request["awardTitle"]);
-
-
-
-                // img =   Convert.ToBase64String(imageBytes);
-
-
+                manage.AddAward(title);
             }
         }
     }
-    else if (Request.QueryString["action"] == "delete")
+    else if (action == "delete")
     {
         manage.Delete(entity, Request.QueryString["id"]);
     }
-
-
-
 }
 
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#section-1" role="tab" aria-controls="section-1" aria-selected="true">Users</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#section-2" role="tab" aria-controls="section-2"
-           aria-selected="false">Awards</a>
-    </li>
-</ul>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#section-1" role="tab" aria-controls="section-1" aria-selected="true">Users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#section-2" role="tab" aria-controls="section-2"
+               aria-selected="false">Awards</a>
+        </li>
+    </ul>
 
-<div class="tab-content">
-    <section class="tab-pane fade show active" id="section-1" role="tabpanel" aria-labelledby="home-tab">
-        <table class="table table-hover table-dark table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th></th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Date of birth</th>
-                    <th scope="col">Age</th>
-                    <th scope="col">Awards</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in users)
-                {
-
-                    userAvatarSrc = (user.Image != null)
-                    ? $"data:image/png;base64,{Convert.ToBase64String(user.Image)}"
-                        : @"/Content/images/user.png";
-
+    <div class="tab-content">
+        <section class="tab-pane fade show active" id="section-1" role="tabpanel" aria-labelledby="home-tab">
+            <table class="table table-hover table-dark table-sm">
+                <thead>
                     <tr>
-                        <th scope="row">@(userIndex++)</th>
-                        <td><img class="img-icon rounded-circle" src=@userAvatarSrc></td>
-                        <td>@user.Name</td>
-                        <td>@user.DateOfBirth.ToString("d MMMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
-                        <td>@user.Age</td>
-                        <td>
-                            @{
-                                var userAwards = manage.AwardLogic.GetUserAwardsByUserId(user.Id);
-                            }
+                        <th scope="col">#</th>
+                        <th></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date of birth</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Awards</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in users)
+                    {
 
-                            @if (userAwards != null)
-                            {
-                                foreach (var item in userAwards)
-                                {
-                                    @item.Title <text>&#8195;</text>
+                        userAvatarSrc = manage.GetUserAvatar(user);
 
+                        <tr>
+                            <th scope="row">@(userIndex++)</th>
+                            <td><img class="rounded-circle img-icon" src=@userAvatarSrc></td>
+                            <td>@user.Name</td>
+                            <td>@user.DateOfBirth.ToString("d MMMM, yyyy", CultureInfo.CreateSpecificCulture("en-US"))</td>
+                            <td>@user.Age</td>
+                            <td>
+                                @{
+                                    var userAwards = manage.AwardLogic.GetUserAwardsByUserId(user.Id);
                                 }
-                            }
-                        </td>
-                        <td>
-                            <a href="~/Pages/Confirmation?entity=user&id=@user.Id" title="Delete"> <img class="img-icon" src="~/Content/images/delete.svg"></a><text>&#8195;</text>
-                            <a href="~/Pages/UserEditor?action=edit&id=@user.Id" title="Edit"> <img class="img-icon" src="~/Content/images/edit.svg"></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
 
-        <a href="~/Pages/UserEditor?action=create" class="btn btn-success">Create new USER</a>
-    </section>
+                                @if (userAwards != null)
+                                {
+                                    foreach (var item in userAwards)
+                                    {
+                                        @item.Title <text>&#8195;</text>
 
-    <section class="tab-pane fade" id="section-2" role="tabpanel" aria-labelledby="profile-tab">
-        <table class="table table-hover table-dark table-sm">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col"></th>
-                    <th scope="col">Title</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var award in awards)
-                {
-                    awardAvatarSrc = (award.Image != null)
-                    ? $"data:image/png;base64,{Convert.ToBase64String(award.Image)}"
-                        : @"/Content/images/award.png";
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <a href="~/Pages/Confirmation?entity=user&id=@user.Id" title="Delete"> <img class="img-icon" src="~/Content/images/delete.svg"></a><text>&#8195;</text>
+                                <a href="~/Pages/UserEditor?action=edit&id=@user.Id" title="Edit"> <img class="img-icon" src="~/Content/images/edit.svg"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
+            <a href="~/Pages/UserEditor?action=create" class="btn btn-success">Create new USER</a>
+        </section>
+
+        <section class="tab-pane fade" id="section-2" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="table table-hover table-dark table-sm">
+                <thead>
                     <tr>
-                        <th scope="row">@(awardIndex++)</th>
-                        <td><img class="img-icon rounded-circle" src=@awardAvatarSrc></td>
-                        <td>@award.Title</td>
-                        <td>
-                            <a href="~/Pages/Confirmation?entity=award&id=@award.Id" title="Delete"> <img class="img-icon" src="~/Content/images/delete.svg"></a><text>&#8195;</text>
-                            <a href="~/Pages/AwardEditor?action=edit&id=@award.Id" title="Edit"> <img class="img-icon" src="~/Content/images/edit.svg"></a>
-                        </td>
+                        <th scope="col">#</th>
+                        <th scope="col"></th>
+                        <th scope="col">Title</th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var award in awards)
+                    {
+                        awardAvatarSrc = manage.GetAwardAvatar(award);
 
-        <a href="~/Pages/AwardEditor" class="btn btn-success">Create new AWARD</a>
+                        <tr>
+                            <th scope="row">@(awardIndex++)</th>
+                            <td><img class="img-icon rounded-circle" src=@awardAvatarSrc></td>
+                            <td>@award.Title</td>
+                            <td>
+                                <a href="~/Pages/Confirmation?entity=award&id=@award.Id" title="Delete"> <img class="img-icon" src="~/Content/images/delete.svg"></a><text>&#8195;</text>
+                                <a href="~/Pages/AwardEditor?action=edit&id=@award.Id" title="Edit"> <img class="img-icon" src="~/Content/images/edit.svg"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-    </section>
-</div>
+            <a href="~/Pages/AwardEditor" class="btn btn-success">Create new AWARD</a>
+
+        </section>
+    </div>
 

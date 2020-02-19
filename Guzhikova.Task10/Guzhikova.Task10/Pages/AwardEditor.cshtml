@@ -29,13 +29,10 @@
         Award currentAward = manage.AwardLogic.GetById(id);
         awardTitle = currentAward.Title;
 
-        awardAvatarSrc = (currentAward.Image != null)
-                    ? $"data:image/png;base64,{Convert.ToBase64String(currentAward.Image)}"
-                        : @"/Content/images/award.png";
-
+        awardAvatarSrc = manage.GetAwardAvatar(currentAward);
+  
         actionParameter = "update";
     }
-
 
 }
 
@@ -68,7 +65,3 @@
     </fieldset>
 </form>
 
-<!--
-    <img src="data:image/gif;base64, img" />
-
-   -->
