@@ -11,7 +11,7 @@
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
     IEnumerable<Award> userAwards = null;
 
-    
+
 
 
     string actionParameter = Request.QueryString["action"];
@@ -28,13 +28,13 @@
     if (actionParameter == "edit" && idParameter != null)
     {
         userIdAttribute = idParameter;
-        Int32.TryParse(idParameter, out int id);        
+        Int32.TryParse(idParameter, out int id);
 
         User currentUser = manage.UserLogic.GetById(id);
         userName = currentUser.Name;
         dateOfBurth = currentUser.DateOfBirth.ToString("yyyy-MM-dd");
 
-        userAvatarSrc = manage.GetUserAvatar(currentUser);       
+        userAvatarSrc = manage.GetUserAvatar(currentUser);
 
         userAwards = manage.AwardLogic.GetUserAwardsByUserId(currentUser.Id);
 
@@ -65,34 +65,34 @@
             <br />
 
             @if (awards != null && awards.Count() > 0)
-            {
-                <h5>Awards:</h5>
-            }
+        {
+            <h5>Awards:</h5>
+        }
 
-            @foreach (var award in awards)
-            {
-                 awardAvatarSrc = manage.GetAwardAvatar(award);
+        @foreach (var award in awards)
+        {
+             awardAvatarSrc = manage.GetAwardAvatar(award);
 
-                if (userAwards != null)
+            if (userAwards != null)
+            {
+                foreach (var userAward in userAwards)
                 {
-                    foreach (var userAward in userAwards)
+                    if (userAward.Id == award.Id)
                     {
-                        if (userAward.Id == award.Id)
-                        {
-                            checkedAttribute = "checked";
-                        }
+                        checkedAttribute = "checked";
                     }
                 }
-
-                <div class="checkbox">
-                    <label>
-                        <img class="rounded-circle" src=@awardAvatarSrc style="width: 30px; padding-bottom: 10px;">                    
-                        <input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title
-                    </label>
-                </div>
-
-                @(checkedAttribute = "")
             }
+
+            <div class="checkbox">
+                <label>
+                    <img class="rounded-circle" src=@awardAvatarSrc style="width: 30px; padding-bottom: 10px;">
+                    <input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title
+                </label>
+            </div>
+
+            @(checkedAttribute = "")
+        }
 
 
             <button type="submit" class="btn btn-success" id="save">Save</button>

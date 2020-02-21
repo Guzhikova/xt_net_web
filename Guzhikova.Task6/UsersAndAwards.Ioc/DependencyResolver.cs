@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using Guzhikova.Task6.BLL;
 using Guzhikova.Task6.BLLInterfaces;
 using Guzhikova.Task6.DAL;
@@ -39,6 +40,11 @@ namespace UsersAndAwards.Ioc
                     _awardDao = new AwardFileDao();
                     break;
 
+                case "DB":
+                    _userDao = new UserDbDao();
+                    _awardDao = new AwardDbDao();
+                    break;
+
                 default:
                     _userDao = new UserMemoryDao();
                     _awardDao = new AwardMemoryDao();
@@ -52,6 +58,7 @@ namespace UsersAndAwards.Ioc
         public static IAwardDao AwardDao => _awardDao;
         public static IAwardLogic AwardLogic => _awardLogic ?? (_awardLogic = new AwardLogic(AwardDao));
 
+
         private static string ReadConfigurationValue(string key)
         {
             var appSettings = ConfigurationManager.AppSettings;
@@ -64,7 +71,6 @@ namespace UsersAndAwards.Ioc
             {
                 return "Error";
             }
-        }    
-
+        }
     }
 }

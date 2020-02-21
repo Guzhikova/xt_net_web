@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AwardDbDao.cs" />
     <Compile Include="AwardFileDao.cs" />
     <Compile Include="AwardMemoryDao.cs" />
+    <Compile Include="UserDbDao.cs" />
     <Compile Include="UserFileDao.cs" />
     <Compile Include="UserMemoryDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

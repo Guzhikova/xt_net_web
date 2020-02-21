@@ -120,6 +120,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\LoginManage.cs" />
     <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,6 +144,7 @@
     <Content Include="Pages\AwardEditor.cshtml" />
     <Content Include="Pages\Confirmation.cshtml" />
     <Content Include="Pages\Registration.cshtml" />
+    <Content Include="Pages\Partials\_FormLogin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
