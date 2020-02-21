@@ -77,6 +77,7 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Int32,
                     ParameterName = "@id",
+                    Value = id,
                     Direction = System.Data.ParameterDirection.Input
                 };
 
@@ -131,6 +132,7 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Int32,
                     ParameterName = "@id",
+                    Value = id,
                     Direction = System.Data.ParameterDirection.Input
                 };
 
@@ -173,7 +175,8 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Int32,
                     ParameterName = "@id",
-                    Direction = System.Data.ParameterDirection.Output
+                    Value = user.Id,
+                    Direction = System.Data.ParameterDirection.Input
                 };
 
                 var nameParameter = new SqlParameter()
@@ -196,7 +199,7 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Binary,
                     ParameterName = "@image",
-                    Value = user.Image,
+                    Value = (object)user.Image ?? DBNull.Value,
                     Direction = System.Data.ParameterDirection.Input
                 };
 
@@ -207,10 +210,9 @@ namespace Users.DAL
                 
 
                 connection.Open();
-                command.ExecuteNonQuery();
-
-                return user;
+                command.ExecuteNonQuery();               
             }
-        }
+            return user;
+        } 
     }
 }
