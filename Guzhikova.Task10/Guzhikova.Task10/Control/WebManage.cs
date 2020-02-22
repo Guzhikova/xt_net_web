@@ -41,10 +41,17 @@ namespace Guzhikova.Task10
             {
 
                 Int32.TryParse(id, out int userId);
+                DateTime.TryParse(dateOfBirth, out DateTime date);
+                byte[] image = GetAndResizeImageFromRequest();
 
-                _currentUser = GenerateUserData(userName, dateOfBirth);
+                _currentUser = UserLogic.GetById(userId);
+                _currentUser.Name = userName;
+                _currentUser.DateOfBirth = date;
 
-                _currentUser.Id = userId;
+                if (image != null)
+                {
+                    _currentUser.Image = image;
+                }
 
                 UserLogic.Update(_currentUser);
 
@@ -94,8 +101,14 @@ namespace Guzhikova.Task10
                 Int32.TryParse(id, out int currentId);
                 byte[] image = GetAndResizeImageFromRequest();
 
-                _currentAward = new Award(title, image);
-                _currentAward.Id = currentId;
+                _currentAward = AwardLogic.GetById(currentId);
+
+                _currentAward.Title = title;
+                if (image!=null)
+                {
+                    _currentAward.Image = image; 
+                }
+                
 
                 AwardLogic.UpdateAward(_currentAward);
                 AwardLogic.SaveAwards();

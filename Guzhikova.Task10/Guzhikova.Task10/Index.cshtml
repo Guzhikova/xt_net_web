@@ -37,7 +37,7 @@
             {
                 manage.AddUser(name, dateOfBirth, userAwards);
             }
-
+            Response.Redirect("~/");
         }
         else if (entity == "award")
         {
@@ -53,12 +53,16 @@
             {
                 manage.AddAward(title);
             }
+            Response.Redirect("~/");
         }
     }
     else if (action == "delete")
     {
         manage.Delete(entity, Request.QueryString["id"]);
+        Response.Redirect("~/");
     }
+
+    
 }
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
