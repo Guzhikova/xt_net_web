@@ -107,8 +107,7 @@ namespace Guzhikova.Task10
                 if (image!=null)
                 {
                     _currentAward.Image = image; 
-                }
-                
+                }                
 
                 AwardLogic.UpdateAward(_currentAward);
                 AwardLogic.SaveAwards();
@@ -152,7 +151,8 @@ namespace Guzhikova.Task10
                     Int32.TryParse(item, out awardId);
                     _currentAward = AwardLogic.GetById(awardId);
                     _currentAward.UsersId.Add(userId);
-                }
+                    AwardLogic.UpdateAward(_currentAward);
+                }                
                 AwardLogic.SaveAwards();
             }
         }

@@ -41,10 +41,7 @@ namespace Users.BLL
             return _awardDao.GetById(id);
         }
 
-        public IEnumerable<Award> GetUserAwardsByUserId(int id)
-        {
-            return GetAll().Where(item => item.UsersId.Contains(id));
-        }
+     
 
         public Award UpdateAward(Award award)
         {
@@ -56,15 +53,21 @@ namespace Users.BLL
             return _awardDao.SaveAwards();
         }
 
+        public IEnumerable<Award> GetUserAwardsByUserId(int id)
+        {
+            return GetAll().Where(item => item.UsersId.Contains(id));
+        }
+
         public void DeleteUserAwardsByUserId(int id)
         {
-            List<Award> userAwards = GetAll().Where(item => item.UsersId.Contains(id)).ToList();           
+            List<Award> userAwards = GetAll().Where(item => item.UsersId.Contains(id)).ToList();
 
+            
             foreach (var award in userAwards)
             {
                 award.UsersId.Remove(id);
                 _awardDao.UpdateAward(award);
-            }           
+            }
 
         }
     }

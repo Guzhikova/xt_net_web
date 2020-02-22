@@ -55,8 +55,6 @@ namespace Users.DAL
                 award.Id = (int)idParameter.Value;
             }
 
-            //AddUsersIdToAward(award);
-
             return award;
         }
            
@@ -144,61 +142,7 @@ namespace Users.DAL
             return award;
         }
 
-        //public Award GetById(int id)
-        //{
-        //    Award award = new Award();
-
-        //    using (SqlConnection connection = new SqlConnection(_connectionString))
-        //    {
-        //        var command = connection.CreateCommand();
-        //        command.CommandType = System.Data.CommandType.StoredProcedure;
-        //        command.CommandText = "GetAwardById";
-
-        //        var idParameter = new SqlParameter()
-        //        {
-        //            DbType = DbType.Int32,
-        //            ParameterName = "@id",
-        //            Value = id,
-        //            Direction = System.Data.ParameterDirection.Input
-        //        };
-
-        //        var titleParameter = new SqlParameter()
-        //        {
-        //            SqlDbType = SqlDbType.NVarChar,
-        //            Size = 50,
-        //            ParameterName = "@title",
-        //            Direction = System.Data.ParameterDirection.Output
-        //    };
-
-        //        var imageParameter = new SqlParameter()
-        //        {
-        //            SqlDbType = SqlDbType.VarBinary,
-        //            Size = 8000,
-        //            ParameterName = "@image",
-        //            Direction = System.Data.ParameterDirection.Output
-        //        };
-
-        //        command.Parameters.Add(idParameter);
-        //        command.Parameters.Add(titleParameter);
-        //        command.Parameters.Add(imageParameter);
-
-        //        connection.Open();
-        //        var reader = command.ExecuteReader();
-
-        //        award.Id = id;
-
-        //        award.Title = titleParameter.Value as string;
-        //        award.Image = imageParameter.Value as byte[];
-
-
-
-        //        while (reader.Read())
-        //        {
-        //            award.UsersId.Add((int)reader["user_ID"]);
-        //        }
-        //    }
-        //    return award;
-        //}
+       
 
         public string SaveAwards()
         {
@@ -246,20 +190,21 @@ namespace Users.DAL
                 connection.Open();
                 command.ExecuteNonQuery();
             }
-
-
+            DeleteAllUsersForAward(award);
+            AddUsersIdToAward(award);
             return award;
         }
 
         private void AddUsersIdToAward(Award award)
         {
+            
             foreach (var userId in award.UsersId)
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
                 {
                     var command = connection.CreateCommand();
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "dbo.AddAward";
+                    command.CommandText = "dbo.AddUsersIdToAward";
 
                     var awardIdParameter = new SqlParameter()
                     {
@@ -284,6 +229,30 @@ namespace Users.DAL
                 }
             }
         }
+
+        private void DeleteAllUsersForAward(Award award)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "dbo.DeleteAllUsersForAward";
+
+                var awardIdParameter = new SqlParameter()
+                {
+                    DbType = System.Data.DbType.Int32,
+                    ParameterName = "@awardId",
+                    Value = award.Id,
+                    Direction = System.Data.ParameterDirection.Input
+                };              
+
+                command.Parameters.Add(awardIdParameter);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
+
+
 
         private Award GetAwardWithoutUsersById(Award award)
         {
