@@ -48,7 +48,7 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Binary,
                     ParameterName = "@image",
-                    Value = user.Image,
+                    Value = (object)user.Image ?? DBNull.Value,
                     Direction = System.Data.ParameterDirection.Input
                 };
 

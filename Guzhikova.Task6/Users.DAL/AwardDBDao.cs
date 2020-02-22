@@ -1,6 +1,7 @@
 ﻿using Guzhikova.Task6.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,7 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Binary,
                     ParameterName = "@image",
-                    Value = award.Image,
+                    Value = (object)award.Image ?? DBNull.Value,
                     Direction = System.Data.ParameterDirection.Input
                 };
 
@@ -54,7 +55,7 @@ namespace Users.DAL
                 award.Id = (int)idParameter.Value;
             }
 
-            AddUsersIdToAward(award);
+            //AddUsersIdToAward(award);
 
             return award;
         }
@@ -100,7 +101,7 @@ namespace Users.DAL
 
                 while (reader.Read())
                 {
-                    id = (int)reader["Id"];
+                    id = (int)reader["ID"];
                     award = new Award();
 
                     if (awardsDictionary.ContainsKey(id))
@@ -113,6 +114,7 @@ namespace Users.DAL
                         }
 
                         awardsDictionary[award.Id] = award;
+                        
                     }
                     else
                     {
@@ -122,67 +124,81 @@ namespace Users.DAL
 
                         if (reader["user_ID"] != DBNull.Value)
                         {
-                            award.UsersId.Add((int)reader["user_ID"]);
-                            awardsDictionary.Add(award.Id, award);
+                            award.UsersId.Add((int)reader["user_ID"]);                            
                         }
+                        awardsDictionary.Add(award.Id, award);
                     };
                 }
             }
             return awardsDictionary.Values;
         }
 
-
-
         public Award GetById(int id)
         {
             Award award = new Award();
+            award.Id = id;            
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                var command = connection.CreateCommand();
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "GetAwardById";
+            GetAwardWithoutUsersById(award);
+            GetUsersIdForAward(award);
 
-                var idParameter = new SqlParameter()
-                {
-                    DbType = System.Data.DbType.Int32,
-                    ParameterName = "@id",
-                    Value = id,
-                    Direction = System.Data.ParameterDirection.Input
-                };
-
-                var titleParameter = new SqlParameter()
-                {
-                    DbType = System.Data.DbType.String,
-                    ParameterName = "@title",
-                    Direction = System.Data.ParameterDirection.Output
-                };
-
-                var imageParameter = new SqlParameter()
-                {
-                    DbType = System.Data.DbType.Binary,
-                    ParameterName = "@image",
-                    Direction = System.Data.ParameterDirection.Output
-                };
-
-                command.Parameters.Add(idParameter);
-                command.Parameters.Add(titleParameter);
-                command.Parameters.Add(imageParameter);
-
-                connection.Open();
-                var reader = command.ExecuteReader();
-
-                award.Id = id;
-                award.Title = titleParameter.Value as String;
-                award.Image = imageParameter.Value as byte[];
-
-                while (reader.Read())
-                {
-                    award.UsersId.Add((int)reader["user_ID"]);
-                }
-            }
             return award;
         }
+
+        //public Award GetById(int id)
+        //{
+        //    Award award = new Award();
+
+        //    using (SqlConnection connection = new SqlConnection(_connectionString))
+        //    {
+        //        var command = connection.CreateCommand();
+        //        command.CommandType = System.Data.CommandType.StoredProcedure;
+        //        command.CommandText = "GetAwardById";
+
+        //        var idParameter = new SqlParameter()
+        //        {
+        //            DbType = DbType.Int32,
+        //            ParameterName = "@id",
+        //            Value = id,
+        //            Direction = System.Data.ParameterDirection.Input
+        //        };
+
+        //        var titleParameter = new SqlParameter()
+        //        {
+        //            SqlDbType = SqlDbType.NVarChar,
+        //            Size = 50,
+        //            ParameterName = "@title",
+        //            Direction = System.Data.ParameterDirection.Output
+        //    };
+
+        //        var imageParameter = new SqlParameter()
+        //        {
+        //            SqlDbType = SqlDbType.VarBinary,
+        //            Size = 8000,
+        //            ParameterName = "@image",
+        //            Direction = System.Data.ParameterDirection.Output
+        //        };
+
+        //        command.Parameters.Add(idParameter);
+        //        command.Parameters.Add(titleParameter);
+        //        command.Parameters.Add(imageParameter);
+
+        //        connection.Open();
+        //        var reader = command.ExecuteReader();
+
+        //        award.Id = id;
+
+        //        award.Title = titleParameter.Value as string;
+        //        award.Image = imageParameter.Value as byte[];
+
+
+
+        //        while (reader.Read())
+        //        {
+        //            award.UsersId.Add((int)reader["user_ID"]);
+        //        }
+        //    }
+        //    return award;
+        //}
 
         public string SaveAwards()
         {
@@ -195,7 +211,7 @@ namespace Users.DAL
             {
                 var command = connection.CreateCommand();
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.CommandText = "dbo.UpdateUser";
+                command.CommandText = "dbo.UpdateAward";
 
                 var idParameter = new SqlParameter()
                 {
@@ -205,10 +221,10 @@ namespace Users.DAL
                     Direction = System.Data.ParameterDirection.Input
                 };
 
-                var nameParameter = new SqlParameter()
+                var titleParameter = new SqlParameter()
                 {
                     DbType = System.Data.DbType.String,
-                    ParameterName = "@name",
+                    ParameterName = "@title",
                     Value = award.Title,
                     Direction = System.Data.ParameterDirection.Input
                 };
@@ -217,12 +233,13 @@ namespace Users.DAL
                 {
                     DbType = System.Data.DbType.Binary,
                     ParameterName = "@image",
-                    Value = award.Image,
+                    Value = (object)award.Image ?? DBNull.Value,
                     Direction = System.Data.ParameterDirection.Input
                 };
 
+
                 command.Parameters.Add(idParameter);
-                command.Parameters.Add(nameParameter);
+                command.Parameters.Add(titleParameter);
                 command.Parameters.Add(imageParameter);
 
 
@@ -266,6 +283,66 @@ namespace Users.DAL
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        private Award GetAwardWithoutUsersById(Award award)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "GetAwardWithoutUsersById";
+
+                var idParameter = new SqlParameter()
+                {
+                    DbType = DbType.Int32,
+                    ParameterName = "@id",
+                    Value = award.Id,
+                    Direction = System.Data.ParameterDirection.Input
+                };
+
+                command.Parameters.Add(idParameter);
+
+                connection.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    award.Title = reader["Title"] as string;
+                    award.Image = reader["Image"] as byte[];
+                }
+            }
+            return award;
+        }
+
+        private Award GetUsersIdForAward(Award award)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "GetUsersIdForAward";
+
+                var idParameter = new SqlParameter()
+                {
+                    DbType = DbType.Int32,
+                    ParameterName = "@id",
+                    Value = award.Id,
+                    Direction = System.Data.ParameterDirection.Input
+                };
+
+                command.Parameters.Add(idParameter);
+
+                connection.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    award.UsersId.Add((int)reader["user_ID"]);
+                }
+            }
+            return award;
         }
     }
 }

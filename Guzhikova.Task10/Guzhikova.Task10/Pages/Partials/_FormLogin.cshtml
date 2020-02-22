@@ -1,6 +1,6 @@
 ﻿@{
 
-   string login = Request["login"];
+    string login = Request["login"];
     string password = Request["password"];
 
     if (IsPost)
@@ -11,16 +11,16 @@
         Response.Redirect("~/Pages/AwardEditor");
     }
 }
+@*
+    <form id="login" action=""  method="post">
 
-<form id="login" action=""  method="post">
+        <label for="login">Login:</label>
+        <input name="login" type="text" class="form-control" />
 
-    <label for="login">Login:</label>
-    <input name="login" type="text" class="form-control" />
+        <label for="password">Password</label>
+        <input name="password" type="password" class="form-control" />
+        <br />
+        <input type="submit" class="btn btn-info" id="btn-log" value="Log in" />
+        <a href="~/Registration" class="btn btn-success" id="btn-reg">Registration</a>
 
-    <label for="password">Password</label>
-    <input name="password" type="password" class="form-control" />
-    <br />
-    <input type="submit" class="btn btn-info" id="btn-log" value="Log in" />
-    <a href="~/Registration" class="btn btn-success" id="btn-reg">Registration</a>
-
-</form>
+    </form>*@
