@@ -51,10 +51,10 @@
         <div class="form-group">
             <input type="hidden" name="awardId" id="awardId" value=@awardIdAttribute>
             <label for="awardTitle">Title</label>
-            <input type="text" name="awardTitle" id="awardTitle" class="form-control" placeholder="Award title" value=@awardTitle>
+            <input type="text" name="awardTitle" id="awardTitle" class="form-control" required placeholder="Award title" value=@awardTitle>
             <br />
             <label for="awardImage">Image</label>
-            <input type="file" name="awardImage" class="form-control" />
+            <input type="file" name="awardImage" class="form-control" accept="image/jpeg,image/jpg,image/png,image/gif"/>
             <br />
 
             <button type="submit" class="btn btn-success" id="save">Save</button>

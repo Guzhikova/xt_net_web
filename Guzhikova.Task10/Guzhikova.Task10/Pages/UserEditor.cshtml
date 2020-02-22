@@ -55,13 +55,13 @@
         <div class="form-group">
             <input type="hidden" name="userId" id="userId" value=@userIdAttribute>
             <label for="userName">Name</label>
-            <input type="text" name="userName" id="userName" class="form-control" placeholder="User name" value=@userName>
+            <input type="text" name="userName" id="userName" class="form-control" required placeholder="User name" value=@userName>
             <br />
             <label for="myPassword">Date of birth</label>
-            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" placeholder="dd.mm.yyyy" value=@dateOfBurth>
+            <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" required placeholder="dd.mm.yyyy" value=@dateOfBurth>
             <br />
             <label for="userImage">Image</label>
-            <input type="file" name="userImage" class="form-control" />
+            <input type="file" name="userImage" class="form-control" accept="image/jpeg,image/jpg,image/png,image/gif"/>
             <br />
 
             @if (awards != null && awards.Count() > 0)
