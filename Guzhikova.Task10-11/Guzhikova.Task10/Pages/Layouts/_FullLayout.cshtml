@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Pages/Layouts/_Layout.cshtml";
+
+    string isSigninVisible = "block";
+    string isSignoutVisible = "none";
+
+    if(User.Identity.IsAuthenticated)
+    {
+        isSigninVisible = "none";
+        isSignoutVisible = "block";
+    }
+}
+
+
+@section Header
+{
+    <!-- HEADER -->
+
+    <header>
+
+
+
+        <div class="header">
+            <div id="signin" style="float: right; margin-right: 10px; display: @isSigninVisible">
+                <a href="~/Pages/FormLogin">Вход</a> |
+                <a href="~/Pages/Registration">Регистрация</a>
+            </div>
+            <div  style="float: right; margin-right: 10px; display: @isSignoutVisible">
+                Hello @User.Identity.Name! 
+                <a href="~/Pages/Signout.cshtml">Выход</a>
+            </div>
+            <h3 class="align-middle">Task 10. Users and Awards</h3>
+
+        </div>
+
+
+    </header>
+}
+
+@RenderBody()

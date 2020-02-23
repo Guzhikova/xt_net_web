@@ -120,7 +120,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\LoginManage.cs" />
+    <Compile Include="Control\AuthorizationManage.cs" />
+    <Compile Include="Control\DBManage.cs" />
+    <Compile Include="Control\RolesManage.cs" />
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\WebUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,7 +146,8 @@
     <Content Include="Pages\AwardEditor.cshtml" />
     <Content Include="Pages\Confirmation.cshtml" />
     <Content Include="Pages\Registration.cshtml" />
-    <Content Include="Pages\Partials\_FormLogin.cshtml" />
+    <Content Include="Pages\FormLogin.cshtml" />
+    <Content Include="Pages\Signout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -167,7 +170,9 @@
       <Name>Guzhikova.Task6.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\Partials\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

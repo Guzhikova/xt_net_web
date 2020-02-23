@@ -1,5 +1,32 @@
-﻿@{
+﻿@using Guzhikova.Task10.Model;
+@using Guzhikova.Task10.Control;
+
+@{
     Layout = "~/Pages/Layouts/_Layout.cshtml";
+
+    DBManage db = new DBManage();
+
+    WebUser user = null;
+    string login = null;
+    string password = null;
+    string email = null;
+
+    if(IsPost)
+    {
+        login = Request["login"];
+        password = Request["password"];
+        email = Request["email"];
+
+         user = new WebUser
+        {
+            Login = login,
+            Password = password,
+            Email = email
+        };
+
+        user = db.AddUser(user);
+        Response.Redirect("~");
+    }
 }
 
 <style>
@@ -24,7 +51,7 @@
                 <input type="password" name="password" required class="form-control" />
                 <br />
                 <label for="email">E-mail: </label>
-                <input type="email" name="email" class="form-control" value="">
+                <input type="email" name="email" required class="form-control" value="">
                 <br />
                 <button type="submit" class="btn btn-success" id="save">Register</button>
                 <text>	&emsp;</text>

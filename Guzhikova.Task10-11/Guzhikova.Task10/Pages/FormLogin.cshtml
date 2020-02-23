@@ -1,0 +1,44 @@
+﻿@using Guzhikova.Task10.Control
+@{
+    Layout = "~/Pages/Layouts/_Layout.cshtml";
+
+    var manager = new AuthorizationManage();
+    string login = Request["login"];
+    string password = Request["password"];
+    string isVisible = "hidden";
+
+    if (IsPost)
+    {
+        if (manager.isPairLoginPassword(login, password))
+        {
+            FormsAuthentication.SetAuthCookie(login, createPersistentCookie: true);
+            Response.Redirect("~");
+        }
+        else
+        {
+            isVisible = "visible";
+        }
+
+    }
+}
+
+<div class="alert alert-danger" role="alert" style="visibility: @isVisible">
+    Invalid username / password pair!
+</div>
+
+
+<form action="" method="post">
+    <div class="form-group">
+        <label for="login" style="color: beige">Login:</label>
+        <input name="login" class="form-control" type="text" style="width: 400px" />
+    </div>
+    <div class="form-group">
+        <label for="password" style="color: beige">Password</label>
+        <input name="password" class="form-control" type="password" style="width: 400px" />
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Sign in" style="width: 200px" />
+        <a href="~/Pages/Registration" class="btn btn-success">Registration</a>
+    </div>
+
+</form>
