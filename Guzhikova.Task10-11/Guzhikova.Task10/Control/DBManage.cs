@@ -173,6 +173,43 @@ namespace Guzhikova.Task10.Control
                 return roles.ToArray();
             }
         }
+
+        public void SetUserAsAdmin(int userId)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "SetUserAsAdmin";
+
+                var idParameter = new SqlParameter()
+                {
+                    DbType = System.Data.DbType.Int32,
+                    ParameterName = "@id_user",
+                    Value = userId,
+                    Direction = System.Data.ParameterDirection.Input
+                };
+
+                command.Parameters.Add(idParameter);
+
+                connection.Open();
+                var reader = command.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteUsersAdminRole()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "DeleteUsersAdminRole";
+
+                connection.Open();
+                var reader = command.ExecuteNonQuery();
+            }
+        }
+
         private string ConvertToMD5(string password)
         {
             var md5 = MD5.Create();
@@ -180,5 +217,7 @@ namespace Guzhikova.Task10.Control
 
             return Convert.ToBase64String(hash);
         }
+
+        
     }
 }

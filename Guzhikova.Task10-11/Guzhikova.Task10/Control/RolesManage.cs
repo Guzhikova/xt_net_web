@@ -11,10 +11,9 @@ namespace Guzhikova.Task10.Control
     {
         private DBManage _db = new DBManage();
 
-
         public override bool IsUserInRole(string username, string roleName)
         {
-           string[] roles = _db.GetUserRoles(username);
+            string[] roles = _db.GetUserRoles(username);
             return (Array.IndexOf(roles, roleName) != -1);
         }
 
@@ -23,6 +22,20 @@ namespace Guzhikova.Task10.Control
 
             return _db.GetUserRoles(username);
 
+        }
+
+        public void SetUserAsAdmin(string[] usersId)
+        {
+            if (usersId != null && usersId.Length > 0)
+            {
+                _db.DeleteUsersAdminRole();
+
+                foreach (var item in usersId)
+                {
+                    Int32.TryParse(item, out int id);
+                    _db.SetUserAsAdmin(id);
+                }
+            }
         }
 
 
@@ -53,13 +66,13 @@ namespace Guzhikova.Task10.Control
             throw new NotImplementedException();
         }
 
-       
+
         public override string[] GetUsersInRole(string roleName)
         {
             throw new NotImplementedException();
         }
 
-       
+
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)
         {

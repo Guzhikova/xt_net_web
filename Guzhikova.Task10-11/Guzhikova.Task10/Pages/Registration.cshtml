@@ -25,6 +25,9 @@
         };
 
         user = db.AddUser(user);
+
+        FormsAuthentication.SetAuthCookie(user.Login, createPersistentCookie: true);
+
         Response.Redirect("~");
     }
 }

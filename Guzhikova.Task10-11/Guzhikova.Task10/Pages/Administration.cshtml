@@ -9,12 +9,19 @@
     List<WebUser> users = dbManage.GetAllUsers();
 
     string checkedAttribute = "";
+    string[] usersId = null;
 
     if (!rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
     {
         Response.Redirect("~");
     }
 
+    if(IsPost)
+    {
+       usersId = Request.Form.GetValues("set_admin");
+        rolesManage.SetUserAsAdmin(usersId);
+       Response.Redirect("~");
+    }
 
 }
 
@@ -37,7 +44,7 @@
                                         checkedAttribute = "checked";
                                     }
 
-                                    <input type="checkbox" @checkedAttribute name="awards" /> <label>Admin</label>
+                                    <input type="checkbox" @checkedAttribute name="set_admin" value=@user.ID /> <label>Admin</label>
                                     @{
                                         checkedAttribute = "";
                                     }
