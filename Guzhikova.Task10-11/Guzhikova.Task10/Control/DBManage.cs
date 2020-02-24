@@ -110,10 +110,39 @@ namespace Guzhikova.Task10.Control
             return user;
         }
 
+        public List<WebUser> GetAllUsers()
+        {
+            WebUser user = null;
+            List<WebUser> users = new List<WebUser>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "GetAllUsers";
+
+               
+                connection.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                        user = new WebUser
+                        {
+                            ID = (int)reader["ID"],
+                            Login = reader["Login"] as string,
+                            Password = reader["Password"] as string,
+                            Email = reader["Email"] as string
+                        };
+
+                    users.Add(user);
+                }
+            }
+            return users;
+        }
+
         public string[] GetUserRoles(string login)
         {
-
-
             var roles = new List<string>();
 
             using (SqlConnection connection = new SqlConnection(_connectionString))

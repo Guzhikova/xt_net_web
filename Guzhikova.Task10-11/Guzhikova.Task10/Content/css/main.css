@@ -19,7 +19,12 @@ header {
         color: #3d3d3d;
     }
 
-
+.header  #admin {
+    margin-right: -10px;
+    line-height: 25px;
+    background-color: whitesmoke;
+    font-weight: bold;
+}
   
 
 
@@ -57,4 +62,30 @@ form.edit {
 
 #cancel {
     width: 90px;
+}
+
+
+
+/*Admin Page*/
+table#admin
+{
+    color: beige;
+    line-height: 15px;
+
+}
+
+#admin tr 
+{
+    width: 50px;
+    height: 15px;
+}
+
+#admin label
+{
+    color: darkcyan;
+}
+
+#admin .checkbox
+{
+    margin-top: 10px;
 }

@@ -1,0 +1,53 @@
+﻿@using Guzhikova.Task10.Control;
+@using Guzhikova.Task10.Model;
+@{
+    Layout = "~/Pages/Layouts/_FullLayout.cshtml";
+
+    DBManage dbManage = new DBManage();
+    RolesManage rolesManage = new RolesManage();
+
+    List<WebUser> users = dbManage.GetAllUsers();
+
+    string checkedAttribute = "";
+
+    if (!rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
+    {
+        Response.Redirect("~");
+    }
+
+
+}
+
+    <form action="" method="post">
+            <legend style="color: beige;">
+                Registered user
+            </legend>
+            <div>
+                <table id="admin" style="width: 400px;">
+                    @foreach (var user in users)
+                    {
+                        <tr>
+                            <td>
+                                @user.Login
+                            </td>
+                            <td>
+                                <div class="checkbox">
+                                    @if (rolesManage.IsUserInRole(user.Login, "Admin"))
+                                    {
+                                        checkedAttribute = "checked";
+                                    }
+
+                                    <input type="checkbox" @checkedAttribute name="awards" /> <label>Admin</label>
+                                    @{
+                                        checkedAttribute = "";
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success btn-sm" id="save">Save</button>
+    </form>

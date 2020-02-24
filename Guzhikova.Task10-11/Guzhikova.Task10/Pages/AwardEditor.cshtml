@@ -12,9 +12,11 @@
     IEnumerable<User> users = manage.UserLogic.GetAll();
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
 
-    string isVisibleForAdmin = (rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
-      ? ""
-      : "style=display:none";
+       if (!rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
+    {
+        Response.Redirect("~");
+    }
+
 
     string awardIdAttribute = "";
 
@@ -45,7 +47,7 @@
 
 
 
-<form class="edit" action="/?entity=award&action=@actionParameter" enctype="multipart/form-data" method="post" @isVisibleForAdmin>
+<form class="edit" action="/?entity=award&action=@actionParameter" enctype="multipart/form-data" method="post" >
     <fieldset>
         <legend>
             Award

@@ -7,9 +7,11 @@
     Page.Title = "User data";
     RolesManage rolesManage = new RolesManage();
 
-    string isVisibleForAdmin = (rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
-      ? ""
-      : "style=display:none";
+       if (!rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
+    {
+        Response.Redirect("~");
+    }
+
 
     WebManage manage = new WebManage();
 
@@ -49,7 +51,7 @@
 }
 
 
-<form class="edit" action="/?entity=user&action=@actionParameter" enctype="multipart/form-data" method="post" @isVisibleForAdmin>
+<form class="edit" action="/?entity=user&action=@actionParameter" enctype="multipart/form-data" method="post">
     <fieldset>
         <legend>
             User

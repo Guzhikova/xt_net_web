@@ -148,6 +148,7 @@
     <Content Include="Pages\Registration.cshtml" />
     <Content Include="Pages\FormLogin.cshtml" />
     <Content Include="Pages\Signout.cshtml" />
+    <Content Include="Pages\Administration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -170,9 +171,7 @@
       <Name>Guzhikova.Task6.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Partials\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,14 +1,25 @@
-﻿@{
-    Layout = "~/Pages/Layouts/_Layout.cshtml";
+﻿@using Guzhikova.Task10.Control;
 
-    string isSigninVisible = "block";
-    string isSignoutVisible = "none";
+   @{
+       Layout = "~/Pages/Layouts/_Layout.cshtml";
 
-    if(User.Identity.IsAuthenticated)
-    {
-        isSigninVisible = "none";
-        isSignoutVisible = "block";
-    }
+       RolesManage rolesManage = new RolesManage();
+
+       string isSigninVisible = "block";
+       string isSignoutVisible = "none";
+       string display = "";
+
+       if (User.Identity.IsAuthenticated)
+       {
+           isSigninVisible = "none";
+           isSignoutVisible = "block";
+       }
+
+
+       if (!rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
+       {
+           display = "style = display:none";
+       }
 }
 
 
@@ -18,16 +29,15 @@
 
     <header>
 
-
-
         <div class="header">
             <div id="signin" style="float: right; margin-right: 10px; display: @isSigninVisible">
                 <a href="~/Pages/FormLogin">Вход</a> |
                 <a href="~/Pages/Registration">Регистрация</a>
             </div>
-            <div  style="float: right; margin-right: 10px; display: @isSignoutVisible">
-                Hello @User.Identity.Name! 
-                <a href="~/Pages/Signout.cshtml">Выход</a>
+            <div style="float: right; margin-right: 10px; display: @isSignoutVisible">
+                Hello @User.Identity.Name!
+                <a href="~/Pages/Signout.cshtml">Sign out</a>
+                <p id="admin"><a href="~/Pages/Administration" @display>ADMIN SECTION</a></p>
             </div>
             <h3 class="align-middle">Task 10. Users and Awards</h3>
 
