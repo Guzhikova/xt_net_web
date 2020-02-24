@@ -8,6 +8,6 @@ namespace Guzhikova.Task10.Model
     public class Role
     {
         public int ID{ get; set; }
-        public int Title { get; set; }
+        public string Title { get; set; }
     }
 }

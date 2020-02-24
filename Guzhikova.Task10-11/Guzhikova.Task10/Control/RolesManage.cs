@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Guzhikova.Task10.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,14 +9,20 @@ namespace Guzhikova.Task10.Control
 {
     public class RolesManage : RoleProvider
     {
+        private DBManage _db = new DBManage();
+
+
         public override bool IsUserInRole(string username, string roleName)
         {
-            throw new NotImplementedException();
+           string[] roles = _db.GetUserRoles(username);
+            return (Array.IndexOf(roles, roleName) != -1);
         }
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException();
+
+            return _db.GetUserRoles(username);
+
         }
 
 

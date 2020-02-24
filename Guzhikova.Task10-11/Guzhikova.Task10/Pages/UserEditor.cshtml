@@ -1,9 +1,15 @@
 ﻿@using Guzhikova.Task10;
+@using Guzhikova.Task10.Control;
 @using Guzhikova.Task6.Entities;
 
 @{
     Layout = "~/Pages/Layouts/_FullLayout.cshtml";
     Page.Title = "User data";
+    RolesManage rolesManage = new RolesManage();
+
+    string isVisibleForAdmin = (rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
+      ? ""
+      : "style=display:none";
 
     WebManage manage = new WebManage();
 
@@ -43,14 +49,15 @@
 }
 
 
-<form class="edit" action="/?entity=user&action=@actionParameter" enctype="multipart/form-data" method="post">
+<form class="edit" action="/?entity=user&action=@actionParameter" enctype="multipart/form-data" method="post" @isVisibleForAdmin>
     <fieldset>
-        <legend>User 
-        @if (actionParameter=="update")
-        {
-            <img class="w-25 h-25 rounded-circle" src=@userAvatarSrc>
-        }
-        
+        <legend>
+            User
+            @if (actionParameter == "update")
+            {
+                <img class="w-25 h-25 rounded-circle" src=@userAvatarSrc>
+            }
+
         </legend>
         <div class="form-group">
             <input type="hidden" name="userId" id="userId" value=@userIdAttribute>
@@ -61,38 +68,38 @@
             <input type="date" name="dateOfBirth" id="dateOfBirth" class="form-control" required placeholder="dd.mm.yyyy" value=@dateOfBurth>
             <br />
             <label for="userImage">Image</label>
-            <input type="file" name="userImage" class="form-control" accept="image/jpeg,image/jpg,image/png,image/gif"/>
+            <input type="file" name="userImage" class="form-control" accept="image/jpeg,image/jpg,image/png,image/gif" />
             <br />
 
             @if (awards != null && awards.Count() > 0)
-        {
-            <h5>Awards:</h5>
-        }
-
-        @foreach (var award in awards)
-        {
-             awardAvatarSrc = manage.GetAwardAvatar(award);
-
-            if (userAwards != null)
             {
-                foreach (var userAward in userAwards)
-                {
-                    if (userAward.Id == award.Id)
-                    {
-                        checkedAttribute = "checked";
-                    }
-                }
+                <h5>Awards:</h5>
             }
 
-            <div class="checkbox">
-                <label>
-                    <img class="rounded-circle" src=@awardAvatarSrc style="width: 30px; padding-bottom: 10px;">
-                    <input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title
-                </label>
-            </div>
+            @foreach (var award in awards)
+            {
+                awardAvatarSrc = manage.GetAwardAvatar(award);
 
-            @(checkedAttribute = "")
-        }
+                if (userAwards != null)
+                {
+                    foreach (var userAward in userAwards)
+                    {
+                        if (userAward.Id == award.Id)
+                        {
+                            checkedAttribute = "checked";
+                        }
+                    }
+                }
+
+                <div class="checkbox">
+                    <label>
+                        <img class="rounded-circle" src=@awardAvatarSrc style="width: 30px; padding-bottom: 10px;">
+                        <input type="checkbox" name="awards" value="@award.Id" @checkedAttribute> @award.Title
+                    </label>
+                </div>
+
+                @(checkedAttribute = "")
+            }
 
 
             <button type="submit" class="btn btn-success" id="save">Save</button>

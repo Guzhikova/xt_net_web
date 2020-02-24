@@ -1,4 +1,5 @@
 ﻿@using Guzhikova.Task10;
+@using Guzhikova.Task10.Control;
 @using Guzhikova.Task6.Entities;
 @using System.Globalization;
 
@@ -7,6 +8,7 @@
     Page.Title = "Users and awards";
 
     WebManage manage = new WebManage();
+    RolesManage rolesManage = new RolesManage();
 
     IEnumerable<User> users = manage.UserLogic.GetAll();
     IEnumerable<Award> awards = manage.AwardLogic.GetAll();
@@ -24,9 +26,9 @@
        ? ""
        : "style=display:none";
 
-    string isVisibleForAdmin = (false)
-       ? ""
-       : "style=display:none";
+    string isVisibleForAdmin = (rolesManage.IsUserInRole(User.Identity.Name, "Admin"))
+  ? ""
+  : "style=display:none";
 
 
     if (IsPost)
@@ -119,7 +121,8 @@
                             {
                                 foreach (var item in userAwards)
                                 {
-                                    <img class="rounded-circle img-icon" src=@userAvatarSrc>
+                                    awardAvatarSrc = manage.GetAwardAvatar(item);
+                                    <img class="img-icon rounded-circle" src=@awardAvatarSrc>
                                     @item.Title <text>&#8195;</text>
 
                                 }
@@ -134,7 +137,7 @@
             </tbody>
         </table>
 
-        <a href="~/Pages/UserEditor?action=create" class="btn btn-success">Create new USER</a>
+        <a href="~/Pages/UserEditor?action=create" class="btn btn-success"  @isVisibleForAdmin>Create new USER</a>
     </section>
 
     <section class="tab-pane fade" id="section-2" role="tabpanel" aria-labelledby="profile-tab" @isVisibleForAdmin>

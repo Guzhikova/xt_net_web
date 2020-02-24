@@ -66,7 +66,7 @@ namespace Guzhikova.Task10.Control
         }
         public WebUser GetUserByLoginPassword(string login, string password)
         {
-            WebUser user = null;            
+            WebUser user = null;
             string passwordFromDB = null;
             password = ConvertToMD5(password);
 
@@ -105,7 +105,43 @@ namespace Guzhikova.Task10.Control
                     }
                 }
 
-                return user;
+
+            }
+            return user;
+        }
+
+        public string[] GetUserRoles(string login)
+        {
+
+
+            var roles = new List<string>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                var command = connection.CreateCommand();
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandText = "GetUserRoles";
+
+                var loginParameter = new SqlParameter()
+                {
+                    DbType = System.Data.DbType.String,
+                    ParameterName = "@login",
+                    Value = login,
+                    Direction = System.Data.ParameterDirection.Input
+                };
+
+                command.Parameters.Add(loginParameter);
+
+                connection.Open();
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    roles.Add(reader["Title"] as string);
+                }
+
+                return roles.ToArray();
             }
         }
         private string ConvertToMD5(string password)
