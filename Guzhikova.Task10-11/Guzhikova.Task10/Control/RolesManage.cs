@@ -13,8 +13,14 @@ namespace Guzhikova.Task10.Control
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            string[] roles = _db.GetUserRoles(username);
-            return (Array.IndexOf(roles, roleName) != -1);
+            try
+            {
+                string[] roles = _db.GetUserRoles(username);
+                return (Array.IndexOf(roles, roleName) != -1);
+            }catch
+            {
+                return false;
+            }
         }
 
         public override string[] GetRolesForUser(string username)

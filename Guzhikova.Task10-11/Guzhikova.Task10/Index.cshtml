@@ -10,8 +10,20 @@
     WebManage manage = new WebManage();
     RolesManage rolesManage = new RolesManage();
 
-    IEnumerable<User> users = manage.UserLogic.GetAll();
-    IEnumerable<Award> awards = manage.AwardLogic.GetAll();
+    IEnumerable<User> users = new List<User>();
+        IEnumerable<Award> awards = new List<Award>();
+
+    string bdError = "";
+    try
+    {
+        users = manage.UserLogic.GetAll();
+        awards = manage.AwardLogic.GetAll();
+    }
+    catch
+    {
+        bdError = "Sorry! Error of data base connection!";
+    }
+
 
     int userIndex = 0;
     int awardIndex = 0;
@@ -171,5 +183,6 @@
         <a href="~/Pages/AwardEditor" class="btn btn-success">Create new AWARD</a>
 
     </section>
+    <p class="text-danger">@bdError</p>
 </div>
 
